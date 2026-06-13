@@ -428,6 +428,107 @@ details[open] summary::before{transform:rotate(90deg);color:var(--lotus);}
   .ssel{display:none;}
   .fosc,.rc,.ac,details{background:white;border:1px solid #ccc;}
 }
+
+/* ── EDIT BUTTON ── */
+.hdr-edit-btn{display:flex;align-items:center;gap:5px;padding:5px 12px;border:1px solid var(--border);border-radius:20px;background:var(--surface2);color:var(--text-mid);font-family:var(--fd);font-size:11px;font-weight:500;white-space:nowrap;cursor:pointer;transition:color .15s ease-out,background .15s ease-out,border-color .15s ease-out;outline:none;flex-shrink:0;}
+.hdr-edit-btn:hover{border-color:var(--lotus-mid);color:var(--text-hi);}
+.hdr-edit-btn:focus-visible{box-shadow:0 0 0 2px var(--lotus-mid);}
+.hdr-edit-btn.active{background:var(--lotus);border-color:var(--lotus);color:#fff;font-weight:600;}
+body.edit-mode [contenteditable]{outline:none;border-bottom:1.5px dashed var(--lotus-mid);border-radius:2px;cursor:text;transition:background .15s ease-out;}
+body.edit-mode [contenteditable]:hover{background:var(--lotus-dim);}
+body.edit-mode [contenteditable]:focus{background:var(--lotus-dim);border-bottom-color:var(--lotus);}
+#edit-banner{display:none;position:fixed;top:var(--hh);left:0;right:0;background:var(--lotus);color:#fff;font-family:var(--fd);font-size:11px;font-weight:600;text-align:center;padding:5px;z-index:198;letter-spacing:.02em;}
+body.edit-mode #edit-banner{display:block;}
+body.edit-mode #tabs{top:calc(var(--hh) + 28px);}
+body.edit-mode #cnt{top:calc(var(--hh) + 28px + var(--th));}
+
+/* ── FILTER BAR ── */
+.sp-filter-bar{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
+.sp-fb{padding:6px 14px;border:1px solid var(--border);border-radius:20px;background:var(--surface);color:var(--text-mid);font-family:var(--fd);font-size:11px;font-weight:500;cursor:pointer;transition:color .15s ease-out,background .15s ease-out,border-color .15s ease-out;outline:none;}
+.sp-fb:hover:not(.on){border-color:var(--lotus-mid);color:var(--text-hi);}
+.sp-fb:focus-visible{box-shadow:0 0 0 2px var(--lotus-mid);}
+.sp-fb.on{background:var(--lotus);border-color:var(--lotus);color:#fff;font-weight:600;}
+.sp-fb-right{margin-left:auto;border-style:dashed;color:var(--text-dim);}
+.sp-fb-right:hover:not(.on){border-color:var(--border);border-style:solid;color:var(--text-mid);}
+.sp-fb-right.on{background:var(--surface2);border-color:var(--border);border-style:solid;color:var(--text-mid);font-weight:500;}
+
+/* ── HORIZON BADGES ── */
+.sp-hz-badge{display:inline-block;font-size:9.5px;font-family:var(--fd);font-weight:600;letter-spacing:.04em;padding:2px 7px;border-radius:10px;border:1px solid;}
+.sp-hz-badge.rock{background:var(--lotus-dim);color:var(--lotus-hi);border-color:var(--lotus-mid);}
+.sp-hz-badge.sprint{background:rgba(37,99,235,.07);color:#2563EB;border-color:rgba(37,99,235,.22);}
+.sp-hz-badge.longterm{background:rgba(124,58,237,.07);color:#7C3AED;border-color:rgba(124,58,237,.22);}
+.sp-hz-badge.other{background:var(--surface2);color:var(--text-dim);border-color:var(--border);}
+
+/* ── SPRINT PILLAR ANIMATIONS ── */
+@keyframes spFadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.sp-pillar{animation:spFadeIn 150ms ease-out;}
+@media(prefers-reduced-motion:reduce){.sp-pillar{animation:none;}}
+
+/* ── COMPLETED STATE ── */
+.sp-done{opacity:.45;}
+.sp-done-badge{display:inline-block;font-size:9px;font-family:var(--fm);background:var(--surface3);color:var(--text-dim);border:1px solid var(--border);border-radius:10px;padding:2px 7px;}
+.sp-completed-section{margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);}
+.sp-completed-lbl{font-size:9.5px;font-family:var(--fd);font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;}
+.sp-rock-div{border-top:1px dashed var(--border);margin:10px 0;}
+.sp-empty{font-size:12px;color:var(--text-dim);padding:12px 0;font-style:italic;}
+.sp-live-badge{display:inline;margin-left:8px;font-size:11px;color:var(--lotus);font-weight:600;}
+.sp-health-sum{margin-left:auto;font-size:11px;color:var(--text-mid);}
+.sp-edit-note{margin-top:20px;padding:10px 14px;background:var(--lotus-dim);border:1px solid var(--lotus-mid);border-radius:6px;font-size:11px;color:var(--text-mid);line-height:1.5;}
+
+/* ── 12Q LONG HORIZON ── */
+.q12-long-wrap{padding:0 4px;}
+.q12-long-pillar{margin-bottom:14px;}
+.q12-long-pillar-name{font-size:11px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+.q12-long-row{display:flex;align-items:center;font-size:12px;color:var(--text-hi);margin:4px 0;}
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVE — tablet ≤1024px
+   ══════════════════════════════════════════════════ */
+@media(max-width:1024px){
+  .hdiv:not(:first-of-type){display:none;}
+  .hmeta:last-of-type{display:none;}
+  .fosg{grid-template-columns:repeat(2,1fr)!important;}
+  .q12-targets{grid-template-columns:repeat(2,1fr)!important;}
+  .sp-rock{grid-template-columns:1fr 1fr!important;}
+}
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVE — mobile ≤640px
+   ══════════════════════════════════════════════════ */
+@media(max-width:640px){
+  :root{--hh:48px;--th:36px;--bh:44px;}
+  .hdiv,.hmeta{display:none!important;}
+  #hdr{padding:0 14px;gap:10px;}
+  .tb{padding:0 12px;font-size:11px;}
+  .tb-n{display:none;}
+  .pan{padding:14px 12px 52px;}
+  .tmeta{flex-direction:column;gap:10px;}
+  .tmeta-icon{font-size:20px;}
+  .fosg{grid-template-columns:1fr!important;}
+  .ag{grid-template-columns:1fr!important;}
+  .sp-rev{grid-template-columns:1fr!important;}
+  .q12-targets{grid-template-columns:repeat(2,1fr)!important;}
+  .sp-rock{grid-template-columns:1fr!important;}
+  .rg{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))!important;}
+  .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  #vtoc,#teamc,#smac,#ancc{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .rh-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .rh-grid{min-width:460px;}
+  .q12-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .q12-row,.q12-hdr-row{min-width:500px;}
+  .sp-filter-bar{gap:4px;}
+  .sp-fb{padding:5px 10px;font-size:10px;}
+  .sp-fb-right{margin-left:0;width:100%;justify-content:center;margin-top:4px;}
+  .sh{margin:18px 0 10px;}
+  .about-body{font-size:12px;line-height:1.65;}
+  .hdate{display:none;}
+  .htime{font-size:12px;}
+}
+
+/* Tab scroll fade affordance */
+#tabs::after{content:'';position:fixed;top:var(--hh);right:0;width:32px;height:var(--th);background:linear-gradient(to left,var(--surface),transparent);pointer-events:none;z-index:199;}
+table{min-width:100%;}
+.tw table{min-width:520px;}
 </style>
 </head>
 <body>
@@ -461,11 +562,18 @@ details[open] summary::before{transform:rotate(90deg);color:var(--lotus);}
   <div class="hmeta">Primary Users: <b>GM/MD + Leadership</b></div>
   <div class="hdiv"></div>
   <div class="hmeta">Keys <b>1–8</b> switch tabs</div>
+  <div class="hdiv" id="edit-hdiv"></div>
+  <button id="edit-btn" class="hdr-edit-btn" onclick="toggleEditMode()" title="Edit quarterly content">
+    <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM1.821 12.943l-.925 3.24 3.241-.928-2.316-2.312z"/></svg>
+    <span id="edit-btn-label">Edit</span>
+  </button>
   <div class="hclock">
     <div class="htime" id="clk">--:--:--</div>
     <div class="hdate" id="dstr">Philippines</div>
   </div>
 </div>
+
+<div id="edit-banner">&#x270F; EDIT MODE ON — Tap any underlined text to change it. Tap Done when finished.</div>
 
 <!-- TABS -->
 <div id="tabs">
@@ -488,7 +596,7 @@ details[open] summary::before{transform:rotate(90deg);color:var(--lotus);}
       <div class="tmeta-icon">👁</div>
       <div>
         <div class="tmeta-q">Is the business running without founder involvement?</div>
-        <div class="tmeta-desc">Tracks the 6 switch conditions that must all hold green for 8 consecutive weeks before the founder can safely step back. Red on any switch = the business still depends on the founder for that area.</div>
+        <div class="tmeta-desc">6 green lights = Lotus can run without the founder. If any light is red, the founder still needs to step in for that area. All 6 must stay green for 8 weeks in a row.</div>
         <div class="tmeta-row">
           <div class="tmi"><label>Primary Users</label><span>GM/MD + Leadership</span></div>
           <div class="tmi"><label>Publisher</label><span>GM/MD + SMA</span></div>
@@ -514,7 +622,7 @@ details[open] summary::before{transform:rotate(90deg);color:var(--lotus);}
       <div class="tmeta-icon">📋</div>
       <div>
         <div class="tmeta-q">Is the business running this week?</div>
-        <div class="tmeta-desc">The weekly pulse check across 7 operational sections. Confirms that key numbers have owners, issues have plans, and nothing is stuck without accountability. Published every Monday by 9am.</div>
+        <div class="tmeta-desc">Your weekly check on all key numbers. Published every Monday by 9am. If a number is red, the owner explains what happened and shows a fix plan — same day.</div>
         <div class="tmeta-row">
           <div class="tmi"><label>Primary Users</label><span>GM/MD (publisher) + Leadership (review)</span></div>
           <div class="tmi"><label>Publisher</label><span>GM/MD — every Monday by 9am</span></div>
@@ -547,7 +655,7 @@ details[open] summary::before{transform:rotate(90deg);color:var(--lotus);}
       <div class="tmeta-icon">🎯</div>
       <div>
         <div class="tmeta-q">Are the top business numbers on track?</div>
-        <div class="tmeta-desc">The 10 highest-stakes KPIs tracked across all sites — occupancy, revenue, foot traffic, NPS, and operating efficiency. Each number has a named owner, a target, and a consequence rule. Red = owner explains and shows a plan the same day.</div>
+        <div class="tmeta-desc">The 10 most important numbers across all Lotus sites. Each number has an owner and a target. If a number turns red — the owner explains and shows a fix plan today.</div>
         <div class="tmeta-row">
           <div class="tmi"><label>Primary Users</label><span>GM/MD + BU Heads + Leadership Team</span></div>
           <div class="tmi"><label>Publisher</label><span>GM/MD</span></div>
@@ -565,7 +673,7 @@ details[open] summary::before{transform:rotate(90deg);color:var(--lotus);}
       <div class="tmeta-icon">👥</div>
       <div>
         <div class="tmeta-q">Is each team hitting its KPIs?</div>
-        <div class="tmeta-desc">Department-level drilldown across 11 teams. Team Leaders enter actuals; GM/MD reviews every Monday. Click a department to expand. Each KPI shows its type (Lead/Lag/Governance), source doc, and consequence rule.</div>
+        <div class="tmeta-desc">See how each of the 11 teams is doing. Team Leaders fill in the numbers every week. GM reviews every Monday. Tap a team name to open its numbers.</div>
         <div class="tmeta-row">
           <div class="tmi"><label>Primary Users</label><span>Team Leaders (entry), GM/MD (review)</span></div>
           <div class="tmi"><label>Publisher</label><span>Each TL + GM/MD — weekly</span></div>
@@ -582,7 +690,7 @@ details[open] summary::before{transform:rotate(90deg);color:var(--lotus);}
       <div class="tmeta-icon">🏛</div>
       <div>
         <div class="tmeta-q">Are our operating systems being adopted — not just installed?</div>
-        <div class="tmeta-desc">Confirms that LotusOS, CultureOS, LeaderZen, and ExperienceOS are running actively across the org. Green = the system is doing the work. Red = a person is still doing it manually.</div>
+        <div class="tmeta-desc">Checks that LotusOS, CultureOS, LeaderZen, and ExperienceOS are running on their own. Green = the system is doing it. Red = a person is still doing it by hand.</div>
         <div class="tmeta-row">
           <div class="tmi"><label>Primary Users</label><span>GM/MD + Leadership</span></div>
           <div class="tmi"><label>Publisher</label><span>GM/MD + LeaderZen Custodian</span></div>
@@ -602,7 +710,7 @@ details[open] summary::before{transform:rotate(90deg);color:var(--lotus);}
         <div class="tmeta-icon">ℹ️</div>
         <div>
           <div class="tmeta-q">How do I use this scoreboard?</div>
-          <div class="tmeta-desc">This is the weekly scoreboard for Lotus Development. It shows the most important numbers for all our sites. One look tells you: is the business doing well, where is the problem, who is responsible, and what must happen next.</div>
+          <div class="tmeta-desc">This scoreboard shows what is happening in Lotus — right now. One look tells you: is the business on track, where is the problem, who is responsible, and what to do next.</div>
           <div class="tmeta-row">
             <div class="tmi"><label>Primary Users</label><span>All Roles</span></div>
             <div class="tmi"><label>Publisher</label><span>GM/MD + SMA</span></div>
@@ -784,7 +892,7 @@ details[open] summary::before{transform:rotate(90deg);color:var(--lotus);}
       <div class="tmeta-icon">🏃</div>
       <div>
         <div class="tmeta-q">What are we running toward this quarter?</div>
-        <div class="tmeta-desc">The Sprint Canvas shows the rallying cry, revenue goals, and active Rocks/Projects for this quarter — pulled live from LCC. Health, owner, and next step update automatically when LCC updates. Rallying cry and revenue goals are set in the QUARTERLY EDIT ZONE at the top of the script.</div>
+        <div class="tmeta-desc">This quarter's plan. Shows the goal, active projects, and who owns what. Project health and next steps come live from LCC. Tap Edit in the header to update the goal and targets.</div>
         <div class="tmeta-row">
           <div class="tmi"><label>Primary Users</label><span>GM/MD (publisher) + Leadership (review)</span></div>
           <div class="tmi"><label>Cadence</label><span>Updated once per quarter</span></div>
@@ -801,7 +909,7 @@ details[open] summary::before{transform:rotate(90deg);color:var(--lotus);}
       <div class="tmeta-icon">📅</div>
       <div>
         <div class="tmeta-q">Where are we going in the next 3 years?</div>
-        <div class="tmeta-desc">The 12Q Canvas maps the 3-year plan across 12 quarters. Targets are concrete numbers — no vague goals. GM updates once at the start of each 3-year cycle. The NOW marker shows the current quarter at a glance.</div>
+        <div class="tmeta-desc">Where Lotus is going in the next 3 years. One row = one quarter. The NOW row is where we are today. Tap Edit in the header to update the targets and milestones.</div>
         <div class="tmeta-row">
           <div class="tmi"><label>Primary Users</label><span>GM/MD + MD/Owner</span></div>
           <div class="tmi"><label>Cadence</label><span>Updated once per 3-year cycle</span></div>
@@ -905,6 +1013,135 @@ const SUPA_URL = 'https://insgxyherphsdndtmeob.supabase.co';
 const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imluc2d4eWhlcnBoc2RuZHRtZW9iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5OTMxMTEsImV4cCI6MjA5NTU2OTExMX0.ZPLHalSbmm-PnsI7g8ODtgXCsFBzGaU1Fhp2hb6Inj8';
 const sb = supabase.createClient(SUPA_URL, SUPA_KEY);
 let allProjects = [];
+let editMode = false;
+let spFilter = 'all';
+let spShowCompleted = false;
+
+function loadConfig() {
+  const raw = localStorage.getItem('lotus_gmd_v4_config');
+  if (!raw) return;
+  try {
+    const cfg = JSON.parse(raw);
+    const q = cfg.q || {};
+    if (q.rallying_cry)  Q.rallying_cry  = q.rallying_cry;
+    if (q.quarter_label) Q.quarter_label = q.quarter_label;
+    if (q.revenue)       Object.assign(Q.revenue, q.revenue);
+    if (q.north_star)    Q.north_star    = q.north_star;
+    if (q.initiatives)   Q.initiatives   = q.initiatives;
+    const q12 = cfg.q12 || {};
+    if (q12.plan_start)  Q12.plan_start   = q12.plan_start;
+    if (q12.plan_end)    Q12.plan_end     = q12.plan_end;
+    if (q12.now_quarter) Q12.now_quarter  = q12.now_quarter;
+    if (q12.targets_3yr) Object.assign(Q12.targets_3yr, q12.targets_3yr);
+    if (q12.milestones)  Q12.milestones   = q12.milestones;
+  } catch(e) {}
+}
+
+function ed(id, val, extraStyle) {
+  const s = extraStyle || '';
+  if (editMode) return `<span id="${id}" contenteditable="true" spellcheck="false" style="${s}">${val}</span>`;
+  return `<span style="${s}">${val}</span>`;
+}
+
+function saveEdits() {
+  const cry  = document.getElementById('ec-cry');
+  const qlbl = document.getElementById('ec-qlbl');
+  const revG = document.getElementById('ec-rev-g');
+  const revB = document.getElementById('ec-rev-b');
+  const revX = document.getElementById('ec-rev-x');
+  if (cry)  Q.rallying_cry   = cry.textContent.trim()  || Q.rallying_cry;
+  if (qlbl) Q.quarter_label  = qlbl.textContent.trim() || Q.quarter_label;
+  if (revG) Q.revenue.good   = revG.textContent.trim() || Q.revenue.good;
+  if (revB) Q.revenue.better = revB.textContent.trim() || Q.revenue.better;
+  if (revX) Q.revenue.best   = revX.textContent.trim() || Q.revenue.best;
+
+  Q.north_star.forEach((item, i) => {
+    const kpi     = document.getElementById(`ec-ns-kpi-${i}`);
+    const target  = document.getElementById(`ec-ns-tgt-${i}`);
+    const owner   = document.getElementById(`ec-ns-own-${i}`);
+    const cadence = document.getElementById(`ec-ns-cad-${i}`);
+    if (kpi)     item.kpi     = kpi.textContent.trim()     || item.kpi;
+    if (target)  item.target  = target.textContent.trim()  || item.target;
+    if (owner)   item.owner   = owner.textContent.trim()   || item.owner;
+    if (cadence) item.cadence = cadence.textContent.trim() || item.cadence;
+  });
+  Q.initiatives.forEach((item, i) => {
+    const name  = document.getElementById(`ec-ini-name-${i}`);
+    const owner = document.getElementById(`ec-ini-own-${i}`);
+    const due   = document.getElementById(`ec-ini-due-${i}`);
+    if (name)  item.name  = name.textContent.trim()  || item.name;
+    if (owner) item.owner = owner.textContent.trim() || item.owner;
+    if (due)   item.due   = due.textContent.trim()   || item.due;
+  });
+
+  const t = Q12.targets_3yr;
+  const tRev   = document.getElementById('ec-t-rev');
+  const tEb    = document.getElementById('ec-t-eb');
+  const tOcc   = document.getElementById('ec-t-occ');
+  const tNps   = document.getElementById('ec-t-nps');
+  const tStart = document.getElementById('ec-plan-start');
+  const tEnd   = document.getElementById('ec-plan-end');
+  if (tRev)   t.revenue    = tRev.textContent.trim()   || t.revenue;
+  if (tEb)    t.ebitda_pct = tEb.textContent.trim()    || t.ebitda_pct;
+  if (tOcc)   t.occupancy  = tOcc.textContent.trim()   || t.occupancy;
+  if (tNps)   t.nps        = tNps.textContent.trim()   || t.nps;
+  if (tStart) Q12.plan_start = tStart.textContent.trim() || Q12.plan_start;
+  if (tEnd)   Q12.plan_end   = tEnd.textContent.trim()   || Q12.plan_end;
+
+  Q12.milestones.forEach((m, i) => {
+    const rev = document.getElementById(`ec-m-rev-${i}`);
+    const occ = document.getElementById(`ec-m-occ-${i}`);
+    const evt = document.getElementById(`ec-m-evt-${i}`);
+    if (rev) m.revenue   = rev.textContent.trim() || m.revenue;
+    if (occ) m.occupancy = occ.textContent.trim() || m.occupancy;
+    if (evt) m.key_event = evt.textContent.trim();
+  });
+  localStorage.setItem('lotus_gmd_v4_config', JSON.stringify({ q: Q, q12: Q12 }));
+}
+
+function toggleEditMode() {
+  if (editMode) {
+    saveEdits();
+    editMode = false;
+    document.body.classList.remove('edit-mode');
+    document.getElementById('edit-btn').classList.remove('active');
+    document.getElementById('edit-btn-label').textContent = 'Edit';
+  } else {
+    editMode = true;
+    document.body.classList.add('edit-mode');
+    document.getElementById('edit-btn').classList.add('active');
+    document.getElementById('edit-btn-label').textContent = 'Done';
+  }
+  renderSprint();
+  render12Q();
+}
+
+const KNOWN_PILLARS = new Set(['Advocates','Innovator','Sages','Essentialists']);
+function getPillar(r) {
+  const pt = r.data?.projectType || '';
+  const raw = pt.includes(' — ') ? pt.split(' — ')[0].trim() : '';
+  return KNOWN_PILLARS.has(raw) ? raw : 'Other';
+}
+function isRock(r)      { return r.data?.timeHorizon && r.data.timeHorizon.includes('Rock'); }
+function isSprint(r)    { const th = r.data?.timeHorizon||''; return th.includes('Sprint')||th.includes('< 30d'); }
+function isLongTerm(r)  { return r.data?.timeHorizon === 'Long Term'; }
+function isCompleted(r) { const s = r.data?.status||''; return s.startsWith('done')||s==='dropped'||s==='archived'; }
+function horizonBadge(th) {
+  if (!th) return '';
+  const map = {
+    'Sprint (< 30d)':        {label:'Sprint',     cls:'sprint'},
+    '1-Quarter Rock (90d)':  {label:'1Q Rock',    cls:'rock'},
+    '2-Quarter Rock (180d)': {label:'2Q Rock',    cls:'rock'},
+    '3-Quarter Rock (270d)': {label:'3Q Rock',    cls:'rock'},
+    'Annual Rock (360d)':    {label:'Annual Rock',cls:'rock'},
+    'Long Term':             {label:'Long Term',  cls:'longterm'},
+  };
+  const e = map[th];
+  return e ? `<span class="sp-hz-badge ${e.cls}">${e.label}</span>`
+           : `<span class="sp-hz-badge other">${th}</span>`;
+}
+function setSpFilter(f)      { spFilter = f; renderSprint(); }
+function toggleSpCompleted() { spShowCompleted = !spShowCompleted; renderSprint(); }
 
 async function initAuth() {
   const { data: { session } } = await sb.auth.getSession();
@@ -1001,84 +1238,111 @@ function renderRockHealth(rows) {
    ============================================================ */
 function renderSprint() {
   const el = document.getElementById('sp-content'); if (!el) return;
-  const hMap   = { 'on-track':'dg', 'at-risk':'dy', 'critical':'dr' };
-  const hLabel = { 'on-track':'● On Track', 'at-risk':'⚠ At Risk', 'critical':'✕ Critical' };
-  const SP_PILLARS = ['Advocates','Innovator','Sages','Essentialists'];
+  const hMap   = {'on-track':'dg','at-risk':'dy','critical':'dr'};
+  const hLabel = {'on-track':'● On Track','at-risk':'⚠ At Risk','critical':'✕ Critical'};
+  const SP_PILLARS = ['Advocates','Innovator','Sages','Essentialists','Other'];
 
-  const rocks = allProjects.filter(r => r.data && r.data.timeHorizon && r.data.timeHorizon.includes('Rock'));
+  let filtered = allProjects.filter(r => r.data);
+  if (spFilter==='rocks')    filtered = filtered.filter(isRock);
+  if (spFilter==='sprint')   filtered = filtered.filter(isSprint);
+  if (spFilter==='longterm') filtered = filtered.filter(isLongTerm);
+
+  const active    = filtered.filter(r => !isCompleted(r));
+  const completed = filtered.filter(r =>  isCompleted(r));
 
   const grouped = {};
-  SP_PILLARS.forEach(p => grouped[p] = []);
-  rocks.forEach(r => {
-    const p = r.data.projectType ? r.data.projectType.split(' — ')[0].trim() : 'Unknown';
-    if (!grouped[p]) grouped[p] = [];
-    grouped[p].push(r);
-  });
+  SP_PILLARS.forEach(p => grouped[p] = {active:[],completed:[]});
+  active.forEach(r    => grouped[getPillar(r)].active.push(r));
+  completed.forEach(r => grouped[getPillar(r)].completed.push(r));
 
   function healthSummary(list) {
     const c = {'on-track':0,'at-risk':0,'critical':0};
-    list.forEach(p => { if (c[p.data.health] !== undefined) c[p.data.health]++; });
-    const parts = [];
-    if (c['on-track']) parts.push(`● ${c['on-track']} On Track`);
-    if (c['at-risk'])  parts.push(`⚠ ${c['at-risk']} At Risk`);
-    if (c['critical']) parts.push(`✕ ${c['critical']} Critical`);
+    list.forEach(p => { if(c[p.data.health]!==undefined) c[p.data.health]++; });
+    const parts=[];
+    if(c['on-track']) parts.push(`● ${c['on-track']} On Track`);
+    if(c['at-risk'])  parts.push(`⚠ ${c['at-risk']} At Risk`);
+    if(c['critical']) parts.push(`✕ ${c['critical']} Critical`);
     return parts.join('  ');
   }
 
+  function projectCard(r, i, dim) {
+    return `${i>0?'<div class="sp-rock-div"></div>':''}
+    <div class="sp-rock${dim?' sp-done':''}">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+        ${horizonBadge(r.data.timeHorizon)}
+        ${dim?'<span class="sp-done-badge">Completed</span>':''}
+      </div>
+      <div><div class="sp-rock-lbl">Project</div><div class="sp-rock-val">${r.data.name||'—'}</div></div>
+      <div><div class="sp-rock-lbl">Owner</div><div class="sp-rock-val">${r.data.assignedLeader||'—'}</div></div>
+      <div><div class="sp-rock-lbl">Success Proof</div><div class="sp-rock-val">${r.data.successDefinition||'—'}</div></div>
+      <div><div class="sp-rock-lbl">Next Step</div><div class="sp-rock-trigger">${r.data.nextStep||'—'}</div></div>
+      <div><div class="sp-rock-lbl">Health</div><div class="sp-rock-val"><span class="dot ${hMap[r.data.health]||'ds'}">${hLabel[r.data.health]||'—'}</span></div></div>
+    </div>`;
+  }
+
   const pillarsHTML = SP_PILLARS.map(pName => {
-    const list = grouped[pName] || [];
-    const rocksHTML = list.length
-      ? list.map((r, i) => `
-          ${i > 0 ? '<div class="sp-rock-div"></div>' : ''}
-          <div class="sp-rock">
-            <div><div class="sp-rock-lbl">Rock/Project</div><div class="sp-rock-val">${r.data.name||'—'}</div></div>
-            <div><div class="sp-rock-lbl">Owner</div><div class="sp-rock-val">${r.data.assignedLeader||'—'}</div></div>
-            <div><div class="sp-rock-lbl">Success Proof</div><div class="sp-rock-val">${r.data.successDefinition||'—'}</div></div>
-            <div><div class="sp-rock-lbl">Next Step</div><div class="sp-rock-trigger">${r.data.nextStep||'—'}</div></div>
-            <div><div class="sp-rock-lbl">Health</div><div class="sp-rock-val"><span class="dot ${hMap[r.data.health]||'ds'}">${hLabel[r.data.health]||'—'}</span></div></div>
-          </div>`).join('')
-      : '<div class="sp-empty">No active Rocks/Projects this quarter</div>';
+    const a = grouped[pName].active;
+    const c = grouped[pName].completed;
+    if (!a.length && !c.length) return '';
+    const total = a.length + (spShowCompleted ? c.length : 0);
+    const rocksHTML = a.length
+      ? a.map((r,i) => projectCard(r,i,false)).join('')
+      : '<div class="sp-empty">No active projects in this group</div>';
+    const completedHTML = (spShowCompleted && c.length)
+      ? `<div class="sp-completed-section">
+           <div class="sp-completed-lbl">Completed (${c.length})</div>
+           ${c.map((r,i)=>projectCard(r,i,true)).join('')}
+         </div>` : '';
     return `<div class="sp-pillar">
       <div class="sp-pillar-hdr">
         <div class="sp-pillar-name">${pName}</div>
-        <span class="ks">${list.length} Rock/Project${list.length!==1?'s':''}</span>
-        ${list.length ? `<span class="sp-health-sum">${healthSummary(list)}</span>` : ''}
+        <span class="ks">${total} Project${total!==1?'s':''}</span>
+        ${a.length?`<span class="sp-health-sum">${healthSummary(a)}</span>`:''}
       </div>
-      ${rocksHTML}
+      ${rocksHTML}${completedHTML}
     </div>`;
   }).join('');
 
-  const nsHTML = Q.north_star.map(n => `<tr>
-    <td class="kn">${n.kpi}</td>
-    <td style="font-family:var(--fd);font-weight:600">${n.target}</td>
-    <td style="font-size:11px;color:var(--text-mid)">${n.owner}</td>
-    <td style="font-size:11px;color:var(--text-dim)">${n.cadence}</td>
+  const filterBtns = ['all','rocks','sprint','longterm'].map(f => {
+    const labels={all:'All',rocks:'Rocks',sprint:'Sprint',longterm:'Long Term'};
+    return `<button class="sp-fb${spFilter===f?' on':''}" onclick="setSpFilter('${f}')">${labels[f]}</button>`;
+  }).join('');
+
+  const nsHTML = Q.north_star.map((n,i) => `<tr>
+    <td class="kn">${ed(`ec-ns-kpi-${i}`,n.kpi)}</td>
+    <td style="font-family:var(--fd);font-weight:600">${ed(`ec-ns-tgt-${i}`,n.target)}</td>
+    <td style="font-size:11px;color:var(--text-mid)">${ed(`ec-ns-own-${i}`,n.owner)}</td>
+    <td style="font-size:11px;color:var(--text-dim)">${ed(`ec-ns-cad-${i}`,n.cadence)}</td>
   </tr>`).join('');
 
-  const initHTML = Q.initiatives.map(i => `<tr>
-    <td class="kn">${i.name}</td>
-    <td style="font-size:11px;color:var(--text-mid)">${i.owner}</td>
-    <td style="font-size:11px;color:var(--text-dim)">${i.due}</td>
-    <td><span class="dot ${hMap[i.health]||'ds'}">${hLabel[i.health]||i.health}</span></td>
+  const initHTML = Q.initiatives.map((ini,idx) => `<tr>
+    <td class="kn">${ed(`ec-ini-name-${idx}`,ini.name)}</td>
+    <td style="font-size:11px;color:var(--text-mid)">${ed(`ec-ini-own-${idx}`,ini.owner)}</td>
+    <td style="font-size:11px;color:var(--text-dim)">${ed(`ec-ini-due-${idx}`,ini.due)}</td>
+    <td><span class="dot ${hMap[ini.health]||'ds'}">${hLabel[ini.health]||ini.health}</span></td>
   </tr>`).join('');
 
   el.innerHTML = `
     <div class="sp-cry">
       <div class="sp-cry-lbl">Rallying Cry</div>
-      <div class="sp-cry-txt">${Q.rallying_cry}</div>
-      <div class="sp-quarter">${Q.quarter_label}</div>
+      <div class="sp-cry-txt">${ed('ec-cry',Q.rallying_cry,'display:block')}</div>
+      <div class="sp-quarter">${ed('ec-qlbl',Q.quarter_label)}</div>
     </div>
     <div class="sh"><div class="shd"></div><h3>Revenue Goals</h3><div class="shl"></div></div>
     <div class="sp-rev">
-      <div class="sp-rev-card"><div class="sp-rev-lbl">Good</div><div class="sp-rev-val">${Q.revenue.good}</div></div>
-      <div class="sp-rev-card" style="border-color:var(--lotus-mid)"><div class="sp-rev-lbl">Better</div><div class="sp-rev-val">${Q.revenue.better}</div></div>
-      <div class="sp-rev-card" style="border-top:2px solid var(--lotus)"><div class="sp-rev-lbl">Best</div><div class="sp-rev-val">${Q.revenue.best}</div></div>
+      <div class="sp-rev-card"><div class="sp-rev-lbl">Good</div><div class="sp-rev-val">${ed('ec-rev-g',Q.revenue.good)}</div></div>
+      <div class="sp-rev-card" style="border-color:var(--lotus-mid)"><div class="sp-rev-lbl">Better</div><div class="sp-rev-val">${ed('ec-rev-b',Q.revenue.better)}</div></div>
+      <div class="sp-rev-card" style="border-top:2px solid var(--lotus)"><div class="sp-rev-lbl">Best</div><div class="sp-rev-val">${ed('ec-rev-x',Q.revenue.best)}</div></div>
     </div>
-    <div class="sh"><div class="shd"></div><h3>4 Pillars — Active Rocks/Projects</h3>
+    <div class="sh"><div class="shd"></div><h3>4 Pillars — Active Projects</h3>
       <span class="sp-live-badge">● LIVE from LCC</span>
-      <p style="margin-left:8px;font-size:11px;color:var(--text-dim)">Each rock/project: one owner · one success proof · one next step</p>
+      <p style="margin-left:8px;font-size:11px;color:var(--text-dim)">Each project: one owner · one success proof · one next step</p>
     <div class="shl"></div></div>
-    ${pillarsHTML}
+    <div class="sp-filter-bar">
+      ${filterBtns}
+      ${completed.length?`<button class="sp-fb sp-fb-right${spShowCompleted?' on':''}" onclick="toggleSpCompleted()">${spShowCompleted?'Hide':'Show'} Completed (${completed.length})</button>`:''}
+    </div>
+    ${pillarsHTML||'<div class="sp-empty" style="padding:20px 0">No projects match this filter.</div>'}
     <div class="sh"><div class="shd"></div><h3>North Star Metrics</h3><div class="shl"></div></div>
     <div class="tw"><table>
       <thead><tr><th>KPI</th><th>Target</th><th>Owner</th><th>Cadence</th></tr></thead>
@@ -1088,7 +1352,8 @@ function renderSprint() {
     <div class="tw"><table>
       <thead><tr><th>Initiative</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead>
       <tbody>${initHTML}</tbody>
-    </table></div>`;
+    </table></div>
+    ${editMode?'<div class="sp-edit-note">Tap any underlined text to edit. Tap <b>Done</b> in the header to save.</div>':''}`;
 }
 
 /* ============================================================
@@ -1112,7 +1377,7 @@ function getCompletionQuarterKey(createdAt, timeHorizon) {
 function render12Q() {
   const el = document.getElementById('q12-content'); if (!el) return;
   const t = Q12.targets_3yr;
-  const hMap = { 'on-track':'dg', 'at-risk':'dy', 'critical':'dr' };
+  const hMap = {'on-track':'dg','at-risk':'dy','critical':'dr'};
   const Q12_PILLARS = ['Advocates','Innovator','Sages','Essentialists'];
 
   const byQ = {};
@@ -1128,27 +1393,26 @@ function render12Q() {
     r.data && (r.data.timeHorizon === 'Annual Rock (360d)' || r.data.timeHorizon === 'Long Term')
   );
 
-  const cards = `
-    <div class="q12-targets">
-      <div class="q12-card"><div class="q12-card-lbl">Revenue Target (3yr)</div><div class="q12-card-val">${t.revenue}</div></div>
-      <div class="q12-card"><div class="q12-card-lbl">EBITDA Target</div><div class="q12-card-val">${t.ebitda_pct}</div></div>
-      <div class="q12-card"><div class="q12-card-lbl">Occupancy Target</div><div class="q12-card-val">${t.occupancy}</div></div>
-      <div class="q12-card"><div class="q12-card-lbl">NPS Target</div><div class="q12-card-val">${t.nps}</div></div>
-    </div>`;
+  const cards = `<div class="q12-targets">
+    <div class="q12-card"><div class="q12-card-lbl">Revenue Target (3yr)</div><div class="q12-card-val">${ed('ec-t-rev',t.revenue)}</div></div>
+    <div class="q12-card"><div class="q12-card-lbl">EBITDA Target</div><div class="q12-card-val">${ed('ec-t-eb',t.ebitda_pct)}</div></div>
+    <div class="q12-card"><div class="q12-card-lbl">Occupancy Target</div><div class="q12-card-val">${ed('ec-t-occ',t.occupancy)}</div></div>
+    <div class="q12-card"><div class="q12-card-lbl">NPS Target</div><div class="q12-card-val">${ed('ec-t-nps',t.nps)}</div></div>
+  </div>`;
 
-  const rows = Q12.milestones.map(m => {
+  const rows = Q12.milestones.map((m,i) => {
     const isNow = m.q === Q12.now_quarter;
     const liveProjects = byQ[m.label] || [];
     const projectBullets = liveProjects.length
       ? liveProjects.map(r => {
           const pillar = r.data.projectType ? r.data.projectType.split(' — ')[0].trim() : '';
-          return `<div class="q12-live-proj"><span class="dot ${hMap[r.data.health]||'ds'}" style="margin-right:4px"></span>${r.data.name||'—'}${pillar ? ` <span style="color:var(--text-dim);font-size:10px">(${pillar})</span>` : ''}</div>`;
+          return `<div class="q12-live-proj"><span class="dot ${hMap[r.data.health]||'ds'}" style="margin-right:4px"></span>${r.data.name||'—'}${pillar?` <span style="color:var(--text-dim);font-size:10px">(${pillar})</span>`:''}</div>`;
         }).join('')
-      : `<span style="font-size:11px;color:var(--text-dim)">${m.key_event||'—'}</span>`;
-    return `<div class="q12-row${isNow ? ' now' : ''}">
-      <div class="q12-q">${m.label}${isNow ? '<span class="q12-now-badge">NOW</span>' : ''}</div>
-      <div style="font-family:var(--fd);font-weight:600;color:var(--text-hi)">${m.revenue}</div>
-      <div style="font-size:11px;color:var(--text-mid)">${m.occupancy}</div>
+      : ed(`ec-m-evt-${i}`, m.key_event||'—', 'font-size:11px;color:var(--text-dim)');
+    return `<div class="q12-row${isNow?' now':''}">
+      <div class="q12-q">${m.label}${isNow?'<span class="q12-now-badge">NOW</span>':''}</div>
+      <div style="font-family:var(--fd);font-weight:600;color:var(--text-hi)">${ed(`ec-m-rev-${i}`,m.revenue)}</div>
+      <div style="font-size:11px;color:var(--text-mid)">${ed(`ec-m-occ-${i}`,m.occupancy)}</div>
       <div>${projectBullets}</div>
     </div>`;
   }).join('');
@@ -1173,22 +1437,25 @@ function render12Q() {
         </div>`).join('')}
     </div>`).join('');
 
+  const roadmapTitle = `3-Year Roadmap — ${ed('ec-plan-start',Q12.plan_start)} to ${ed('ec-plan-end',Q12.plan_end)}`;
+
   el.innerHTML = `
     ${cards}
-    <div class="sh"><div class="shd"></div><h3>3-Year Roadmap — ${Q12.plan_start} to ${Q12.plan_end}</h3><div class="shl"></div></div>
+    <div class="sh"><div class="shd"></div><h3>${roadmapTitle}</h3><div class="shl"></div></div>
     <div class="q12-table-wrap">
       <div class="q12-hdr-row">
         <div>Quarter</div><div>Revenue / mo</div><div>Occupancy</div>
-        <div>Rocks/Projects from LCC <span class="sp-live-badge">● LIVE</span></div>
+        <div>Projects from LCC <span class="sp-live-badge">● LIVE</span></div>
       </div>
       ${rows}
     </div>
-    ${longHTML ? `
-    <div class="sh"><div class="shd"></div><h3>Long-Horizon Rocks/Projects</h3>
+    ${longHTML?`
+    <div class="sh"><div class="shd"></div><h3>Long-Horizon Projects</h3>
       <span class="sp-live-badge">● LIVE from LCC</span>
-      <p style="margin-left:8px;font-size:11px;color:var(--text-dim)">Annual Rock + Long Term — not mapped to a single quarter</p>
+      <p style="margin-left:8px;font-size:11px;color:var(--text-dim)">Annual Rock + Long Term — spans multiple quarters</p>
     <div class="shl"></div></div>
-    <div class="q12-long-wrap">${longHTML}</div>` : ''}`;
+    <div class="q12-long-wrap">${longHTML}</div>`:''}
+    ${editMode?'<div class="sp-edit-note">Tap underlined numbers to edit. Tap <b>Done</b> in the header to save.</div>':''}`;
 }
 
 /* ============================================================
@@ -1718,7 +1985,7 @@ function ex(){
 /* ============================================================
    INIT
    ============================================================ */
-window.onload=()=>{renderAll();ld();initAuth();};
+window.onload=()=>{loadConfig();renderAll();ld();initAuth();};
 </script>
 
 <!--
