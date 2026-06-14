@@ -529,6 +529,9 @@ body.edit-mode #cnt{top:calc(var(--hh) + 28px + var(--th));}
 #tabs::after{content:'';position:fixed;top:var(--hh);right:0;width:32px;height:var(--th);background:linear-gradient(to left,var(--surface),transparent);pointer-events:none;z-index:199;}
 table{min-width:100%;}
 .tw table{min-width:520px;}
+/* SMA Section 0 site-view bar */
+.sma-s0-site-bar{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:11px;color:var(--text-mid);}
+.sma-s0-site-sel{font-family:var(--fd);font-size:11px;border:1px solid var(--border);border-radius:4px;padding:2px 6px;background:var(--surface2);color:var(--text-hi);cursor:pointer;}
 </style>
 </head>
 <body>
@@ -1624,6 +1627,11 @@ const SMA=[
     {k:'EBITDA Margin (site-level)',            ow:'Finance TL',              src:'~scoreboard_l10_weekly_view.md',frm:'VTO Critical Numbers / Finance', ty:'Lag',      tgt:'TBD', cons:'Below target: Finance TL presents variance analysis within 48h.'},
     {k:'Avg Daily Foot Traffic (consolidated)', ow:'E&G TL',                 src:'~scoreboard_l10_weekly_view.md',frm:'VTO Critical Numbers / OGSM',    ty:'Lead',     tgt:'TBD', cons:'Declining: E&G TL reviews event pipeline. Activates drive within 7 days.'},
     {k:'Community NPS (site)',                  ow:'Ops TL',                  src:'~scoreboard_l10_weekly_view.md',frm:'VTO Critical Numbers / STTACCK', ty:'Lag',      tgt:'≥60', cons:'<50 for 2 weeks: Ops TL submits ICARE root cause report.'},
+    {k:'Occupancy % (Unit, consolidated)',      ow:'Opportunity TL',          src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Opportunity) / OGSM',ty:'Lag',tgt:'TBD',cons:'Declining 2 weeks: Opportunity TL reviews unit vacancy list same day.'},
+    {k:'Occupancy % (PValue, consolidated)',    ow:'Opportunity TL',          src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Opportunity) / OGSM',ty:'Lag',tgt:'TBD',cons:'Declining: Opportunity TL reviews tenant contract values.'},
+    {k:'Net Profit (₱)',                        ow:'Finance TL',              src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Finance) / OGSM',   ty:'Lag',tgt:'TBD',cons:'Negative: GM/MD and Finance TL review same week.'},
+    {k:'Venue Utilization % (hours)',           ow:'E&G TL',                  src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (E&G) / VTO CN',     ty:'Lead',tgt:'TBD',cons:'<60%: E&G TL reviews booking and pricing in 7 days.'},
+    {k:'Operating Expenses (Electricity / Water / Manpower / Security)',ow:'Ops TL',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Operations) / OGSM',ty:'Lag',tgt:'TBD',cons:'Overrun >10%: Ops TL presents breakdown to GM/MD in 48h.'},
   ]},
   {id:'s1',title:'Section 1 — Growth Engine: Leasing',
    note:'Tracks demand and conversion for commercial spaces. Owner: Opportunity Team.',
@@ -1633,6 +1641,8 @@ const SMA=[
     {k:'# Closed Prospects',                              ow:'AS (Commercial)',   src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List / OGSM',ty:'Lead',tgt:'TBD',cons:'0 for 2 weeks: Opportunity TL reviews closing script. Escalates to GM/MD.'},
     {k:'Pull-out Aversion Rate',                          ow:'ADC',               src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List / OGSM',ty:'Lag/Lead',tgt:'TBD',cons:'Any pull-out: reported to Opportunity TL within 24h of notice.'},
     {k:'Business Beginners ≥25% (GLA-weighted)',          ow:'Opportunity TL',    src:'~scoreboard_l10_weekly_view.md',frm:'VTO Critical Numbers / OGSM',ty:'Lag',tgt:'≥25%',cons:'<25%: Opportunity TL reviews tenant mix plan. Flags to GM/MD at next L10.'},
+    {k:'Tenant Mix Plan % Planned vs Actual',             ow:'Opportunity Integrator',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Opportunity) / OGSM',ty:'Lead',tgt:'TBD',cons:'<80%: Opportunity TL reviews mix plan same week.'},
+    {k:'Tenant Requirements % Complete & Updated',        ow:'ADC',               src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Opportunity) / OGSM',ty:'Governance',tgt:'100%',cons:'Any gap: ADC resolves in 24h. Opportunity TL notified.'},
   ]},
   {id:'s2',title:'Section 2 — Growth Engine: Events & Activation',
    note:'Tracks event pipeline, venue utilization, and foot traffic generation. Owner: E&G Team.',
@@ -1641,6 +1651,14 @@ const SMA=[
     {k:'Venue Utilization % (booked ÷ available hours)',   ow:'E&G TL',src:'~scoreboard_l10_weekly_view.md',frm:'VTO Critical Numbers / E&G',    ty:'Lead',tgt:'TBD',cons:'<60%: E&G TL reviews booking process and pricing within 7 days.'},
     {k:'# of 500+ pax events per month (all sites)',       ow:'E&G TL',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List / OGSM',       ty:'Lead',tgt:'TBD',cons:'0 in a month: E&G TL escalates to Opportunity TL for corporate outreach.'},
     {k:'Avg Daily Foot Traffic (by site)',                  ow:'E&G TL',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List / OGSM',       ty:'Lead',tgt:'TBD',cons:'Declining: E&G TL reviews event schedule and activates traffic drive.'},
+    {k:'Venue Occupancy (Hours Reserved)',                  ow:'GS & CS',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (E&G) / OGSM',  ty:'Lag', tgt:'TBD',cons:'Below target: E&G TL reviews booking calendar in 5 days.'},
+    {k:'# Merchants Inquiry',                              ow:'GS',     src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (E&G) / OGSM',  ty:'Lead',tgt:'TBD',cons:'0 in a week: GS escalates to E&G TL same day.'},
+    {k:'# Foot Traffic Generated',                         ow:'GS Integrator',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (E&G) / OGSM',ty:'Lead',tgt:'TBD',cons:'Declining: GS Integrator reviews activation plan.'},
+    {k:'# Mall Events Generated / Executed',               ow:'GS Integrator',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (E&G) / OGSM',ty:'Lead',tgt:'TBD',cons:'0/month: E&G TL escalates to Opportunity TL.'},
+    {k:'# Handaan Events Generated',                       ow:'GS Integrator',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (E&G) / OGSM',ty:'Lead',tgt:'TBD',cons:'0/month: GS Integrator escalates to E&G TL.'},
+    {k:'Occupancy %: Venue – PValue (₱)',                  ow:'GS & CS',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (E&G) / OGSM',  ty:'Lag', tgt:'TBD',cons:'Declining: E&G TL reviews pricing and event mix.'},
+    {k:'Occupancy %: Handaan Events – PValue (₱)',         ow:'GS – Handaan',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (E&G) / OGSM',ty:'Lag',tgt:'TBD',cons:'Declining: Handaan Ops reviews menu and marketing.'},
+    {k:'Occupancy %: Koncepto – Unit / PValue',            ow:'GS',     src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (E&G) / OGSM',  ty:'Lag', tgt:'TBD',cons:'Declining: GS reviews kiosk occupancy and pricing.'},
   ]},
   {id:'s3',title:'Section 3 — Experience & Operations Reliability',
    note:'Tracks site quality, ICARE resolution, and operational compliance. Owner: SMA + Ops.',
@@ -1648,6 +1666,15 @@ const SMA=[
     {k:'ICARE Resolved <72 Hours %',   ow:'SMA',                  src:'~scoreboard_l10_weekly_view.md',frm:'ICARE / LotusOS',             ty:'Governance',tgt:'≥90%',sh:'icare_72h',cons:'<90%: SMA identifies stale items. Owner of each escalates within 24h.'},
     {k:'Site Quality Score % (audit)', ow:'SMA / Ops',            src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Operations)',ty:'Governance',tgt:'TBD',cons:'Any site <80%: Ops TL submits corrective action within 48h.'},
     {k:'MTTR — Mean Time to Repair (hours)',ow:'Engineering Integrator',src:'~scoreboard_l10_weekly_view.md',frm:'VTO Critical Numbers / Engineering',ty:'Lag',tgt:'TBD',cons:'Any breakdown >24h unresolved: Eng Integrator escalates to Ops TL immediately.'},
+    {k:'Site Score %',                  ow:'Ops Integrator',       src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Operations)',ty:'Lead',tgt:'TBD',cons:'<80%: Ops Integrator submits corrective action in 48h.'},
+    {k:'% Onboarded Tenants (New + Existing)',ow:'Site Ops Integrator',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Operations)',ty:'Lead',tgt:'100%',cons:'Any gap: Site Ops Integrator follows up in 24h.'},
+    {k:'Parking Income (₱)',            ow:'Site Ops / TROC / TRP',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Operations)',ty:'Lead',tgt:'TBD',cons:'Below target: Ops TL reviews parking utilization same week.'},
+    {k:'Electricity Expense',           ow:'Ops TL',               src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Operations) / OGSM',ty:'Lag',tgt:'TBD',cons:'Overrun >10%: Ops TL reviews consumption in 48h.'},
+    {k:'Water Expense',                 ow:'Ops TL',               src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Operations) / OGSM',ty:'Lag',tgt:'TBD',cons:'Overrun >10%: Ops TL reviews usage in 48h.'},
+    {k:'Manpower Expenses (All Agencies)',ow:'Ops TL',             src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Operations) / OGSM',ty:'Lag',tgt:'TBD',cons:'Overrun: Ops TL reviews agency headcount in 48h.'},
+    {k:'Security Expenses (Agency)',    ow:'Ops TL',               src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Operations) / OGSM',ty:'Lag',tgt:'TBD',cons:'Overrun: Ops TL reviews agency contract same week.'},
+    {k:'# Breakdowns – Engineering Dept.',ow:'Eng Integrator',    src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Technical) / Role Profile',ty:'Lead',tgt:'TBD',cons:'Any breakdown >24h: Eng Integrator escalates to Ops TL immediately.'},
+    {k:'% On time Completion: PM Checklist',ow:'Ops',             src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Operations)',ty:'Governance',tgt:'100%',cons:'Any miss: Ops reports to TL same day. TL corrects in 24h.'},
   ]},
   {id:'s4',title:'Section 4 — Brand & Demand (Marcom)',
    note:'Tracks lead generation and brand activity. Owner: Marcom Team.',
@@ -1655,12 +1682,21 @@ const SMA=[
     {k:'# Inquiries — Online (Strong Leads, Commercial)',ow:'Online Community Specialist',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Marcom) / OGSM',ty:'Lead',tgt:'TBD',cons:'<target 2 weeks: Marcom TL reviews content and ad budget within 5 days.'},
     {k:'Engagement Rate (Ave)',                          ow:'Brand & Comms Integrator', src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Marcom) / OGSM',ty:'Lead',tgt:'TBD',cons:'Declining 3 weeks: Brand team reviews content calendar.'},
     {k:'% On-time & Accurate: Marcom Activities',        ow:'Marcom TL',                src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Marcom)',        ty:'Governance',tgt:'100%',cons:'2 misses in a row: Marcom TL escalates to GM/MD.'},
+    {k:'# Scheduled for Ocular (Commercial)',            ow:'Marketing Specialist',     src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Marcom) / OGSM',ty:'Lead',tgt:'TBD',cons:'<target 2 weeks: Marcom TL reviews conversion approach in 5 days.'},
+    {k:'Net Follows (Social Media)',                     ow:'Brand & Digital Comms Spec',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Marcom) / OGSM',ty:'Lead',tgt:'TBD',cons:'Negative 2 weeks: Brand team reviews content calendar.'},
+    {k:'# Posts / Planned Posts',                        ow:'Creative Production Coordinator',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Marcom) / OGSM',ty:'Lead',tgt:'TBD',cons:'Miss: Creative Prod Coord escalates to Marcom TL same day.'},
+    {k:'% On time & Accurate: CIP',                     ow:'Brand & Comms Integrator', src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Marcom)',        ty:'Governance',tgt:'100%',cons:'Any miss: Brand & Comms Integrator reports to Marcom TL same day.'},
   ]},
   {id:'s5',title:'Section 5 — Technical Delivery & Projects',
    note:'Tracks engineering projects and maintenance performance. Owner: Technical Team.',
    rows:[
     {k:'% On-time Completion — Projects (Technical/Engineering)',ow:'Technical TL',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Technical) / Role Profile',ty:'Lead',tgt:'≥90%',cons:'Delay >3 days no plan: Technical TL escalates to SMA for L2 review.'},
     {k:'% Within Budget — Projects',                            ow:'Technical TL',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Technical) / Role Profile',ty:'Lag', tgt:'TBD',cons:'Overrun >10%: Finance TL and Technical TL review together within 48h.'},
+    {k:'Repairs & Maintenance Expense',                         ow:'Technical TL',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Technical) / Role Profile',ty:'Lag',tgt:'TBD',cons:'Overrun >10%: Technical TL reviews with Finance TL in 48h.'},
+    {k:'FS Target: R&M (Labor) Expense',                        ow:'Technical TL',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Technical) / Role Profile',ty:'Lag',tgt:'TBD',cons:'Overrun: Technical TL reviews staffing plan in 48h.'},
+    {k:'FS Target: R&M (Materials) Expense',                    ow:'Technical TL',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Technical) / Role Profile',ty:'Lag',tgt:'TBD',cons:'Overrun: Technical TL reviews materials usage in 48h.'},
+    {k:'% Planned vs Actual – Projects (Technical/Engineering/Special)',ow:'Technical TL',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Technical) / Role Profile',ty:'Lead',tgt:'TBD',cons:'<80%: Technical TL reviews blockers and escalates to SMA.'},
+    {k:'Score / Evaluation / NPS — Projects',                   ow:'Technical TL',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Technical) / Role Profile',ty:'Lag',tgt:'TBD',cons:'Below target: Technical TL reviews with requester in 7 days.'},
   ]},
   {id:'s6',title:'Section 6 — Systems, Governance & Founder-Free Enforcement',
    note:'Tracks LotusOS adoption, L10 compliance, and whether the system is self-running. Owner: SMA + LeaderZen Custodian.',
@@ -1668,6 +1704,13 @@ const SMA=[
     {k:'LotusOS Adoption % (Weekly Active ÷ Assigned)',ow:'SMA',src:'~scoreboard_l10_weekly_view.md',frm:'LDApps / LotusOS',  ty:'Governance',tgt:'≥85%', sh:'lotusos_adoption',cons:'<80%: SMA sends individual follow-up. Repeat offenders go to Consequence Ladder.'},
     {k:'L10 Quality Score (1–10)',                     ow:'SMA',src:'~scoreboard_l10_weekly_view.md',frm:'LeaderZen / LotusOS',ty:'Governance',tgt:'≥8/10',sh:'l10_quality',     cons:'<6 for any team: SMA joins next L10 to coach. Team Lead gets 2-week improvement plan.'},
     {k:'L10 Weekly Compliance Rate (All Teams)',        ow:'LeaderZen Custodian',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (LRAD) / LeaderZen',ty:'Governance',tgt:'≥90%',cons:'Any team missing without notice: LeaderZen Custodian flags to LRAD TL same day.'},
+    {k:'% Complete & Updated: LotusOS (All LDApps)',   ow:'SMA',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (SMA)',ty:'Governance',tgt:'100%',sh:'lotusos_adoption',cons:'Any gap: SMA follows up per TL same day.'},
+    {k:'% On time & Accurate: LDApp Module Audit',     ow:'SMA',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (SMA)',ty:'Governance',tgt:'100%',cons:'Any miss: SMA follows up same day.'},
+    {k:'% Addressed: ICARE (All Teams)',               ow:'SMA',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (SMA)',ty:'Governance',tgt:'≥90%',sh:'icare_72h',cons:'<90%: SMA escalates stale items to owner. 24h to resolve.'},
+    {k:'% On time & Accurate: PropMan Module',         ow:'SMA',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (SMA)',ty:'Governance',tgt:'100%',cons:'Any miss: SMA reports to Ops TL same day.'},
+    {k:'% Complete & Updated: L10 Module',             ow:'LeaderZen Custodian',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (LRAD)',ty:'Governance',tgt:'100%',cons:'Any gap: LeaderZen Custodian follows up same day.'},
+    {k:'% Complete & Updated: Leadership Pipeline Module',ow:'LeaderZen Custodian',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (LRAD)',ty:'Governance',tgt:'100%',cons:'Any gap: LeaderZen Custodian follows up same day.'},
+    {k:'Updated & Accurate LMDB Stories & Scores',     ow:'LMDB Custodian',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (LRAD)',ty:'Governance',tgt:'100%',cons:'Any gap: LMDB Custodian updates in 24h.'},
   ]},
 ];
 
@@ -1689,18 +1732,26 @@ function rSMA(){
         <td class="cons" style="min-width:175px">${r.cons}</td>
       </tr>`;
     }).join('');
-    return`<div class="sh"><div class="shd"></div><h3>${sec.title}</h3><div class="shl"></div></div>
-    <p style="font-size:11px;color:var(--text-dim);margin-bottom:10px">${sec.note}</p>
-    <div class="tw tw-x">
-    <table>
-      <thead><tr>
-        <th style="min-width:190px">KPI</th><th>Target</th>
-        <th>W1</th><th>W2</th><th>W3</th><th>W4</th><th>Monthly</th>
-        <th>Status</th><th>Owner</th><th>Source Doc + Framework</th>
-        <th>Next Action</th><th>Consequence if Missed</th>
-      </tr></thead>
-      <tbody>${rows}</tbody>
-    </table></div>`;
+    const s0bar=sec.id==='s0'
+      ?`<div class="sma-s0-site-bar">Viewing: <select class="sma-s0-site-sel" onchange="setSmaS0Site(this.value)"><option>Consolidated</option><option>Lotus Mall</option><option>Stadium Strip</option><option>Portal Mall</option></select>&nbsp;— For site-by-site detail, open <b>Tab 3</b>.</div>`
+      :'';
+    return`<details class="sma-sec">
+      <summary>${sec.title}<span class="ks" style="margin-left:auto">${sec.rows.length} KPIs</span></summary>
+      <div style="padding:10px 4px 0">
+      <p style="font-size:11px;color:var(--text-dim);margin-bottom:8px">${sec.note||''}</p>
+      ${s0bar}
+      <div class="tw tw-x">
+      <table>
+        <thead><tr>
+          <th style="min-width:190px">KPI</th><th>Target</th>
+          <th>W1</th><th>W2</th><th>W3</th><th>W4</th><th>Monthly</th>
+          <th>Status</th><th>Owner</th><th>Source Doc + Framework</th>
+          <th>Next Action</th><th>Consequence if Missed</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+      </div>
+    </details>`;
   }).join('');
 }
 
@@ -1792,6 +1843,16 @@ const TEAMS=[
     {k:'# Prospects / Priority Vacant',    ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List / OGSM',cons:'Pipeline <3: CS escalates to Opportunity TL same day.'},
     {k:'# Closed Prospects',               ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List / OGSM',cons:'0 for 2 weeks: Opportunity TL escalates closing process.'},
     {k:'Business Beginners ≥25% (GLA)',    ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'VTO Critical Numbers / OGSM',cons:'Below 25%: Opportunity TL reviews tenant mix plan.'},
+    {k:'# Closed Reservation (Walk-in and Online)',             ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Opportunity) / OGSM',cons:'0/week: AS escalates to Opportunity TL same day.'},
+    {k:'# Closed Inquiry / Offline Inquiries Received (Commercial)',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Opportunity) / OGSM',cons:'0/week: CS reviews walk-in approach with TL.'},
+    {k:'# Online Inquiries Scheduled for Ocular Visit',        ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Opportunity) / OGSM',cons:'<2/week: Marcom and Opportunity TL review ad targeting in 48h.'},
+    {k:'Tenant Mix (Plan / KPI)',                               ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Opportunity) / OGSM',cons:'Off plan: Opportunity Integrator flags to TL same week.'},
+    {k:'% Planned vs Actual – Tenant Mix Plan',                ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Opportunity) / OGSM',cons:'<80%: Opportunity TL reviews plan same week.'},
+    {k:'Tenant Requirements – % Complete & Updated',           ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Opportunity) / OGSM',cons:'Any gap: ADC resolves in 24h.'},
+    {k:'Aversion Rate in Pull-out',                            ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Opportunity) / OGSM',cons:'Any pull-out: ADC reports to Opportunity TL in 24h.'},
+    {k:'Koncepto – # Reservations (Conversion %) Pop-Up Event / month',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Opportunity)',cons:'0/month: CS & GS review booking approach in 5 days.'},
+    {k:'Koncepto – # Reservations (Conversion %) Pop-Up Temporary / month',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Opportunity)',cons:'0/month: CS & GS review temporary leasing approach.'},
+    {k:'Client-Initiated Events – # Reservations (Conversion %)',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Opportunity)',cons:'0/month: CS escalates to E&G TL same day.'},
   ]},
   {id:'eg',lb:'C) Events & Gathering',ow:'E&G TL',kpis:[
     {k:'Avg Daily Foot Traffic',         ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List / OGSM',      cons:'Declining: E&G TL reviews event schedule.'},
@@ -1799,6 +1860,18 @@ const TEAMS=[
     {k:'Venue Utilization %',            ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'VTO Critical Numbers / E&G',   cons:'<60%: E&G TL reviews pricing and booking.'},
     {k:'# of 500+ pax events / month',  ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List / OGSM',      cons:'0 in a month: E&G TL escalates to Opportunity TL.'},
     {k:'# Mall Events Generated',        ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List / OGSM',      cons:'Below plan: E&G TL reviews event calendar.'},
+    {k:'Events & Gathering Expense (₱)', ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (E&G)',         cons:'Overrun >10%: E&G TL reviews with Finance TL in 48h.'},
+    {k:'# Foot Traffic Generated',       ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (E&G) / OGSM',  cons:'Declining: GS Integrator reviews activation plan.'},
+    {k:'# Merchants Inquiry',            ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (E&G) / OGSM',  cons:'0/week: GS escalates to E&G TL same day.'},
+    {k:'# of Inquiries – Walk-in (Handaan Events)',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (E&G) / OGSM',cons:'0/week: GS escalates to E&G TL same day.'},
+    {k:'Occupancy %: Venue – Hours Reserved',ty:'Lag',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (E&G) / OGSM',cons:'Below target: E&G TL reviews booking calendar in 5 days.'},
+    {k:'Occupancy %: Venue – PValue (₱)', ty:'Lag',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (E&G) / OGSM', cons:'Declining: E&G TL reviews pricing and event mix.'},
+    {k:'Occupancy %: Handaan Events – PValue (₱)',ty:'Lag',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (E&G) / OGSM',cons:'Declining: Handaan Ops reviews menu and marketing.'},
+    {k:'Occupancy %: Koncepto – Unit',    ty:'Lag',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (E&G) / OGSM', cons:'Declining: GS reviews kiosk occupancy approach.'},
+    {k:'Occupancy %: Koncepto – PValue (₱)',ty:'Lag',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (E&G) / OGSM',cons:'Declining: GS reviews kiosk pricing.'},
+    {k:'Other Revenue (₱)',              ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (E&G)',         cons:'Below target: E&G TL reviews revenue sources same week.'},
+    {k:'% On time & Accurate – Community Compass (E&G)',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (E&G)',cons:'Any miss: GS Integrator reports to SMA same day.'},
+    {k:'# Handaan Events Generated',     ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (E&G) / OGSM',  cons:'0/month: GS Integrator escalates to E&G TL.'},
   ]},
   {id:'ops',lb:'D) Operations',ow:'Ops TL',kpis:[
     {k:'STTACCK NPS / Community NPS',          ty:'Lag',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'STTACCK / VTO Critical Numbers', cons:'<50 for 2 weeks: Ops TL submits ICARE root cause.'},
@@ -1806,44 +1879,143 @@ const TEAMS=[
     {k:'Site Score %',                         ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',  cons:'Any site <80%: Ops TL submits corrective action in 48h.'},
     {k:'Electricity Expense',                  ty:'Lag',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',  cons:'Overrun >10%: Ops TL reviews consumption report.'},
     {k:'% Onboarded Tenants (New + Existing)', ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',  cons:'<100%: Site Ops Coordinator follows up outstanding onboarding.'},
+    {k:'Parking Income (₱)',                   ty:'Lag',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',  cons:'Below target: Ops TL reviews parking utilization same week.'},
+    {k:'Security Expenses (Agency)',            ty:'Lag',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations) / OGSM',cons:'Overrun: Ops TL reviews agency contract same week.'},
+    {k:'Manpower Expenses (All Agencies)',      ty:'Lag',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations) / OGSM',cons:'Overrun: Ops TL reviews agency headcount in 48h.'},
+    {k:'Utility Maintenance Expenses (Agency)', ty:'Lag',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',  cons:'Overrun: Ops TL reviews contract same week.'},
+    {k:'Water Expense',                         ty:'Lag',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations) / OGSM',cons:'Overrun >10%: Ops TL reviews usage in 48h.'},
+    {k:'Operating Expenses (Total)',             ty:'Lag',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations) / OGSM',cons:'Overrun: Ops TL presents breakdown in 48h.'},
+    {k:'# of Conquest Addressed',               ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',  cons:'0 in a week: Site Ops Coordinator reviews with Ops TL.'},
+    {k:'# of Insurance Claimed',                ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',  cons:'Claim not filed in time: Ops Integrator escalates to Ops TL immediately.'},
+    {k:'% Site Quality Score (by Ops Integrator)',ty:'Lead',    src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',  cons:'<80%: Ops Integrator submits corrective action in 48h.'},
+    {k:'% On time & Accurate: Tenant RDS',       ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',cons:'Any miss: Ops reports to TL same day.'},
+    {k:'% Planned vs Actual: Parking Layout',    ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',  cons:'<80%: Ops TL reviews layout plan same week.'},
+    {k:'% Accurate & Updated: Tools & Equipment Masterlist (OPR)',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',cons:'Any gap: Ops updates list and reports to TL in 24h.'},
+    {k:'% Accurate & Updated: Tools & Equipment Count (OPR)',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',cons:'Any variance: Ops reports to TL same day.'},
+    {k:'% On time & Accurate – Issuance: Stock (OPR)',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',cons:'Any miss: Ops reports to TL same day.'},
+    {k:'% Accurate & Updated: Inventory Masterlist (OPR)',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',cons:'Any gap: Ops updates and reports to TL in 24h.'},
+    {k:'% Accurate & Updated – Count: Inventory (OPR)',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',cons:'Any variance: Ops TL investigates same day.'},
+    {k:'% On time & Accurate: Agency Regular Events',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',cons:'Any miss: Ops TL reviews agency performance.'},
+    {k:'% On time & Accurate: Agency Regular Activities',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',cons:'Any miss: Ops TL reviews agency performance.'},
+    {k:'% On time Completion: PM Checklist (OPR)',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',cons:'Any miss: Ops reports to TL same day. TL corrects in 24h.'},
   ]},
   {id:'tech',lb:'E) Technical / Engineering',ow:'Technical TL',kpis:[
     {k:'# of Breakdowns – Engineering',   ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'Role Profile / Engineering',           cons:'Any breakdown >24h: Eng Integrator escalates to Ops TL immediately.'},
     {k:'MTTR (hours)',                     ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'VTO Critical Numbers / Engineering',    cons:'MTTR rising for 2 weeks: Technical TL reviews PM schedule.'},
     {k:'% On-time Completion – Projects', ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',          cons:'Delay >3 days no plan: Technical TL escalates to SMA.'},
     {k:'% Within Budget – Projects',      ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',          cons:'Overrun >10%: Finance TL and Technical TL review in 48h.'},
+    {k:'Repairs & Maintenance Expense',   ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical) / Role Profile',cons:'Overrun >10%: Technical TL reviews with Finance TL in 48h.'},
+    {k:'FS Target: R&M (Labor) Expense',  ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical) / Role Profile',cons:'Overrun: Technical TL reviews staffing plan in 48h.'},
+    {k:'FS Target: R&M (Materials) Expense',ty:'Lag',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical) / Role Profile',cons:'Overrun: Technical TL reviews materials usage in 48h.'},
+    {k:'# of Violations',                 ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',          cons:'Any violation: Eng Integrator reports to Technical TL same day.'},
+    {k:'Cost of Violation (₱)',           ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',          cons:'Any cost incurred: Technical TL reviews with Finance TL.'},
+    {k:'# Projects Completed vs Planned – Special Projects (Management)',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'Lagging: Project Mgmt Integrator escalates blockers to GM/MD.'},
+    {k:'# Projects Completed vs Planned – Team & ICARE Projects',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'Lagging: Integrator escalates blockers to Technical TL.'},
+    {k:'% Planned vs Actual – Projects (Technical)',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'<80%: Technical TL reviews blockers and escalates to SMA.'},
+    {k:'% Planned vs Actual – Projects (Engineering)',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'<80%: Technical TL reviews blockers.'},
+    {k:'% Planned vs Actual – Projects (Special)',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'<80%: Technical TL reviews blockers and escalates to GM/MD.'},
+    {k:'% On time Completion – Projects (Engineering)',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'Delay >3 days no plan: Technical TL escalates to SMA.'},
+    {k:'% Within Budget – Projects (Technical)',ty:'Lag',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'Overrun >10%: Finance TL and Technical TL review in 48h.'},
+    {k:'% Within Budget – Projects (Engineering)',ty:'Lag',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'Overrun >10%: Finance TL and Technical TL review in 48h.'},
+    {k:'% Within Budget – Projects (Special)',ty:'Lag',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'Overrun >10%: Finance TL and Technical TL review in 48h.'},
+    {k:'Project Budget vs Planned (overall)',ty:'Lag',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'Overrun: Project Mgmt Integrator flags to Technical TL and Finance TL.'},
+    {k:'Proj. Score % – PM',              ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',          cons:'Below target: Project Mgmt Integrator reviews with requester in 7 days.'},
+    {k:'Score / Evaluation / NPS – Projects (Technical)',ty:'Lag',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'Below target: Technical TL reviews with requester in 7 days.'},
+    {k:'Score / Evaluation / NPS – Projects (Engineering)',ty:'Lag',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'Below target: Technical TL reviews with requester in 7 days.'},
+    {k:'Score / Evaluation / NPS – Projects (Special)',ty:'Lag',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'Below target: Technical TL reviews with requester.'},
+    {k:'% Accurate & Updated: SFML PT',  ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'Any gap: Technical TL updates in 24h.'},
+    {k:'% Addressed: Team/Section ICARE',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'<90%: Eng Integrator resolves stale items and reports to TL.'},
+    {k:'# System Changes Introduced (per quarter)',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'0/quarter: Eng Integrator reviews innovation log with Technical TL.'},
+    {k:'% Complete & Updated: Project/Work Orders',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'Any gap: Eng Integrator updates in 24h.'},
+    {k:'% Planned vs Actual: Team/Section Targets Attained',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'<80%: Eng Integrator reviews blockers with Technical TL.'},
+    {k:'% Accurate & Updated: Team/Section PTs & DBs',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'Any gap: Eng Integrator updates in 24h.'},
+    {k:'% Accurate & Updated: Team/Section Reports',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Technical)',cons:'Any gap: Eng Integrator updates and reports to TL.'},
   ]},
   {id:'mkt',lb:'F) Marketing Communications',ow:'Marcom TL',kpis:[
     {k:'# Inquiries – Online (Strong Leads)',  ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Marcom) / OGSM', cons:'<target 2 weeks: Marcom TL reviews ad budget in 5 days.'},
     {k:'Engagement Rate (Ave)',                ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Marcom) / OGSM', cons:'Declining 3 weeks: Brand team reviews content calendar.'},
     {k:'% On-time & Accurate: Marcom',        ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Marcom)',         cons:'2 misses in a row: Marcom TL escalates to GM/MD.'},
     {k:'Net Follows (Social Media)',           ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Marcom) / OGSM', cons:'Negative for 2 weeks: Brand & Digital Comms Spec reviews content.'},
+    {k:'Marketing & Branding Expense (₱)',    ty:'Lag',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Marcom)',         cons:'Overrun >10%: Marcom TL reviews with Finance TL in 48h.'},
+    {k:'# Posts / Planned Posts',             ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Marcom)',         cons:'Below plan 2 weeks: Creative Production Coordinator reviews content pipeline.'},
+    {k:'% On time & Accurate: CIP',           ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Marcom)',         cons:'Any miss: Brand & Comms Integrator resolves in 24h.'},
+    {k:'# Inquiries – Walk-in (Commercial Spaces)',ty:'Lead', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Marcom)',         cons:'Below target 2 weeks: Marketing Specialist reviews campaign in 5 days.'},
+    {k:'# Inquiries – Walk-in (Events)',       ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Marcom)',         cons:'Below target 2 weeks: Marketing Specialist reviews events promo in 5 days.'},
+    {k:'# Inquiries – Online (Strong Leads for Events)',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Marcom)',    cons:'Below target 2 weeks: Online Community Specialist reviews ad strategy.'},
+    {k:'# Scheduled for Ocular (Commercial)', ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Marcom)',         cons:'Below target: Marketing Specialist follows up leads same day.'},
+    {k:'# Scheduled for Ocular (Events)',     ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Marcom)',         cons:'Below target: Marketing Specialist follows up event leads same day.'},
   ]},
   {id:'it',lb:'G) IT',ow:'IT TL',kpis:[
     {k:'# of Breakdowns – IT Dept',         ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (IT)',cons:'Any system breakdown >4h: IT Integrator escalates to GM.'},
     {k:'Office LAN & WiFi Connectivity',    ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (IT)',cons:'Any downtime >2h: IT Integrator resolves or escalates same day.'},
     {k:'Accounting Software Connectivity',  ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (IT)',cons:'Any downtime: IT Integrator resolves same day. Finance TL notified immediately.'},
+    {k:'Repairs & Maintenance Expenses (₱)',ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (IT)',cons:'Overrun >10%: IT TL reviews with Finance TL in 48h.'},
+    {k:'Laptop / Desktop Procurement',     ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (IT)',cons:'Overrun or delay: IT TL escalates to GM/MD.'},
+    {k:'Assets (Laptop / Desktop / Hard Drives / Printers)',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (IT)',cons:'Any gap: IT Integrator updates asset register in 24h.'},
+    {k:'Office Equipment Preventive Maintenance',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (IT)',cons:'Missed schedule: IT Integrator reschedules within 1 week.'},
+    {k:'Office Equipment Inventory',       ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (IT)',cons:'Any discrepancy: IT Integrator reconciles and reports to TL.'},
+    {k:'Websites Update (LotusDevt / LotuszenHub / Handaan / Playspacio)',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (IT)',cons:'Outdated >1 week: IT Integrator updates in 24h.'},
   ]},
   {id:'dcd',lb:'H) DCD (Design & Construction)',ow:'DCD Integrator',kpis:[
     {k:'# Projects Completed vs Planned', ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (DCD)',            cons:'Lagging: DCD Integrator escalates blockers to GM/MD.'},
     {k:'Time-to-Launch (months)',         ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'VTO Critical Numbers / DCD',        cons:'Delay >1 month: DCD Integrator presents revised timeline to GM/MD.'},
     {k:'Project Budget vs Planned (BOQ)',ty:'Lag',  src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (DCD)',            cons:'Overrun >10%: DCD Integrator and Finance TL review together.'},
+    {k:'Landscape & Plant Propagation',  ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (DCD)',            cons:'Below plan: Landscape Coordinator reviews with DCD Integrator in 1 week.'},
+    {k:'Project Budget vs Planned (overall DCD)',ty:'Lag',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (DCD)',      cons:'Overrun: DCD Integrator reviews with Finance TL and GM.'},
+    {k:'Approved BOQ Budget',            ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (DCD)',            cons:'Exceeded: DCD Integrator escalates change order to GM/MD same day.'},
+    {k:'# Projects Completed vs Planned – Landscape ICARE (Site)',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (DCD)',cons:'Lagging: Planning & Design / Construction Coordinator escalates to DCD Integrator.'},
+    {k:'# Projects Completed vs Planned – Innovation / Special Project (ISP)',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (DCD)',cons:'Lagging: DCD Integrator escalates blockers to GM/MD.'},
+    {k:'Proj. Score % – DCD',            ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (DCD)',            cons:'Below target: DCD Integrator reviews quality gaps with requester in 7 days.'},
   ]},
   {id:'lrad',lb:'I) LRAD / LeaderZen',ow:'LRAD TL',kpis:[
     {k:'Attrition Rate',                              ty:'Lag',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD) / HR',           cons:'Spike >3 in a month: LRAD TL reviews exit data and escalates to GM/MD.'},
     {k:'L10 Weekly Compliance Rate (All Teams)',      ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'LeaderZen / LRAD',                       cons:'Any team missing without notice: LRAD TL follows up same day.'},
     {k:'Autonomy Score Growth',                      ty:'Lead',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'LeaderZen / VTO Critical Numbers',       cons:'Declining: LRAD TL reviews coaching plan.'},
     {k:'% Teammembers "Green" on Role Readiness',    ty:'Lead',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'LeaderZen / VTO Critical Numbers',       cons:'<80% green: LRAD TL updates coaching plan within 7 days.'},
+    {k:'Lotuszens NPS',                             ty:'Lag',        src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD)',                  cons:'Below target: LRAD TL reviews and escalates to GM/MD.'},
+    {k:'Salary Expense (₱)',                        ty:'Lag',        src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD) / Finance',        cons:'Overrun: LRAD TL reviews headcount with Finance TL in 48h.'},
+    {k:'% Complete vs Planned: Lotuszen Activities',ty:'Lead',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD)',                  cons:'<80%: LRAD TL reviews blockers and updates plan.'},
+    {k:'Updated & Accurate: LMDB Stories & Scores', ty:'Governance', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD)',                  cons:'Any gap: LMDB Custodian updates in 24h.'},
+    {k:'Updated & Accurate: LMDB & Lotuszen Hub',   ty:'Governance', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD)',                  cons:'Any gap: LMDB Custodian updates in 24h and reports to LRAD TL.'},
+    {k:'% Complete & Updated: L10 Module',          ty:'Governance', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD)',                  cons:'Any gap: LeaderZen Custodian updates in 24h.'},
+    {k:'L10 Attendance Rate',                       ty:'Lead',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD)',                  cons:'<90%: LRAD TL follows up absent teams same day.'},
+    {k:'% Complete & Updated: Leadership Pipeline Module',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD)',             cons:'Any gap: LeaderZen Custodian updates in 24h.'},
+    {k:'Playbook Contributions per Team (per month)',ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD)',                  cons:'0/month per team: LRAD TL reviews playbook habit in next L10.'},
+    {k:'# Playbook Entries / Month',                ty:'Lead',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD)',                  cons:'Below target: LRAD TL reviews playbook usage with team.'},
+    {k:'Self Check-In Rate',                        ty:'Lead',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD)',                  cons:'<80%: LRAD TL follows up non-compliant teams in same L10.'},
+    {k:'Team Meeting Rating',                       ty:'Lag',        src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD)',                  cons:'Below target: LRAD TL reviews meeting format with team.'},
+    {k:'Avg L10 Quality Score',                     ty:'Lag',        src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD)',                  cons:'Below target: LRAD TL coaches L10 facilitator.',sh:'l10_quality'},
+    {k:'Avg Self Autonomy Score',                   ty:'Lag',        src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD)',                  cons:'Declining: LRAD TL reviews coaching plan within 7 days.'},
+    {k:'Readiness / Promotion',                     ty:'Lead',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD)',                  cons:'No pipeline movement in quarter: LRAD TL escalates to GM/MD.'},
+    {k:'% Playbook Completed',                      ty:'Governance', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (LRAD)',                  cons:'<80%: LRAD TL reviews and assigns responsible member.'},
   ]},
   {id:'qual',lb:'J) Quality / SID / SMD',ow:'SMD + SID Integrator',kpis:[
     {k:'% On-time & Accurate: RP',            ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'<100%: Process Specialist escalates to SMD Integrator same day.'},
     {k:'% Planned vs Actual: SID Projects',  ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'Lagging: SID Integrator escalates blockers to SMD Integrator.'},
     {k:'# System Changes per Quarter',        ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'0 in a quarter: SID Integrator reviews innovation pipeline.'},
+    {k:'# Projects Completed vs Planned – SMD & SID',ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'Lagging: SMD + SID Integrator escalates blockers to GM/MD.'},
+    {k:'Project Rating % – FSC',             ty:'Lag',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'Below target: SMD Integrator reviews with requester in 7 days.'},
+    {k:'% Complete & Updated: LotusOS (RP / PM / LMDB)',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'Any gap: SMD Integrator updates in 24h.'},
+    {k:'% Complete: LotusOS Activities (Business Planning / Mgmt Review / Internal Audit)',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'Any miss: SMD Integrator follows up responsible team same day.'},
+    {k:'% KDB On-time',                      ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'Any miss: Process Specialist escalates to SMD Integrator same day.'},
+    {k:'% SMD Project Completion',           ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'Below 80%: SMD Integrator reviews blockers with team.'},
+    {k:'% Planned vs Actual – SMD Projects', ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'Lagging: SMD Integrator escalates to GM/MD.'},
+    {k:'% Addressed: Team ICARE',            ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'<90%: SMD + SID Integrator resolves stale items and reports to TL.'},
+    {k:'% Complete & Updated: Work Orders',  ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'Any gap: SID Integrator updates in 24h.'},
+    {k:'% SID Projects On-time',             ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'Lagging: SID Integrator escalates blockers to SMD Integrator.'},
+    {k:'% PT DB On-time',                    ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'Any miss: Quality Integrator updates in 24h.'},
+    {k:'% PT DB Complete',                   ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'<100%: Quality Integrator escalates to SMD Integrator same day.'},
+    {k:'% Accurate & Updated: Team/Section PTs & DBs',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'Any gap: Quality Integrator updates in 24h.'},
+    {k:'% Accurate & Updated: Team/Section Reports',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Quality)',cons:'Any gap: Quality Integrator updates and reports to TL.'},
   ]},
   {id:'smak',lb:'K) SMA — Governance',ow:'SMA',kpis:[
     {k:'LotusOS Adoption %',       ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'LDApps / LotusOS',     sh:'lotusos_adoption',cons:'<80%: SMA sends individual follow-up. Repeat = Consequence Ladder.'},
     {k:'L10 Quality Score (1–10)', ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'LeaderZen / LotusOS',  sh:'l10_quality',     cons:'<6: SMA joins next L10 to coach. 2-week improvement plan.'},
     {k:'% Addressed: ICARE',       ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'ICARE / LotusOS',      sh:'icare_72h',       cons:'<90%: SMA identifies owners of stale items. 24h to resolve.'},
+    {k:'ICARE Resolved <72 Hours %',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'ICARE / LotusOS',     sh:'icare_72h',       cons:'<90%: SMA escalates unresolved ICARE to owner. 24h deadline.'},
+    {k:'% On time & Accurate: LDApp Module Audit',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'LDApps / LotusOS',             cons:'Any miss: SMA follows up responsible TL same day.'},
+    {k:'% On time & Accurate: PropMan Module',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'LDApps / LotusOS',                  cons:'Any miss: SMA follows up responsible TL same day.'},
+    {k:'% Complete & Updated: LotusOS (All LDApps)',ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'LDApps / LotusOS',sh:'lotusos_adoption',cons:'<80%: SMA sends individual follow-up. Repeat = Consequence Ladder.'},
   ]},
 ];
 
@@ -1985,7 +2157,10 @@ function ex(){
 /* ============================================================
    INIT
    ============================================================ */
-window.onload=()=>{loadConfig();renderAll();ld();initAuth();};
+function setSmaS0Site(v){
+  localStorage.setItem('sma_site_view',v);
+}
+window.onload=()=>{loadConfig();renderAll();ld();initAuth();const sv=localStorage.getItem('sma_site_view');if(sv){const sel=document.querySelector('.sma-s0-site-sel');if(sel)sel.value=sv;}};
 </script>
 
 <!--
