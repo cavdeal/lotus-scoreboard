@@ -580,7 +580,7 @@ table{min-width:100%;}
   <div class="hdiv"></div>
   <div class="hmeta">Primary Users: <b>GM/MD + Leadership</b></div>
   <div class="hdiv"></div>
-  <div class="hmeta">Keys <b>1–7</b> switch tabs</div>
+  <div class="hmeta">Keys <b>1–6</b> switch tabs</div>
   <div class="hdiv" id="edit-hdiv"></div>
   <button id="edit-btn" class="hdr-edit-btn" onclick="toggleEditMode()" title="Edit quarterly content">
     <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM1.821 12.943l-.925 3.24 3.241-.928-2.316-2.312z"/></svg>
@@ -597,29 +597,28 @@ table{min-width:100%;}
 <!-- TABS -->
 <div id="tabs">
   <button class="tb on" onclick="go('b',this)"><span class="tb-n">01</span>About</button>
-  <button class="tb"    onclick="go('f',this)"><span class="tb-n">02</span>Founder View</button>
-  <button class="tb"    onclick="go('s',this)"><span class="tb-n">03</span>SMA / GM Command</button>
-  <button class="tb"    onclick="go('v',this)"><span class="tb-n">04</span>VTO Critical Numbers</button>
-  <button class="tb"    onclick="go('t',this)"><span class="tb-n">05</span>Team Drilldown</button>
-  <button class="tb"    onclick="go('a',this)"><span class="tb-n">06</span>Strategic Anchors</button>
-  <button class="tb"    onclick="go('sp',this)"><span class="tb-n">07</span>Strategy Canvas</button>
+  <button class="tb"    onclick="go('f',this)"><span class="tb-n">02</span>Founder-Off Dashboard</button>
+  <button class="tb"    onclick="go('s',this)"><span class="tb-n">03</span>VTO — Company</button>
+  <button class="tb"    onclick="go('t',this)"><span class="tb-n">04</span>VTO — Teams</button>
+  <button class="tb"    onclick="go('a',this)"><span class="tb-n">05</span>Strategic Anchors</button>
+  <button class="tb"    onclick="go('sp',this)"><span class="tb-n">06</span>Lotus Strategy Canvas</button>
 </div>
 
 <!-- CONTENT -->
 <div id="cnt">
 
-  <!-- TAB 1: FOUNDER VIEW -->
+  <!-- TAB 02: FOUNDER-OFF DASHBOARD -->
   <div class="pan" id="pf">
     <div class="tmeta">
       <div class="tmeta-icon">👁</div>
       <div>
-        <div class="tmeta-q">Is the business running without founder involvement?</div>
-        <div class="tmeta-desc">6 green lights = Lotus can run without the founder. If any light is red, the founder still needs to step in for that area. All 6 must stay green for 8 weeks in a row.</div>
+        <div class="tmeta-q">Can Dennis step back? Are the 6 Founder-Off Switches green?</div>
+        <div class="tmeta-desc">The 6 tests that prove the business can run without the founder. All 6 must stay green for 8 consecutive weeks before Dennis can fully step back. Each switch has a clear success proof and a consequence if red.</div>
         <div class="tmeta-row">
           <div class="tmi"><label>Primary Users</label><span>GM/MD + Leadership</span></div>
           <div class="tmi"><label>Publisher</label><span>GM/MD + SMA</span></div>
           <div class="tmi"><label>Cadence</label><span>Weekly review</span></div>
-          <div class="tmi"><label>Rule</label><span>All 6 switches GREEN for 8 straight weeks = founder-ready</span></div>
+          <div class="tmi"><label>Rule</label><span>All 6 must stay GREEN for 8 consecutive weeks = Founder-Off confirmed</span></div>
         </div>
       </div>
     </div>
@@ -634,13 +633,13 @@ table{min-width:100%;}
     <div class="rg" id="rdg"></div>
   </div>
 
-  <!-- TAB 2: SMA COMMAND VIEW -->
+  <!-- TAB 03: VTO — COMPANY -->
   <div class="pan" id="ps">
     <div class="tmeta">
       <div class="tmeta-icon">📋</div>
       <div>
-        <div class="tmeta-q">Is the business running this week?</div>
-        <div class="tmeta-desc">Your weekly check on all key numbers. Published every Monday by 9am. If a number is red, the owner explains what happened and shows a fix plan — same day.</div>
+        <div class="tmeta-q">Are our Critical Numbers on track — by site and by function?</div>
+        <div class="tmeta-desc">The company-level VTO Scorecard. Section 0 shows the 10 Critical Numbers across all 4 sites — these are the lag indicators (what happened). Sections 1–6 show the lead and governance KPIs that drive them. Published every Monday by 9am. Red = fix plan due same day.</div>
         <div class="tmeta-row">
           <div class="tmi"><label>Primary Users</label><span>GM/MD (publisher) + Leadership (review)</span></div>
           <div class="tmi"><label>Publisher</label><span>GM/MD — every Monday by 9am</span></div>
@@ -661,42 +660,29 @@ table{min-width:100%;}
       <span class="rh-compact-lbl">● Rock Health:</span>
       <span id="rh-compact-val" style="font-family:var(--fd);font-size:11px;color:var(--text-mid)">Loading…</span>
       <button class="rh-refresh" onclick="loadRockHealth()" style="margin-left:8px">↻ Refresh</button>
-      <button class="rh-refresh" onclick="go('sp',document.querySelectorAll('.tb')[6])" style="margin-left:4px">→ See full view in Strategy Canvas</button>
+      <button class="rh-refresh" onclick="go('sp',document.querySelectorAll('.tb')[5])" style="margin-left:4px">→ See full view in Lotus Strategy Canvas</button>
     </div>
     <div id="smac"></div>
   </div>
 
-  <!-- TAB 3: VTO CRITICAL NUMBERS -->
-  <div class="pan" id="pv">
-    <div class="tmeta">
-      <div class="tmeta-icon">🎯</div>
-      <div>
-        <div class="tmeta-q">Are the top business numbers on track?</div>
-        <div class="tmeta-desc">The 10 most important numbers across all Lotus sites. Each number has an owner and a target. If a number turns red — the owner explains and shows a fix plan today.</div>
-        <div class="tmeta-row">
-          <div class="tmi"><label>Primary Users</label><span>GM/MD + BU Heads + Leadership Team</span></div>
-          <div class="tmi"><label>Publisher</label><span>GM/MD</span></div>
-          <div class="tmi"><label>Cadence</label><span>Weekly (ops) / Monthly (finance)</span></div>
-          <div class="tmi"><label>Rule</label><span>Red on any site = owner explains + shows plan, same day</span></div>
-        </div>
-      </div>
-    </div>
-    <div id="vtoc"></div>
-  </div>
-
-  <!-- TAB 4: TEAM DRILLDOWN -->
+  <!-- TAB 04: VTO — TEAMS -->
   <div class="pan" id="pt">
     <div class="tmeta">
       <div class="tmeta-icon">👥</div>
       <div>
-        <div class="tmeta-q">Is each team hitting its KPIs?</div>
-        <div class="tmeta-desc">See how each of the 11 teams is doing. Team Leaders fill in the numbers every week. GM reviews every Monday. Tap a team name to open its numbers.</div>
+        <div class="tmeta-q">Are our teams hitting the KPIs that drive the company numbers?</div>
+        <div class="tmeta-desc">The team-level layer of the VTO. These are predominantly lead KPIs — the activities and behaviors each team owns that drive the company lag numbers in Tab 03. Each Team Leader fills in their section weekly. Red = Team Leader explains and shows a plan at the next L10.</div>
         <div class="tmeta-row">
           <div class="tmi"><label>Primary Users</label><span>Team Leaders (entry), GM/MD (review)</span></div>
           <div class="tmi"><label>Publisher</label><span>Each TL + GM/MD — weekly</span></div>
-          <div class="tmi"><label>Rule</label><span>Click a department to expand. GM/MD reviews all 11 sections every Monday.</span></div>
+          <div class="tmi"><label>Rule</label><span>Click a department to expand. Red = Team Leader explains and shows a plan at the next L10.</span></div>
         </div>
       </div>
+    </div>
+    <div class="rh-compact">
+      <span class="rh-compact-lbl">Company numbers (Lag + Lead):</span>
+      <span style="font-size:11px;color:var(--text-mid)">Live in Tab 03</span>
+      <button class="rh-refresh" onclick="go('s',document.querySelectorAll('.tb')[2])" style="margin-left:4px">→ VTO — Company</button>
     </div>
     <div id="teamc"></div>
   </div>
@@ -732,7 +718,7 @@ table{min-width:100%;}
             <div class="tmi"><label>Primary Users</label><span>All Roles</span></div>
             <div class="tmi"><label>Publisher</label><span>GM/MD + SMA</span></div>
             <div class="tmi"><label>Cadence</label><span>Open every Monday</span></div>
-            <div class="tmi"><label>Keys</label><span>1–7 on keyboard switch tabs</span></div>
+            <div class="tmi"><label>Keys</label><span>1–6 on keyboard switch tabs</span></div>
           </div>
         </div>
       </div>
@@ -740,7 +726,7 @@ table{min-width:100%;}
       <!-- A: What is this scoreboard? -->
       <div class="sh"><div class="shd"></div><h3>A — What is this scoreboard?</h3><div class="shl"></div></div>
       <div class="about-body">
-        <p>This scoreboard tracks all the key numbers across Lotus Development. It has 7 tabs. Each number has a target, an actual, a status, an owner, and a consequence rule. When a number is green, the system is working. When a number is red, the owner must explain and show a plan — the same day. Tab 3 sections are collapsible — click any section header to open or close it.</p>
+        <p>This scoreboard tracks all the key numbers across Lotus Development. It has 6 tabs. Each number has a target, an actual, a status, an owner, and a consequence rule. When a number is green, the system is working. When a number is red, the owner must explain and show a plan — the same day. Tab 03 sections are collapsible — click any section header to open or close it.</p>
         <p>This scoreboard works the same way at every Lotus Development site. If a new site opens tomorrow, the same tabs, the same rules, and the same cadence apply — no setup needed.</p>
       </div>
 
@@ -752,8 +738,8 @@ table{min-width:100%;}
           <tbody>
             <tr><td><b>Team Member</b></td><td>Enter your actual numbers. If your number is red, tell your Team Leader right away.</td><td style="white-space:nowrap">Weekly, before Monday 8am</td></tr>
             <tr><td><b>Team Leader</b></td><td>Check your team's numbers every Monday. Make sure every red number has a written plan. Present the plan at your L10 meeting.</td><td style="white-space:nowrap">Every Monday by 9am</td></tr>
-            <tr><td><b>GM / SMA</b></td><td>Review all 7 tabs every Monday. If a Team Leader has a red number without a plan, follow up that day. Tab 3 shows the full weekly picture.</td><td style="white-space:nowrap">Every Monday by 9am</td></tr>
-            <tr><td><b>MD / Owner</b></td><td>Check Tab 2 and Tab 4 weekly. If all 6 switches in Tab 2 are green for 8 straight weeks, the business is running on its own.</td><td style="white-space:nowrap">Weekly</td></tr>
+            <tr><td><b>GM / SMA</b></td><td>Review all 6 tabs every Monday. If a Team Leader has a red number without a plan, follow up that day. Tab 03 shows the full weekly picture by site and function.</td><td style="white-space:nowrap">Every Monday by 9am</td></tr>
+            <tr><td><b>MD / Owner</b></td><td>Check Tab 02 (Founder-Off Dashboard) weekly. If all 6 Founder-Off Switches are green for 8 consecutive weeks, the business runs on its own.</td><td style="white-space:nowrap">Weekly</td></tr>
           </tbody>
         </table>
       </div>
@@ -809,14 +795,14 @@ table{min-width:100%;}
         <table>
           <thead><tr><th>Cadence</th><th>Who</th><th>What to update</th></tr></thead>
           <tbody>
-            <tr><td>Every Monday by 8am</td><td>Team Leader (each dept)</td><td>Tab 5 — your team's KPIs</td></tr>
-            <tr><td>Every Monday by 9am</td><td>GM / SMA</td><td>Tab 3 — SMA Command full picture</td></tr>
-            <tr><td>Every week</td><td>GM / SMA</td><td>Tab 4 — VTO Critical Numbers (ops KPIs)</td></tr>
-            <tr><td>Every month</td><td>Finance TL</td><td>Tab 4 — Revenue, EBITDA, expenses</td></tr>
-            <tr><td>Every quarter</td><td>GM + HR (LRAD)</td><td>Tab 6 — Strategic Anchors progress</td></tr>
-            <tr><td>Every quarter</td><td>GM/MD</td><td>Tab 7 — Strategy Canvas: Rallying Cry, Revenue Goals, Rocks, North Star, Strategic Themes</td></tr>
-            <tr><td>Every year</td><td>GM/MD</td><td>Tab 7 — Strategy Canvas: 1-Year Picture targets and priorities</td></tr>
-            <tr><td>Every 3 years</td><td>GM/MD</td><td>Tab 7 — Strategy Canvas: 3-Year Roadmap milestones</td></tr>
+            <tr><td>Every Monday by 8am</td><td>Team Leader (each dept)</td><td>Tab 04 — VTO Teams: your team's KPIs</td></tr>
+            <tr><td>Every Monday by 9am</td><td>GM / SMA</td><td>Tab 03 — VTO Company: full picture by site and function</td></tr>
+            <tr><td>Every week</td><td>GM / SMA</td><td>Tab 03 — Section 0: 10 Critical Numbers across all 4 sites</td></tr>
+            <tr><td>Every month</td><td>Finance TL</td><td>Tab 03 — Section 0: Revenue, EBITDA, expenses (monthly KPIs)</td></tr>
+            <tr><td>Every quarter</td><td>GM + HR (LRAD)</td><td>Tab 05 — Strategic Anchors progress</td></tr>
+            <tr><td>Every quarter</td><td>GM/MD</td><td>Tab 06 — Lotus Strategy Canvas: Rallying Cry, Revenue Goals, Rocks, North Star, Strategic Themes</td></tr>
+            <tr><td>Every year</td><td>GM/MD</td><td>Tab 06 — Lotus Strategy Canvas: 1-Year Picture targets and priorities</td></tr>
+            <tr><td>Every 3 years</td><td>GM/MD</td><td>Tab 06 — Lotus Strategy Canvas: 3-Year Roadmap milestones</td></tr>
           </tbody>
         </table>
       </div>
@@ -879,11 +865,14 @@ table{min-width:100%;}
             <tr><td><b>ICARE</b></td><td>The system for recording and resolving complaints and problems. All issues go into ICARE.</td></tr>
             <tr><td><b>LotusOS</b></td><td>The Lotus Development operating system. 9 modules. All teams must use it.</td></tr>
             <tr><td><b>DCFM</b></td><td>Design, Construction, Facilities Management. The team responsible for all building, renovation, maintenance, and technical engineering work across Lotus sites.</td></tr>
-            <tr><td><b>Strategy Canvas</b></td><td>Lotus Dev's strategy in one place — quarterly Rocks, 1-Year Picture, and 3-Year Roadmap. Live project health from LCC.</td></tr>
-            <tr><td><b>1-Year Picture</b></td><td>Annual targets (Revenue, EBITDA, Occupancy, NPS) and the top priorities for the year. Collapsible section inside Tab 7.</td></tr>
+            <tr><td><b>Founder-Off Dashboard</b></td><td>Tab 02. The 6 tests that prove Dennis can step back from day-to-day operations. All 6 must stay green for 8 consecutive weeks to confirm Founder-Off status.</td></tr>
+            <tr><td><b>Lotus Strategy Canvas</b></td><td>Tab 06. Lotus Dev's strategy in one place — quarterly Rocks, 1-Year Picture, and 3-Year Roadmap. Live project health from LCC.</td></tr>
+            <tr><td><b>1-Year Picture</b></td><td>Annual targets (Revenue, EBITDA, Occupancy, NPS) and the top priorities for the year. Collapsible section inside Tab 06.</td></tr>
             <tr><td><b>OGSM</b></td><td>Objectives, Goals, Strategies, Measures. The planning framework Lotus used previously. Retired Q2 2026 in favor of LotusOS Rocks.</td></tr>
             <tr><td><b>SMA</b></td><td>Site/Stores Management Associate. Coordinates operations and reviews all KPIs.</td></tr>
-            <tr><td><b>VTO</b></td><td>Vision/Traction Organizer. The top critical numbers for the whole business.</td></tr>
+            <tr><td><b>VTO</b></td><td>Vision/Traction Organizer. The master KPI framework for the whole business. VTO — Company (Tab 03) shows all 10 Critical Numbers by site. VTO — Teams (Tab 04) shows team-level lead KPIs that drive them.</td></tr>
+            <tr><td><b>VTO — Company</b></td><td>Tab 03. Shows the 10 most important lag and lead numbers at the company level, broken out by site (Lotus Mall, Stadium Strip, Portal Mall, Consolidated).</td></tr>
+            <tr><td><b>VTO — Teams</b></td><td>Tab 04. Shows the team-level lead KPIs (~170 across 11 teams) that drive the company lag numbers in Tab 03.</td></tr>
             <tr><td><b>GLA</b></td><td>Gross Leasable Area. The total space available for rent in our properties.</td></tr>
             <tr><td><b>NPS</b></td><td>Net Promoter Score. A number from -100 to +100 that measures how likely customers are to recommend us.</td></tr>
           </tbody>
@@ -897,12 +886,11 @@ table{min-width:100%;}
           <thead><tr><th>Tab</th><th>Name</th><th>Key question</th><th>Who publishes</th></tr></thead>
           <tbody>
             <tr><td>01</td><td><b>About</b></td><td>How do I use this scoreboard?</td><td>Fixed — always available</td></tr>
-            <tr><td>02</td><td><b>Founder View</b></td><td>Is the business running without founder involvement?</td><td>GM/MD + SMA</td></tr>
-            <tr><td>03</td><td><b>SMA / GM Command</b></td><td>Is the business running this week?</td><td>GM/MD — every Monday</td></tr>
-            <tr><td>04</td><td><b>VTO Critical Numbers</b></td><td>Are the top business numbers on track?</td><td>GM/MD</td></tr>
-            <tr><td>05</td><td><b>Team Drilldown</b></td><td>Is each team hitting its KPIs?</td><td>Each TL + GM/MD</td></tr>
-            <tr><td>06</td><td><b>Strategic Anchors</b></td><td>Are our operating systems being adopted?</td><td>GM/MD + LeaderZen Custodian</td></tr>
-            <tr><td>07</td><td><b>Strategy Canvas</b></td><td>Where are we going — this quarter, this year, and in 3 years?</td><td>GM/MD — quarterly (Rocks) · annually (1-Year) · 3 years (Roadmap)</td></tr>
+            <tr><td>02</td><td><b>Founder-Off Dashboard</b></td><td>Can Dennis step back? Are the 6 Founder-Off Switches green?</td><td>GM/MD + SMA</td></tr>
+            <tr><td>03</td><td><b>VTO — Company</b></td><td>Are our Critical Numbers on track — by site and by function?</td><td>GM/MD — every Monday</td></tr>
+            <tr><td>04</td><td><b>VTO — Teams</b></td><td>Are our teams hitting the KPIs that drive the company numbers?</td><td>Each TL + GM/MD</td></tr>
+            <tr><td>05</td><td><b>Strategic Anchors</b></td><td>Are our operating systems being adopted — not just installed?</td><td>GM/MD + LeaderZen Custodian</td></tr>
+            <tr><td>06</td><td><b>Lotus Strategy Canvas</b></td><td>Where are we going — this quarter, this year, and in 3 years?</td><td>GM/MD — quarterly (Rocks) · annually (1-Year) · 3 years (Roadmap)</td></tr>
           </tbody>
         </table>
       </div>
@@ -910,7 +898,7 @@ table{min-width:100%;}
     </div><!-- /about-body -->
   </div>
 
-  <!-- TAB 7: STRATEGY CANVAS -->
+  <!-- TAB 06: LOTUS STRATEGY CANVAS -->
   <div class="pan" id="psp">
     <div class="tmeta">
       <div class="tmeta-icon">🗺️</div>
@@ -1614,7 +1602,7 @@ const D = {
 /* ============================================================
    ROUTING
    ============================================================ */
-const PANS = {f:'pf',s:'ps',v:'pv',t:'pt',a:'pa',b:'pb',sp:'psp'};
+const PANS = {f:'pf',s:'ps',t:'pt',a:'pa',b:'pb',sp:'psp'};
 function go(id,btn){
   document.querySelectorAll('.pan').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tb').forEach(b=>b.classList.remove('on'));
@@ -1622,7 +1610,7 @@ function go(id,btn){
   if(btn) btn.classList.add('on');
 }
 document.addEventListener('keydown',e=>{
-  const m={1:'f',2:'s',3:'v',4:'t',5:'a',6:'b',7:'sp'};
+  const m={1:'f',2:'s',3:'t',4:'a',5:'b',6:'sp'};
   if(m[e.key]&&!e.ctrlKey&&!e.metaKey&&!['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)){
     const btns=document.querySelectorAll('.tb');
     const i=Object.keys(m).indexOf(e.key);
@@ -1756,20 +1744,9 @@ function rRC(){
    TAB 2: SMA COMMAND VIEW
    ============================================================ */
 const SMA=[
-  {id:'s0',title:'Section 0 — Executive Cockpit (Reality Dials)',
-   note:'Same numbers as Tab 3. If any is Red, BU Head presents a plan at the next L10.',
-   rows:[
-    {k:'Occupancy % (Area, consolidated)',      ow:'Opportunity TL',          src:'~scoreboard_l10_weekly_view.md',frm:'VTO Critical Numbers / OGSM',    ty:'Lag',      tgt:'TBD', cons:'Declining 2 weeks: Opportunity TL escalates pull-out aversion plan.'},
-    {k:'Collection Rate % (consolidated)',      ow:'Collection Specialist',   src:'~scoreboard_l10_weekly_view.md',frm:'VTO Critical Numbers / OGSM',    ty:'Lead',     tgt:'TBD', cons:'<85%: Finance TL reviews aging AR same day.'},
-    {k:'EBITDA Margin (site-level)',            ow:'Finance TL',              src:'~scoreboard_l10_weekly_view.md',frm:'VTO Critical Numbers / Finance', ty:'Lag',      tgt:'TBD', cons:'Below target: Finance TL presents variance analysis within 48h.'},
-    {k:'Avg Daily Foot Traffic (consolidated)', ow:'E&G TL',                 src:'~scoreboard_l10_weekly_view.md',frm:'VTO Critical Numbers / OGSM',    ty:'Lead',     tgt:'TBD', cons:'Declining: E&G TL reviews event pipeline. Activates drive within 7 days.'},
-    {k:'Community NPS (site)',                  ow:'Ops TL',                  src:'~scoreboard_l10_weekly_view.md',frm:'VTO Critical Numbers / STTACCK', ty:'Lag',      tgt:'≥60', cons:'<50 for 2 weeks: Ops TL submits ICARE root cause report.'},
-    {k:'Occupancy % (Unit, consolidated)',      ow:'Opportunity TL',          src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Opportunity) / OGSM',ty:'Lag',tgt:'TBD',cons:'Declining 2 weeks: Opportunity TL reviews unit vacancy list same day.'},
-    {k:'Occupancy % (PValue, consolidated)',    ow:'Opportunity TL',          src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Opportunity) / OGSM',ty:'Lag',tgt:'TBD',cons:'Declining: Opportunity TL reviews tenant contract values.'},
-    {k:'Net Profit (₱)',                        ow:'Finance TL',              src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Finance) / OGSM',   ty:'Lag',tgt:'TBD',cons:'Negative: GM/MD and Finance TL review same week.'},
-    {k:'Venue Utilization % (hours)',           ow:'E&G TL',                  src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (E&G) / VTO CN',     ty:'Lead',tgt:'TBD',cons:'<60%: E&G TL reviews booking and pricing in 7 days.'},
-    {k:'Operating Expenses (Electricity / Water / Manpower / Security)',ow:'Ops TL',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (Operations) / OGSM',ty:'Lag',tgt:'TBD',cons:'Overrun >10%: Ops TL presents breakdown to GM/MD in 48h.'},
-  ]},
+  {id:'s0',title:'Section 0 — VTO Critical Numbers (All Sites)',
+   note:'10 Critical Numbers across all 4 sites. These are the company lag indicators — the results. Sections 1–6 show the lead KPIs that drive these numbers.',
+   rows:[]},
   {id:'s1',title:'Section 1 — Growth Engine: Leasing',
    note:'Tracks demand and conversion for commercial spaces. Owner: Opportunity Team.',
    rows:[
@@ -1873,15 +1850,8 @@ function rSMA(){
         <td class="cons" style="min-width:175px">${r.cons}</td>
       </tr>`;
     }).join('');
-    const s0bar=sec.id==='s0'
-      ?`<div class="sma-s0-site-bar">Viewing: <select class="sma-s0-site-sel" onchange="setSmaS0Site(this.value)"><option>Consolidated</option><option>Lotus Mall</option><option>Stadium Strip</option><option>Portal Mall</option></select>&nbsp;— For site-by-site detail, open <b>Tab 3</b>.</div>`
-      :'';
-    return`<details class="sma-sec">
-      <summary>${sec.title}<span class="ks" style="margin-left:auto">${sec.rows.length} KPIs</span></summary>
-      <div style="padding:10px 4px 0">
-      <p style="font-size:11px;color:var(--text-dim);margin-bottom:8px">${sec.note||''}</p>
-      ${s0bar}
-      <div class="tw tw-x">
+    const s0cnt=sec.id==='s0'?`<div id="vtoc"></div>`:
+      `<div class="tw tw-x">
       <table>
         <thead><tr>
           ${sh('k','KPI')}${sh('ty','Type')}<th>Target</th>
@@ -1890,7 +1860,12 @@ function rSMA(){
           <th>Next Action</th><th>Consequence if Missed</th>
         </tr></thead>
         <tbody>${rows}</tbody>
-      </table></div>
+      </table></div>`;
+    return`<details class="sma-sec">
+      <summary>${sec.title}<span class="ks" style="margin-left:auto">${sec.id==='s0'?'10 KPIs × 4 sites':sec.rows.length+' KPIs'}</span></summary>
+      <div style="padding:10px 4px 0">
+      <p style="font-size:11px;color:var(--text-dim);margin-bottom:8px">${sec.note||''}</p>
+      ${s0cnt}
       </div>
     </details>`;
   }).join('');
