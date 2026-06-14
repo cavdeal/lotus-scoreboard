@@ -474,6 +474,22 @@ body.edit-mode #cnt{top:calc(var(--hh) + 28px + var(--th));}
 .sp-live-badge{display:inline;margin-left:8px;font-size:11px;color:var(--lotus);font-weight:600;}
 .sp-health-sum{margin-left:auto;font-size:11px;color:var(--text-mid);}
 .sp-edit-note{margin-top:20px;padding:10px 14px;background:var(--lotus-dim);border:1px solid var(--lotus-mid);border-radius:6px;font-size:11px;color:var(--text-mid);line-height:1.5;}
+.sp-sel{padding:5px 10px;border:1px solid var(--border);border-radius:16px;background:var(--surface);color:var(--text-hi);font-family:var(--fd);font-size:11px;cursor:pointer;outline:none;}
+.sp-sel:focus{border-color:var(--lotus-mid);}
+.sp-sel-lbl{font-size:10px;font-family:var(--fd);color:var(--text-dim);font-weight:600;text-transform:uppercase;letter-spacing:.04em;}
+.sp-details{margin-bottom:6px;}
+.sp-details>summary{list-style:none;cursor:pointer;}
+.sp-details>summary::-webkit-details-marker{display:none;}
+.sp-sum{display:flex;align-items:center;gap:8px;margin-bottom:0 !important;}
+.sp-sum h3{margin:0;}
+.sp-sum::before{content:'▶';font-size:9px;color:var(--lotus);margin-right:4px;transition:transform .18s ease;}
+.sp-details[open]>.sp-sum::before{transform:rotate(90deg);}
+.sp-sec-sub{font-size:11px;color:var(--text-dim);margin:6px 0 12px 0;line-height:1.5;}
+.sico{display:inline-block;font-size:9px;color:var(--text-dim);margin-left:3px;vertical-align:middle;}
+.rh-compact{display:flex;align-items:center;gap:6px;padding:6px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;margin-bottom:8px;flex-wrap:wrap;}
+.rh-compact-lbl{font-size:10px;font-family:var(--fd);font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;}
+.rh-refresh{padding:3px 8px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text-mid);font-size:10px;font-family:var(--fd);cursor:pointer;}
+.rh-refresh:hover{border-color:var(--lotus-mid);color:var(--lotus);}
 
 /* ── 12Q LONG HORIZON ── */
 .q12-long-wrap{padding:0 4px;}
@@ -564,7 +580,7 @@ table{min-width:100%;}
   <div class="hdiv"></div>
   <div class="hmeta">Primary Users: <b>GM/MD + Leadership</b></div>
   <div class="hdiv"></div>
-  <div class="hmeta">Keys <b>1–8</b> switch tabs</div>
+  <div class="hmeta">Keys <b>1–7</b> switch tabs</div>
   <div class="hdiv" id="edit-hdiv"></div>
   <button id="edit-btn" class="hdr-edit-btn" onclick="toggleEditMode()" title="Edit quarterly content">
     <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM1.821 12.943l-.925 3.24 3.241-.928-2.316-2.312z"/></svg>
@@ -586,8 +602,7 @@ table{min-width:100%;}
   <button class="tb"    onclick="go('v',this)"><span class="tb-n">04</span>VTO Critical Numbers</button>
   <button class="tb"    onclick="go('t',this)"><span class="tb-n">05</span>Team Drilldown</button>
   <button class="tb"    onclick="go('a',this)"><span class="tb-n">06</span>Strategic Anchors</button>
-  <button class="tb"    onclick="go('sp',this)"><span class="tb-n">07</span>Sprint Canvas</button>
-  <button class="tb"    onclick="go('q12',this)"><span class="tb-n">08</span>12Q Canvas</button>
+  <button class="tb"    onclick="go('sp',this)"><span class="tb-n">07</span>Strategy Canvas</button>
 </div>
 
 <!-- CONTENT -->
@@ -642,12 +657,11 @@ table{min-width:100%;}
       <div class="li"><span class="dot ds">Not Measured</span></div>
       <div class="li" style="margin-left:auto"><span class="ks">↔ SHARED</span> = linked across tabs</div>
     </div>
-    <div class="rh-wrap">
-      <div class="sh"><div class="shd"></div><h3>Rocks/Projects Health — Live from LCC</h3><div class="shl"></div><button class="rh-refresh" onclick="loadRockHealth()">↻ Refresh</button><span class="rh-status" id="rh-status">Loading…</span></div>
-      <div class="rh-grid">
-        <div class="rh-hdr">Pillar</div><div class="rh-hdr" style="text-align:center">Rocks/Projects</div><div class="rh-hdr" style="text-align:center">On Track</div><div class="rh-hdr" style="text-align:center">At Risk</div><div class="rh-hdr" style="text-align:center">Critical</div>
-        <div id="rh-rows">—</div>
-      </div>
+    <div class="rh-compact" id="rh-compact">
+      <span class="rh-compact-lbl">● Rock Health:</span>
+      <span id="rh-compact-val" style="font-family:var(--fd);font-size:11px;color:var(--text-mid)">Loading…</span>
+      <button class="rh-refresh" onclick="loadRockHealth()" style="margin-left:8px">↻ Refresh</button>
+      <button class="rh-refresh" onclick="go('sp',document.querySelectorAll('.tb')[6])" style="margin-left:4px">→ See full view in Strategy Canvas</button>
     </div>
     <div id="smac"></div>
   </div>
@@ -718,7 +732,7 @@ table{min-width:100%;}
             <div class="tmi"><label>Primary Users</label><span>All Roles</span></div>
             <div class="tmi"><label>Publisher</label><span>GM/MD + SMA</span></div>
             <div class="tmi"><label>Cadence</label><span>Open every Monday</span></div>
-            <div class="tmi"><label>Keys</label><span>1–8 on keyboard switch tabs</span></div>
+            <div class="tmi"><label>Keys</label><span>1–7 on keyboard switch tabs</span></div>
           </div>
         </div>
       </div>
@@ -726,7 +740,7 @@ table{min-width:100%;}
       <!-- A: What is this scoreboard? -->
       <div class="sh"><div class="shd"></div><h3>A — What is this scoreboard?</h3><div class="shl"></div></div>
       <div class="about-body">
-        <p>This scoreboard tracks all the key numbers across Lotus Development. It has 8 tabs. Each number has a target, an actual, a status, an owner, and a consequence rule. When a number is green, the system is working. When a number is red, the owner must explain and show a plan — the same day. Tab 3 sections are collapsible — click any section header to open or close it.</p>
+        <p>This scoreboard tracks all the key numbers across Lotus Development. It has 7 tabs. Each number has a target, an actual, a status, an owner, and a consequence rule. When a number is green, the system is working. When a number is red, the owner must explain and show a plan — the same day. Tab 3 sections are collapsible — click any section header to open or close it.</p>
         <p>This scoreboard works the same way at every Lotus Development site. If a new site opens tomorrow, the same tabs, the same rules, and the same cadence apply — no setup needed.</p>
       </div>
 
@@ -738,7 +752,7 @@ table{min-width:100%;}
           <tbody>
             <tr><td><b>Team Member</b></td><td>Enter your actual numbers. If your number is red, tell your Team Leader right away.</td><td style="white-space:nowrap">Weekly, before Monday 8am</td></tr>
             <tr><td><b>Team Leader</b></td><td>Check your team's numbers every Monday. Make sure every red number has a written plan. Present the plan at your L10 meeting.</td><td style="white-space:nowrap">Every Monday by 9am</td></tr>
-            <tr><td><b>GM / SMA</b></td><td>Review all 8 tabs every Monday. If a Team Leader has a red number without a plan, follow up that day. Tab 3 shows the full weekly picture.</td><td style="white-space:nowrap">Every Monday by 9am</td></tr>
+            <tr><td><b>GM / SMA</b></td><td>Review all 7 tabs every Monday. If a Team Leader has a red number without a plan, follow up that day. Tab 3 shows the full weekly picture.</td><td style="white-space:nowrap">Every Monday by 9am</td></tr>
             <tr><td><b>MD / Owner</b></td><td>Check Tab 2 and Tab 4 weekly. If all 6 switches in Tab 2 are green for 8 straight weeks, the business is running on its own.</td><td style="white-space:nowrap">Weekly</td></tr>
           </tbody>
         </table>
@@ -862,8 +876,9 @@ table{min-width:100%;}
             <tr><td><b>ICARE</b></td><td>The system for recording and resolving complaints and problems. All issues go into ICARE.</td></tr>
             <tr><td><b>LotusOS</b></td><td>The Lotus Development operating system. 9 modules. All teams must use it.</td></tr>
             <tr><td><b>DCFM</b></td><td>Design, Construction, Facilities Management. The team responsible for all building, renovation, maintenance, and technical engineering work across Lotus sites.</td></tr>
-            <tr><td><b>Sprint Canvas</b></td><td>The quarterly plan. Shows what the business is focused on for the next 90 days.</td></tr>
-            <tr><td><b>12Q Canvas</b></td><td>The 3-year roadmap. Shows where Lotus is going over the next 12 quarters (3 years).</td></tr>
+            <tr><td><b>Strategy Canvas</b></td><td>Lotus Dev's strategy in one place — quarterly Rocks, 1-Year Picture, and 3-Year Roadmap. Live project health from LCC.</td></tr>
+            <tr><td><b>1-Year Picture</b></td><td>Annual targets (Revenue, EBITDA, Occupancy, NPS) and the top priorities for the year. Collapsible section inside Tab 7.</td></tr>
+            <tr><td><b>OGSM</b></td><td>Objectives, Goals, Strategies, Measures. The planning framework Lotus used previously. Retired Q2 2026 in favor of LotusOS Rocks.</td></tr>
             <tr><td><b>SMA</b></td><td>Site/Stores Management Associate. Coordinates operations and reviews all KPIs.</td></tr>
             <tr><td><b>VTO</b></td><td>Vision/Traction Organizer. The top critical numbers for the whole business.</td></tr>
             <tr><td><b>OGSM</b></td><td>Objectives, Goals, Strategies, Measures. The planning framework for all teams.</td></tr>
@@ -885,8 +900,7 @@ table{min-width:100%;}
             <tr><td>04</td><td><b>VTO Critical Numbers</b></td><td>Are the top business numbers on track?</td><td>GM/MD</td></tr>
             <tr><td>05</td><td><b>Team Drilldown</b></td><td>Is each team hitting its KPIs?</td><td>Each TL + GM/MD</td></tr>
             <tr><td>06</td><td><b>Strategic Anchors</b></td><td>Are our operating systems being adopted?</td><td>GM/MD + LeaderZen Custodian</td></tr>
-            <tr><td>07</td><td><b>Sprint Canvas</b></td><td>What is this quarter's plan?</td><td>GM/MD — every quarter</td></tr>
-            <tr><td>08</td><td><b>12Q Canvas</b></td><td>Where are we going in the next 3 years?</td><td>GM/MD — every 3 years</td></tr>
+            <tr><td>07</td><td><b>Strategy Canvas</b></td><td>Where are we going — this quarter, this year, and in 3 years?</td><td>GM/MD — quarterly (Rocks) · annually (1-Year) · 3 years (Roadmap)</td></tr>
           </tbody>
         </table>
       </div>
@@ -894,40 +908,21 @@ table{min-width:100%;}
     </div><!-- /about-body -->
   </div>
 
-  <!-- TAB 7: SPRINT CANVAS -->
+  <!-- TAB 7: STRATEGY CANVAS -->
   <div class="pan" id="psp">
     <div class="tmeta">
-      <div class="tmeta-icon">🏃</div>
+      <div class="tmeta-icon">🗺️</div>
       <div>
-        <div class="tmeta-q">What are we running toward this quarter?</div>
-        <div class="tmeta-desc">This quarter's plan. Shows the goal, active projects, and who owns what. Project health and next steps come live from LCC. Tap Edit in the header to update the goal and targets.</div>
+        <div class="tmeta-q">Where are we going — this quarter, this year, and in 3 years?</div>
+        <div class="tmeta-desc">Lotus Dev's strategy in one place. Quarterly Rocks show what we are executing now. The 1-Year Picture shows where we are headed by year-end. The 3-Year Roadmap shows the bigger target. Project health comes live from LCC. Tap Edit in the header to update targets and themes.</div>
         <div class="tmeta-row">
           <div class="tmi"><label>Primary Users</label><span>GM/MD (publisher) + Leadership (review)</span></div>
-          <div class="tmi"><label>Cadence</label><span>Updated once per quarter</span></div>
+          <div class="tmi"><label>Cadence</label><span>Rocks: every quarter · 1-Year: every year · 3-Year: every 3 years</span></div>
           <div class="tmi"><label>Rule</label><span>No rock without an owner. No owner without a success proof.</span></div>
         </div>
       </div>
     </div>
     <div id="sp-content"></div>
-  </div>
-
-  <!-- TAB 8: 12Q CANVAS -->
-  <div class="pan" id="pq12">
-    <div class="tmeta">
-      <div class="tmeta-icon">📅</div>
-      <div>
-        <div class="tmeta-q">Where are we going in the next 3 years?</div>
-        <div class="tmeta-desc">Where Lotus is going in the next 3 years. One row = one quarter. The NOW row is where we are today. Tap Edit in the header to update the targets and milestones.</div>
-        <div class="tmeta-row">
-          <div class="tmi"><label>Primary Users</label><span>GM/MD + MD/Owner</span></div>
-          <div class="tmi"><label>Cadence</label><span>Updated once per 3-year cycle</span></div>
-          <div class="tmi"><label>Owner</label><span>GM/MD publishes · MD/Owner reviews</span></div>
-          <div class="tmi"><label>Rule</label><span>Each quarter must have a revenue number and a key event. No blank rows.</span></div>
-          <div class="tmi"><label>Escalation</label><span>Actual misses quarterly revenue by ≥20% → GM reviews plan with MD same week</span></div>
-        </div>
-      </div>
-    </div>
-    <div id="q12-content"></div>
   </div>
 
 </div><!-- /cnt -->
@@ -1012,6 +1007,16 @@ const Q12 = {
     { q: 12, label: 'Q4 2028', revenue: '₱10M',  occupancy: '95%', key_event: 'Founder-free target reached' },
   ],
 };
+const Y1 = {
+  year_label: '2026',
+  targets: { revenue: '₱5.5M / month', ebitda_pct: '28%', occupancy: '90%', nps: '60+' },
+  priorities: [
+    {p: 'Reach ₱5.5M monthly revenue by Q4', owner: 'GM/MD',           due: 'Dec 2026', status: 'on-track'},
+    {p: 'Full LotusOS adoption across all teams', owner: 'SMA',         due: 'Dec 2026', status: 'on-track'},
+    {p: 'Portal Mall leasing to ≥85% occupancy', owner: 'Opportunity TL', due: 'Dec 2026', status: 'at-risk'},
+    {p: 'Founder-off switches: all 6 green for 4 weeks', owner: 'GM/MD', due: 'Dec 2026', status: 'at-risk'},
+  ],
+};
 /* ── END QUARTERLY EDIT ZONE ── */
 
 /* ============================================================
@@ -1022,8 +1027,10 @@ const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsI
 const sb = supabase.createClient(SUPA_URL, SUPA_KEY);
 let allProjects = [];
 let editMode = false;
-let spFilter = 'all';
+let spFilters = {horizon:'rocks', owner:'all', pillar:'all'};
 let spShowCompleted = false;
+let teamSortState = {};
+let smaSortState  = {};
 
 function loadConfig() {
   const raw = localStorage.getItem('lotus_gmd_v4_config');
@@ -1042,6 +1049,10 @@ function loadConfig() {
     if (q12.now_quarter) Q12.now_quarter  = q12.now_quarter;
     if (q12.targets_3yr) Object.assign(Q12.targets_3yr, q12.targets_3yr);
     if (q12.milestones)  Q12.milestones   = q12.milestones;
+    const y1 = cfg.y1 || {};
+    if (y1.year_label)   Y1.year_label    = y1.year_label;
+    if (y1.targets)      Object.assign(Y1.targets, y1.targets);
+    if (y1.priorities)   Y1.priorities    = y1.priorities;
   } catch(e) {}
 }
 
@@ -1104,7 +1115,25 @@ function saveEdits() {
     if (occ) m.occupancy = occ.textContent.trim() || m.occupancy;
     if (evt) m.key_event = evt.textContent.trim();
   });
-  localStorage.setItem('lotus_gmd_v4_config', JSON.stringify({ q: Q, q12: Q12 }));
+  Y1.priorities.forEach((item, i) => {
+    const pEl = document.getElementById(`ec-y1-p-${i}`);
+    const oEl = document.getElementById(`ec-y1-o-${i}`);
+    const dEl = document.getElementById(`ec-y1-d-${i}`);
+    if (pEl) item.p     = pEl.textContent.trim() || item.p;
+    if (oEl) item.owner = oEl.textContent.trim() || item.owner;
+    if (dEl) item.due   = dEl.textContent.trim() || item.due;
+  });
+  const tRevY1 = document.getElementById('ec-y1-rev');
+  const tEbY1  = document.getElementById('ec-y1-eb');
+  const tOccY1 = document.getElementById('ec-y1-occ');
+  const tNpsY1 = document.getElementById('ec-y1-nps');
+  const lblY1  = document.getElementById('ec-y1-lbl');
+  if (tRevY1) Y1.targets.revenue    = tRevY1.textContent.trim() || Y1.targets.revenue;
+  if (tEbY1)  Y1.targets.ebitda_pct = tEbY1.textContent.trim()  || Y1.targets.ebitda_pct;
+  if (tOccY1) Y1.targets.occupancy  = tOccY1.textContent.trim() || Y1.targets.occupancy;
+  if (tNpsY1) Y1.targets.nps        = tNpsY1.textContent.trim() || Y1.targets.nps;
+  if (lblY1)  Y1.year_label         = lblY1.textContent.trim()  || Y1.year_label;
+  localStorage.setItem('lotus_gmd_v4_config', JSON.stringify({ q: Q, q12: Q12, y1: Y1 }));
 }
 
 function toggleEditMode() {
@@ -1121,7 +1150,6 @@ function toggleEditMode() {
     document.getElementById('edit-btn-label').textContent = 'Done';
   }
   renderSprint();
-  render12Q();
 }
 
 const KNOWN_PILLARS = new Set(['Advocates','Innovator','Sages','Essentialists']);
@@ -1148,8 +1176,34 @@ function horizonBadge(th) {
   return e ? `<span class="sp-hz-badge ${e.cls}">${e.label}</span>`
            : `<span class="sp-hz-badge other">${th}</span>`;
 }
-function setSpFilter(f)      { spFilter = f; renderSprint(); }
-function toggleSpCompleted() { spShowCompleted = !spShowCompleted; renderSprint(); }
+function setSpFilter(key, val) { spFilters[key] = val; renderSprint(); }
+function toggleSpCompleted()   { spShowCompleted = !spShowCompleted; renderSprint(); }
+
+function sortRows(rows, col, dir) {
+  if (!col || !dir) return rows;
+  return [...rows].sort((a, b) => {
+    const av = ((a[col]||'').toString()).toLowerCase();
+    const bv = ((b[col]||'').toString()).toLowerCase();
+    return dir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+  });
+}
+function nextSortDir(cur) { return cur===''?'asc':cur==='asc'?'desc':''; }
+function sortIcon(col, state) {
+  const c = state.col===col ? state.dir : '';
+  return `<span class="sico">${c==='asc'?'▲':c==='desc'?'▼':'↕'}</span>`;
+}
+function sortTeam(tid, col) {
+  const s = teamSortState[tid]||{col:'',dir:''};
+  if (s.col===col) { s.dir=nextSortDir(s.dir); if(!s.dir) s.col=''; }
+  else { s.col=col; s.dir='asc'; }
+  teamSortState[tid]=s; rTeams();
+}
+function sortSma(sid, col) {
+  const s = smaSortState[sid]||{col:'',dir:''};
+  if (s.col===col) { s.dir=nextSortDir(s.dir); if(!s.dir) s.col=''; }
+  else { s.col=col; s.dir='asc'; }
+  smaSortState[sid]=s; rSMA();
+}
 
 async function initAuth() {
   const { data: { session } } = await sb.auth.getSession();
@@ -1191,15 +1245,33 @@ async function doLogout() {
 const PILLARS = ['Advocates','Innovator','Sages','Essentialists'];
 
 async function loadRockHealth() {
-  const el = document.getElementById('rh-status');
-  if (el) el.textContent = 'Loading…';
+  const elOld = document.getElementById('rh-status');
+  if (elOld) elOld.textContent = 'Loading…';
+  const cv = document.getElementById('rh-compact-val');
+  if (cv) cv.textContent = 'Loading…';
   const { data, error } = await sb.from('projects').select('data, created_at');
-  if (error) { if (el) el.textContent = 'Error loading data.'; return; }
+  if (error) {
+    const e2 = document.getElementById('rh-status'); if(e2) e2.textContent='Error loading data.';
+    if(cv) cv.textContent='Error loading data.';
+    return;
+  }
   allProjects = data || [];
-  renderRockHealth(allProjects);
   renderSprint();
-  render12Q();
-  if (el) el.textContent = 'Updated ' + new Date().toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit'});
+  renderRockHealth(allProjects);
+  const elNew = document.getElementById('rh-status');
+  const ts = 'Updated ' + new Date().toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit'});
+  if (elNew) elNew.textContent = ts;
+  updateRhCompact(allProjects);
+}
+
+function updateRhCompact(rows) {
+  const cv = document.getElementById('rh-compact-val'); if(!cv) return;
+  const rocks = rows.filter(r=>r.data && typeof r.data.timeHorizon==='string' && r.data.timeHorizon.includes('Rock'));
+  let on=0,risk=0,crit=0;
+  rocks.forEach(r=>{const h=r.data.health||'on-track';if(h==='on-track')on++;else if(h==='at-risk')risk++;else if(h==='critical')crit++;});
+  cv.innerHTML = `<span style="color:var(--col-g)">● ${on} On Track</span> &nbsp;`+
+    `<span style="color:var(--col-y)">⚠ ${risk} At Risk</span> &nbsp;`+
+    (crit?`<span style="color:var(--col-r)">✕ ${crit} Critical</span>`:'');
 }
 
 function renderRockHealth(rows) {
@@ -1242,18 +1314,48 @@ function renderRockHealth(rows) {
 }
 
 /* ============================================================
-   TAB 7: SPRINT CANVAS
+   TAB 7: STRATEGY CANVAS
    ============================================================ */
+const PILLAR_FULL = {
+  'Advocates':    'Advocates — Strategic Fix',
+  'Innovator':    'Innovator — Growth &amp; Expansion',
+  'Sages':        'Sages — Governance &amp; Control',
+  'Essentialists':'Essentialists — Efficiency &amp; Automation',
+  'Other':        'Other',
+};
+const NS_SHARED = new Set(['Occupancy % (consolidated)','EBITDA Margin','Community NPS','LotusOS Adoption %','L10 Quality Score','ICARE Resolved <72h %','Collection Rate %']);
+const ALL_HORIZONS = ['Sprint (< 30d)','1-Quarter Rock (90d)','2-Quarter Rock (180d)','3-Quarter Rock (270d)','Annual Rock (360d)','Long Term'];
+
 function renderSprint() {
   const el = document.getElementById('sp-content'); if (!el) return;
   const hMap   = {'on-track':'dg','at-risk':'dy','critical':'dr'};
   const hLabel = {'on-track':'● On Track','at-risk':'⚠ At Risk','critical':'✕ Critical'};
   const SP_PILLARS = ['Advocates','Innovator','Sages','Essentialists','Other'];
 
+  // Horizon dropdown
+  const horizonSel = `<select class="sp-sel" onchange="setSpFilter('horizon',this.value)">
+    <option value="rocks"${spFilters.horizon==='rocks'?' selected':''}>All Rocks (Default)</option>
+    <option value="all"${spFilters.horizon==='all'?' selected':''}>All Projects</option>
+    ${ALL_HORIZONS.map(h=>`<option value="${h}"${spFilters.horizon===h?' selected':''}>${h}</option>`).join('')}
+  </select>`;
+  // Owner dropdown (dynamic)
+  const owners = [...new Set(allProjects.filter(r=>r.data?.assignedLeader).map(r=>r.data.assignedLeader))].sort();
+  const ownerSel = `<select class="sp-sel" onchange="setSpFilter('owner',this.value)">
+    <option value="all"${spFilters.owner==='all'?' selected':''}>All Owners</option>
+    ${owners.map(o=>`<option value="${o}"${spFilters.owner===o?' selected':''}>${o}</option>`).join('')}
+  </select>`;
+  // Pillar dropdown
+  const pillarSel = `<select class="sp-sel" onchange="setSpFilter('pillar',this.value)">
+    <option value="all"${spFilters.pillar==='all'?' selected':''}>All Pillars</option>
+    ${SP_PILLARS.filter(p=>p!=='Other').map(p=>`<option value="${p}"${spFilters.pillar===p?' selected':''}>${PILLAR_FULL[p]||p}</option>`).join('')}
+  </select>`;
+
+  // Apply filters
   let filtered = allProjects.filter(r => r.data);
-  if (spFilter==='rocks')    filtered = filtered.filter(isRock);
-  if (spFilter==='sprint')   filtered = filtered.filter(isSprint);
-  if (spFilter==='longterm') filtered = filtered.filter(isLongTerm);
+  if (spFilters.horizon==='rocks')       filtered = filtered.filter(isRock);
+  else if (spFilters.horizon!=='all')    filtered = filtered.filter(r=>r.data?.timeHorizon===spFilters.horizon);
+  if (spFilters.owner!=='all')           filtered = filtered.filter(r=>r.data?.assignedLeader===spFilters.owner);
+  if (spFilters.pillar!=='all')          filtered = filtered.filter(r=>getPillar(r)===spFilters.pillar);
 
   const active    = filtered.filter(r => !isCompleted(r));
   const completed = filtered.filter(r =>  isCompleted(r));
@@ -1303,7 +1405,7 @@ function renderSprint() {
          </div>` : '';
     return `<div class="sp-pillar">
       <div class="sp-pillar-hdr">
-        <div class="sp-pillar-name">${pName}</div>
+        <div class="sp-pillar-name">${PILLAR_FULL[pName]||pName}</div>
         <span class="ks">${total} Project${total!==1?'s':''}</span>
         ${a.length?`<span class="sp-health-sum">${healthSummary(a)}</span>`:''}
       </div>
@@ -1311,17 +1413,16 @@ function renderSprint() {
     </div>`;
   }).join('');
 
-  const filterBtns = ['all','rocks','sprint','longterm'].map(f => {
-    const labels={all:'All',rocks:'Rocks',sprint:'Sprint',longterm:'Long Term'};
-    return `<button class="sp-fb${spFilter===f?' on':''}" onclick="setSpFilter('${f}')">${labels[f]}</button>`;
+  const nsHTML = Q.north_star.map((n,i) => {
+    const shBadge = NS_SHARED.has(n.kpi)
+      ? `<span class="ks" style="margin-left:4px;cursor:pointer" onclick="go('s',document.querySelectorAll('.tb')[2])">↔ SHARED</span>` : '';
+    return `<tr>
+      <td class="kn">${ed(`ec-ns-kpi-${i}`,n.kpi)}${shBadge}</td>
+      <td style="font-family:var(--fd);font-weight:600">${ed(`ec-ns-tgt-${i}`,n.target)}</td>
+      <td style="font-size:11px;color:var(--text-mid)">${ed(`ec-ns-own-${i}`,n.owner)}</td>
+      <td style="font-size:11px;color:var(--text-dim)">${ed(`ec-ns-cad-${i}`,n.cadence)}</td>
+    </tr>`;
   }).join('');
-
-  const nsHTML = Q.north_star.map((n,i) => `<tr>
-    <td class="kn">${ed(`ec-ns-kpi-${i}`,n.kpi)}</td>
-    <td style="font-family:var(--fd);font-weight:600">${ed(`ec-ns-tgt-${i}`,n.target)}</td>
-    <td style="font-size:11px;color:var(--text-mid)">${ed(`ec-ns-own-${i}`,n.owner)}</td>
-    <td style="font-size:11px;color:var(--text-dim)">${ed(`ec-ns-cad-${i}`,n.cadence)}</td>
-  </tr>`).join('');
 
   const initHTML = Q.initiatives.map((ini,idx) => `<tr>
     <td class="kn">${ed(`ec-ini-name-${idx}`,ini.name)}</td>
@@ -1330,7 +1431,21 @@ function renderSprint() {
     <td><span class="dot ${hMap[ini.health]||'ds'}">${hLabel[ini.health]||ini.health}</span></td>
   </tr>`).join('');
 
+  const y1PriHTML = Y1.priorities.map((p,i) => `<tr>
+    <td class="kn">${ed(`ec-y1-p-${i}`,p.p)}</td>
+    <td style="font-size:11px;color:var(--text-mid)">${ed(`ec-y1-o-${i}`,p.owner)}</td>
+    <td style="font-size:11px;color:var(--text-dim)">${ed(`ec-y1-d-${i}`,p.due)}</td>
+    <td><span class="dot ${hMap[p.status]||'ds'}">${hLabel[p.status]||p.status}</span></td>
+  </tr>`).join('');
+
   el.innerHTML = `
+    <div class="rh-wrap">
+      <div class="sh"><div class="shd"></div><h3>Rocks &amp; Projects Health — Live from LCC</h3><div class="shl"></div><button class="rh-refresh" onclick="loadRockHealth()">↻ Refresh</button><span class="rh-status" id="rh-status">Loading…</span></div>
+      <div class="rh-grid">
+        <div class="rh-hdr">Pillar</div><div class="rh-hdr" style="text-align:center">Rocks/Projects</div><div class="rh-hdr" style="text-align:center">On Track</div><div class="rh-hdr" style="text-align:center">At Risk</div><div class="rh-hdr" style="text-align:center">Critical</div>
+        <div id="rh-rows">—</div>
+      </div>
+    </div>
     <div class="sp-cry">
       <div class="sp-cry-lbl">Rallying Cry</div>
       <div class="sp-cry-txt">${ed('ec-cry',Q.rallying_cry,'display:block')}</div>
@@ -1342,52 +1457,59 @@ function renderSprint() {
       <div class="sp-rev-card" style="border-color:var(--lotus-mid)"><div class="sp-rev-lbl">Better</div><div class="sp-rev-val">${ed('ec-rev-b',Q.revenue.better)}</div></div>
       <div class="sp-rev-card" style="border-top:2px solid var(--lotus)"><div class="sp-rev-lbl">Best</div><div class="sp-rev-val">${ed('ec-rev-x',Q.revenue.best)}</div></div>
     </div>
-    <div class="sh"><div class="shd"></div><h3>4 Pillars — Active Projects</h3>
-      <span class="sp-live-badge">● LIVE from LCC</span>
-      <p style="margin-left:8px;font-size:11px;color:var(--text-dim)">Each project: one owner · one success proof · one next step</p>
-    <div class="shl"></div></div>
-    <div class="sp-filter-bar">
-      ${filterBtns}
-      ${completed.length?`<button class="sp-fb sp-fb-right${spShowCompleted?' on':''}" onclick="toggleSpCompleted()">${spShowCompleted?'Hide':'Show'} Completed (${completed.length})</button>`:''}
-    </div>
-    ${pillarsHTML||'<div class="sp-empty" style="padding:20px 0">No projects match this filter.</div>'}
-    <div class="sh"><div class="shd"></div><h3>North Star Metrics</h3><div class="shl"></div></div>
-    <div class="tw"><table>
-      <thead><tr><th>KPI</th><th>Target</th><th>Owner</th><th>Cadence</th></tr></thead>
-      <tbody>${nsHTML}</tbody>
-    </table></div>
-    <div class="sh"><div class="shd"></div><h3>Key Initiatives</h3><div class="shl"></div></div>
-    <div class="tw"><table>
-      <thead><tr><th>Initiative</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead>
-      <tbody>${initHTML}</tbody>
-    </table></div>
+    <details class="sp-details" open>
+      <summary class="sp-sum sh"><div class="shd"></div><h3>Quarterly Rocks — 4 Pillars</h3><span class="sp-live-badge">● LIVE from LCC</span><div class="shl"></div></summary>
+      <p class="sp-sec-sub">What are we executing this quarter? Each rock has one owner, one success proof, one next step.</p>
+      <div class="sp-filter-bar">
+        <span class="sp-sel-lbl">Horizon</span>${horizonSel}
+        <span class="sp-sel-lbl">Owner</span>${ownerSel}
+        <span class="sp-sel-lbl">Pillar</span>${pillarSel}
+        ${completed.length?`<button class="sp-fb sp-fb-right${spShowCompleted?' on':''}" onclick="toggleSpCompleted()">${spShowCompleted?'Hide':'Show'} Completed (${completed.length})</button>`:''}
+      </div>
+      ${pillarsHTML||'<div class="sp-empty" style="padding:20px 0">No projects match this filter.</div>'}
+    </details>
+    <details class="sp-details" open>
+      <summary class="sp-sum sh"><div class="shd"></div><h3>North Star Metrics</h3><div class="shl"></div></summary>
+      <p class="sp-sec-sub">Are the critical numbers on track? These 5–7 measures tell if the quarter is working.</p>
+      <div class="tw"><table>
+        <thead><tr><th>KPI</th><th>Target</th><th>Owner</th><th>Cadence</th></tr></thead>
+        <tbody>${nsHTML}</tbody>
+      </table></div>
+    </details>
+    <details class="sp-details" open>
+      <summary class="sp-sum sh"><div class="shd"></div><h3>Strategic Themes</h3><div class="shl"></div></summary>
+      <p class="sp-sec-sub">What are the broader directional bets this year? These are not individual rocks — they are the patterns the rocks belong to.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Theme</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead>
+        <tbody>${initHTML}</tbody>
+      </table></div>
+    </details>
+    <details class="sp-details">
+      <summary class="sp-sum sh"><div class="shd"></div><h3>1-Year Picture — ${ed('ec-y1-lbl',Y1.year_label)}</h3><div class="shl"></div></summary>
+      <p class="sp-sec-sub">Where are we going by end of this year? Annual targets and top priorities.</p>
+      <div class="q12-targets">
+        <div class="q12-card"><div class="q12-card-lbl">Annual Revenue Target</div><div class="q12-card-val">${ed('ec-y1-rev',Y1.targets.revenue||'—')}</div></div>
+        <div class="q12-card"><div class="q12-card-lbl">EBITDA Target</div><div class="q12-card-val">${ed('ec-y1-eb',Y1.targets.ebitda_pct||'—')}</div></div>
+        <div class="q12-card"><div class="q12-card-lbl">Occupancy Target</div><div class="q12-card-val">${ed('ec-y1-occ',Y1.targets.occupancy||'—')}</div></div>
+        <div class="q12-card"><div class="q12-card-lbl">NPS Target</div><div class="q12-card-val">${ed('ec-y1-nps',Y1.targets.nps||'—')}</div></div>
+      </div>
+      <div class="tw" style="margin-top:14px"><table>
+        <thead><tr><th>Annual Priority</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead>
+        <tbody>${y1PriHTML}</tbody>
+      </table></div>
+    </details>
+    <details class="sp-details">
+      <summary class="sp-sum sh"><div class="shd"></div><h3>3-Year Roadmap — ${ed('ec-plan-start',Q12.plan_start)} to ${ed('ec-plan-end',Q12.plan_end)}</h3><div class="shl"></div></summary>
+      <p class="sp-sec-sub">Where are we going in 3 years? One row per quarter, with live LCC projects mapped in.</p>
+      ${render3YearSection()}
+    </details>
     ${editMode?'<div class="sp-edit-note">Tap any underlined text to edit. Tap <b>Done</b> in the header to save.</div>':''}`;
 }
 
-/* ============================================================
-   TAB 8: 12Q CANVAS
-   ============================================================ */
-function getCompletionQuarterKey(createdAt, timeHorizon) {
-  const addQ = {
-    '1-Quarter Rock (90d)': 0,
-    '2-Quarter Rock (180d)': 1,
-    '3-Quarter Rock (270d)': 2,
-  };
-  const add = addQ[timeHorizon];
-  if (add === undefined) return null;
-  const d = new Date(createdAt);
-  const totalMonths = d.getMonth() + add * 3;
-  const year = d.getFullYear() + Math.floor(totalMonths / 12);
-  const q = Math.floor((totalMonths % 12) / 3) + 1;
-  return `Q${q} ${year}`;
-}
-
-function render12Q() {
-  const el = document.getElementById('q12-content'); if (!el) return;
+function render3YearSection() {
   const t = Q12.targets_3yr;
   const hMap = {'on-track':'dg','at-risk':'dy','critical':'dr'};
   const Q12_PILLARS = ['Advocates','Innovator','Sages','Essentialists'];
-
   const byQ = {};
   allProjects.forEach(r => {
     if (!r.data || !r.data.timeHorizon) return;
@@ -1396,18 +1518,15 @@ function render12Q() {
     if (!byQ[key]) byQ[key] = [];
     byQ[key].push(r);
   });
-
   const longHorizon = allProjects.filter(r =>
     r.data && (r.data.timeHorizon === 'Annual Rock (360d)' || r.data.timeHorizon === 'Long Term')
   );
-
   const cards = `<div class="q12-targets">
     <div class="q12-card"><div class="q12-card-lbl">Revenue Target (3yr)</div><div class="q12-card-val">${ed('ec-t-rev',t.revenue)}</div></div>
     <div class="q12-card"><div class="q12-card-lbl">EBITDA Target</div><div class="q12-card-val">${ed('ec-t-eb',t.ebitda_pct)}</div></div>
     <div class="q12-card"><div class="q12-card-lbl">Occupancy Target</div><div class="q12-card-val">${ed('ec-t-occ',t.occupancy)}</div></div>
     <div class="q12-card"><div class="q12-card-lbl">NPS Target</div><div class="q12-card-val">${ed('ec-t-nps',t.nps)}</div></div>
   </div>`;
-
   const rows = Q12.milestones.map((m,i) => {
     const isNow = m.q === Q12.now_quarter;
     const liveProjects = byQ[m.label] || [];
@@ -1424,7 +1543,6 @@ function render12Q() {
       <div>${projectBullets}</div>
     </div>`;
   }).join('');
-
   const longGrouped = {};
   Q12_PILLARS.forEach(p => longGrouped[p] = []);
   longHorizon.forEach(r => {
@@ -1432,7 +1550,6 @@ function render12Q() {
     if (!longGrouped[p]) longGrouped[p] = [];
     longGrouped[p].push(r);
   });
-
   const longHTML = Q12_PILLARS.filter(p => longGrouped[p].length > 0).map(p => `
     <div class="q12-long-pillar">
       <div class="q12-long-pillar-name">${p}</div>
@@ -1444,12 +1561,7 @@ function render12Q() {
           <span style="color:var(--text-dim);margin-left:8px;font-size:10px">${r.data.timeHorizon||''}</span>
         </div>`).join('')}
     </div>`).join('');
-
-  const roadmapTitle = `3-Year Roadmap — ${ed('ec-plan-start',Q12.plan_start)} to ${ed('ec-plan-end',Q12.plan_end)}`;
-
-  el.innerHTML = `
-    ${cards}
-    <div class="sh"><div class="shd"></div><h3>${roadmapTitle}</h3><div class="shl"></div></div>
+  return `${cards}
     <div class="q12-table-wrap">
       <div class="q12-hdr-row">
         <div>Quarter</div><div>Revenue / mo</div><div>Occupancy</div>
@@ -1458,13 +1570,31 @@ function render12Q() {
       ${rows}
     </div>
     ${longHTML?`
-    <div class="sh"><div class="shd"></div><h3>Long-Horizon Projects</h3>
+    <div class="sh" style="margin-top:16px"><div class="shd"></div><h3>Long-Horizon Projects</h3>
       <span class="sp-live-badge">● LIVE from LCC</span>
       <p style="margin-left:8px;font-size:11px;color:var(--text-dim)">Annual Rock + Long Term — spans multiple quarters</p>
     <div class="shl"></div></div>
-    <div class="q12-long-wrap">${longHTML}</div>`:''}
-    ${editMode?'<div class="sp-edit-note">Tap underlined numbers to edit. Tap <b>Done</b> in the header to save.</div>':''}`;
+    <div class="q12-long-wrap">${longHTML}</div>`:''}`;
 }
+
+/* ============================================================
+   QUARTER KEY HELPER (used by 3-Year Roadmap in Strategy Canvas)
+   ============================================================ */
+function getCompletionQuarterKey(createdAt, timeHorizon) {
+  const addQ = {
+    '1-Quarter Rock (90d)': 0,
+    '2-Quarter Rock (180d)': 1,
+    '3-Quarter Rock (270d)': 2,
+  };
+  const add = addQ[timeHorizon];
+  if (add === undefined) return null;
+  const d = new Date(createdAt);
+  const totalMonths = d.getMonth() + add * 3;
+  const year = d.getFullYear() + Math.floor(totalMonths / 12);
+  const q = Math.floor((totalMonths % 12) / 3) + 1;
+  return `Q${q} ${year}`;
+}
+
 
 /* ============================================================
    DATA STORE
@@ -1482,7 +1612,7 @@ const D = {
 /* ============================================================
    ROUTING
    ============================================================ */
-const PANS = {f:'pf',s:'ps',v:'pv',t:'pt',a:'pa',b:'pb',sp:'psp',q12:'pq12'};
+const PANS = {f:'pf',s:'ps',v:'pv',t:'pt',a:'pa',b:'pb',sp:'psp'};
 function go(id,btn){
   document.querySelectorAll('.pan').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tb').forEach(b=>b.classList.remove('on'));
@@ -1490,7 +1620,7 @@ function go(id,btn){
   if(btn) btn.classList.add('on');
 }
 document.addEventListener('keydown',e=>{
-  const m={1:'f',2:'s',3:'v',4:'t',5:'a',6:'b',7:'sp',8:'q12'};
+  const m={1:'f',2:'s',3:'v',4:'t',5:'a',6:'b',7:'sp'};
   if(m[e.key]&&!e.ctrlKey&&!e.metaKey&&!['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)){
     const btns=document.querySelectorAll('.tb');
     const i=Object.keys(m).indexOf(e.key);
@@ -1722,12 +1852,16 @@ const SMA=[
 function rSMA(){
   const c=document.getElementById('smac');if(!c)return;
   c.innerHTML=SMA.map(sec=>{
-    const rows=sec.rows.map(r=>{
+    const ss=smaSortState[sec.id]||{col:'',dir:''};
+    const sorted=sortRows(sec.rows,'k'===ss.col?'k':ss.col,ss.dir);
+    function sh(col,lbl){return`<th onclick="sortSma('${sec.id}','${col}')" style="cursor:pointer;white-space:nowrap">${lbl}${sortIcon(col,ss)}</th>`;}
+    const rows=sorted.map(r=>{
       const dk='sma.'+sec.id+'_'+r.k.replace(/\W+/g,'_').slice(0,28);
       const d=id2(dk,{t:r.tgt||'',w1:'',w2:'',w3:'',w4:'',mo:'',s:'ds',na:''});
       const sb=r.sh?`<span class="ks">↔ SHARED</span>`:'';
       return`<tr>
         <td style="min-width:190px"><span class="kn">${r.k}</span>${sb}</td>
+        <td>${ttag(r.ty||'—')}</td>
         <td>${vi(dk,'t','TBD','68px')}</td>
         ${['w1','w2','w3','w4','mo'].map(w=>`<td>${vi(dk,w,'—','52px')}</td>`).join('')}
         <td>${dot(d.s)}${sel(dk,d.s)}</td>
@@ -1748,9 +1882,9 @@ function rSMA(){
       <div class="tw tw-x">
       <table>
         <thead><tr>
-          <th style="min-width:190px">KPI</th><th>Target</th>
+          ${sh('k','KPI')}${sh('ty','Type')}<th>Target</th>
           <th>W1</th><th>W2</th><th>W3</th><th>W4</th><th>Monthly</th>
-          <th>Status</th><th>Owner</th><th>Source Doc + Framework</th>
+          <th>Status</th>${sh('ow','Owner')}<th>Source Doc + Framework</th>
           <th>Next Action</th><th>Consequence if Missed</th>
         </tr></thead>
         <tbody>${rows}</tbody>
@@ -2027,7 +2161,10 @@ const TEAMS=[
 function rTeams(){
   const c=document.getElementById('teamc');if(!c)return;
   c.innerHTML=TEAMS.map(dept=>{
-    const rows=dept.kpis.map(r=>{
+    const ts=teamSortState[dept.id]||{col:'',dir:''};
+    const sorted=sortRows(dept.kpis,ts.col,ts.dir);
+    function sh(col,lbl,style=''){return`<th onclick="sortTeam('${dept.id}','${col}')" style="cursor:pointer;white-space:nowrap${style?';'+style:''}">${lbl}${sortIcon(col,ts)}</th>`;}
+    const rows=sorted.map(r=>{
       const dk='teams.'+dept.id+'_'+r.k.replace(/\W+/g,'_').slice(0,28);
       const d=id2(dk,{t:'',a:'',s:'ds',na:''});
       const sb=r.sh?`<span class="ks">↔ SHARED</span>`:'';
@@ -2047,7 +2184,7 @@ function rTeams(){
       <summary>${dept.lb}<span class="down">${dept.ow}</span><span class="dcnt">${dept.kpis.length} KPIs</span></summary>
       <div style="padding:0 0 8px">
         <div class="tw tw-x"><table>
-          <thead><tr><th style="min-width:190px">KPI</th><th style="min-width:110px">Owner</th><th>Type</th><th>Target</th><th>Actual</th><th>Status</th><th>Source Doc + Framework</th><th>Next Action</th><th>Consequence if Missed</th></tr></thead>
+          <thead><tr>${sh('k','KPI','min-width:190px')}${sh('ow','Owner','min-width:110px')}${sh('ty','Type')}<th>Target</th><th>Actual</th><th>Status</th><th>Source Doc + Framework</th><th>Next Action</th><th>Consequence if Missed</th></tr></thead>
           <tbody>${rows}</tbody>
         </table></div>
       </div>
@@ -2126,7 +2263,7 @@ function rAnc(){
    RENDER ALL
    ============================================================ */
 function renderAll(){
-  rFOS(); rRC(); rSMA(); rVTO(); rTeams(); rAnc(); renderSprint(); render12Q();
+  rFOS(); rRC(); rSMA(); rVTO(); rTeams(); rAnc(); renderSprint();
 }
 
 /* ============================================================
