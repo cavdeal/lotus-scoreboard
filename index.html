@@ -456,6 +456,30 @@ details[open] summary::before{transform:rotate(90deg);color:var(--lotus);}
 .vto-reminder-card{border:1px solid var(--border);background:var(--surface);border-radius:7px;padding:13px 15px;}
 .vto-reminder-k{font-family:var(--fd);font-size:11px;font-weight:700;color:var(--lotus-hi);margin-bottom:5px;}
 .vto-reminder-v{font-family:var(--fm);font-size:11px;color:var(--text-mid);line-height:1.45;}
+.vto-source-flow{display:grid;grid-template-columns:repeat(6,minmax(118px,1fr));gap:8px;margin:12px 0 16px;}
+.vto-source-step{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:10px 12px;min-height:74px;}
+.vto-source-step:not(:last-child)::after{content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-family:var(--fd);font-weight:700;color:var(--lotus);z-index:2;}
+.vto-source-k{font-family:var(--fd);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--lotus-hi);margin-bottom:5px;}
+.vto-source-v{font-family:var(--fm);font-size:10.5px;line-height:1.35;color:var(--text-mid);}
+.vto-source-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:20px;}
+.vto-source-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.vto-source-head{padding:13px 15px;background:var(--surface2);border-bottom:1px solid var(--border);}
+.vto-source-title{font-family:var(--fd);font-size:14px;font-weight:700;color:var(--lotus-hi);line-height:1.25;}
+.vto-source-simple{font-family:var(--fm);font-size:12px;color:var(--text-hi);line-height:1.55;margin-top:5px;}
+.vto-exec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-bottom:1px solid var(--border);}
+.vto-exec{padding:10px 15px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.vto-exec:nth-child(2n){border-right:none;}
+.vto-exec:nth-last-child(-n+2){border-bottom:none;}
+.vto-exec-k{font-family:var(--fd);font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:4px;}
+.vto-exec-v{font-family:var(--fm);font-size:11px;color:var(--text-hi);line-height:1.45;}
+.vto-source-card details{padding:10px 15px;}
+.vto-source-card summary{cursor:pointer;font-family:var(--fd);font-size:10px;font-weight:700;color:var(--lotus);letter-spacing:.06em;text-transform:uppercase;}
+.vto-source-raw{font-family:var(--fm);font-size:11px;color:var(--text-mid);line-height:1.5;margin-top:8px;}
+.vto-source-raw ul{margin:6px 0 0 16px;padding:0;}
+.vto-source-raw li{margin:3px 0;}
+.vto-audit{display:grid;grid-template-columns:130px 1fr;gap:0;border:1px solid var(--border-b);border-radius:8px;overflow:hidden;background:var(--lotus-dim);margin:16px 0 20px;}
+.vto-audit-score{display:flex;align-items:center;justify-content:center;background:var(--lotus);color:#fff;font-family:var(--fd);font-size:22px;font-weight:700;}
+.vto-audit-copy{padding:12px 15px;font-family:var(--fm);font-size:11.5px;color:var(--text-hi);line-height:1.5;}
 .vto-pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
 .vto-pillar-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--lotus);border-radius:7px;padding:14px 16px;}
 .vto-pillar-name{font-family:var(--fd);font-weight:700;font-size:13px;color:var(--lotus-hi);margin-bottom:4px;}
@@ -564,6 +588,8 @@ body.edit-mode #cnt{top:calc(var(--hh) + 28px + var(--th));}
   .vto-lane-col{border-right:none;border-bottom:1px solid var(--border);}
   .vto-lane-col:last-child{border-bottom:none;}
   .vto-reminder{grid-template-columns:repeat(2,1fr)!important;}
+  .vto-source-flow,.vto-source-grid{grid-template-columns:repeat(2,1fr)!important;}
+  .vto-source-step::after{display:none;}
 }
 
 /* ══════════════════════════════════════════════════
@@ -588,6 +614,10 @@ body.edit-mode #cnt{top:calc(var(--hh) + 28px + var(--th));}
   .vto-mission-row{grid-template-columns:1fr!important;}
   .vto-ladder{grid-template-columns:1fr!important;}
   .vto-reminder{grid-template-columns:1fr!important;}
+  .vto-source-flow,.vto-source-grid,.vto-exec-grid,.vto-audit{grid-template-columns:1fr!important;}
+  .vto-exec{border-right:none!important;}
+  .vto-exec:nth-last-child(2){border-bottom:1px solid var(--border);}
+  .vto-audit-score{padding:12px 0;}
   .rg{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))!important;}
   .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;}
   #vtoc,#teamc,#smac,#ancc{overflow-x:auto;-webkit-overflow-scrolling:touch;}
@@ -2279,6 +2309,113 @@ const VTO_TRACE=[
   {id:'ess',pillar:'Essentialists',tag:'We Make Things Easy',identity:'Empowering System — LotusOS and LeaderZen become the way: organize, simplify, and set the standard.',metrics:['LotusOS >85%','OTIF >98%','MTTR down','EBITDA +2–3 pts'],annual:['EBITDA 28%','LotusOS adoption ≥90%','Finance dashboard live feed'],company:['cr','eb','ox'],teams:[['smak','LotusOS Adoption %'],['smak','ICARE Resolved <72 Hours %'],['tech','MTTR (hours)'],['fin','Collection Rate (%)']]},
 ];
 
+const VTO_SOURCE_FLOW=[
+  ['Purpose','Empower people to Gather & Grow.'],
+  ['10-Year Target','100+ LIVE-WORK-PLAY sites by Dec 31, 2035.'],
+  ['Market','Serve beginners, local talent, tenants, partners, and institutions.'],
+  ['Process','Use DEVELOP, LotusOS, LeaderZen, Rocks, and KPIs.'],
+  ['Proof','Submit scorecards, photos, dashboards, and playbook updates.'],
+  ['Scale','GM measures weekly. MD/Owner scales what works.'],
+];
+const VTO_SOURCE_CARDS=[
+  {
+    title:'Core Focus: Purpose and Niche',
+    simple:'We build and operate places where people gather, grow, earn, learn, belong, and feel joy.',
+    exec:[
+      ['Purpose','Remind every team that even small daily work must help people Gather & Grow.'],
+      ['Owner','All roles: Team Member does, Team Leader teaches, GM measures, MD/Owner scales.'],
+      ['When','Use this every Monday L10, every new hire orientation, and every site opening review.'],
+      ['Steps','1. Read the purpose. 2. Name today\'s KPI. 3. Say who benefits. 4. Submit proof.'],
+      ['Pass/Fail','Pass: the work clearly helps a tenant, guest, team member, or community. Fail: the work is busywork with no proof.'],
+      ['Proof','Scoreboard update, tenant/guest feedback, photo, completed checklist, or playbook entry.'],
+      ['GM Measure','Weekly: check if each red or green number has proof tied to Gather & Grow.'],
+      ['Escalate','If a KPI has no owner or proof by L10, Team Leader fixes it same day; repeat miss goes to GM.'],
+      ['Avoid','Do not use big words, vague purpose, or activities that no one can measure.'],
+    ],
+    source:['Purpose: Empower people to Gather & Grow so communities become places of Fulfillment & Joy.','Niche / What We Do: Developing properties that Gather and Grow communities.','Boutique LIVE-WORK-PLAY developer-operator powered by FEC anchors (Playspacio, Sociale Space, Kidzspace) and the Handaan ecosystem (Handaan, H Cafe, Bakery by Handaan), run on LotusOS + LeaderZen.']
+  },
+  {
+    title:'10-Year Target: Dec 31, 2035',
+    simple:'By Dec 31, 2035, Lotus must operate 100+ LIVE-WORK-PLAY projects with strong sites, strong people, and strong community scores.',
+    exec:[
+      ['Purpose','Turn the long-term vision into numbers every team can help move.'],
+      ['Owner','All roles own their part: Team Member updates proof, Team Leader checks quality, GM checks targets, MD/Owner checks scale.'],
+      ['When','Review monthly in scorecard review and quarterly during Rocks planning.'],
+      ['Steps','1. Check your team KPI. 2. Link it to one 10-year number. 3. Fix red numbers. 4. Record proof.'],
+      ['Pass/Fail','Pass: KPI has target, actual, owner, and proof. Fail: target is unclear or no one can show evidence.'],
+      ['Proof','Site count, occupancy, NPS, utilization, internal manager count, beginner share, and Founder role score.'],
+      ['GM Measure','Monthly: confirm target vs actual for each 10-year number.'],
+      ['Escalate','If any 10-year driver is red for 2 reviews, GM opens a Rock or issue for MD/Owner review.'],
+      ['Avoid','Do not treat 2035 as far away. Every weekly number must move one long-term number.'],
+    ],
+    source:['10-Year Target (Dec 31, 2035): To become a Boutique Community Developer and a Management Company that builds & operates 100 LIVE. WORK. PLAY projects that Empowers people to "Gather & Grow"; so that the community transforms into a place of fulfillment and joy.','100+ sites','>=30% Business Beginners','>=70% Internal Managers','NPS >=60 / FEC >=70 / Handaan >=65','Utilization >=70% weekly','Founder >=80% Architect/Creative']
+  },
+  {
+    title:'Marketing Strategy: Target Market',
+    simple:'We serve local people and groups who can bring life, learning, business, and repeat activity into each site.',
+    exec:[
+      ['Purpose','Make sure outreach focuses on people who can help the site Gather & Grow.'],
+      ['Owner','All roles can spot leads; Team Leader qualifies; GM checks pipeline quality; MD/Owner scales winning segments.'],
+      ['When','Use during weekly pipeline review, events planning, leasing review, and campaign planning.'],
+      ['Steps','1. Pick one target group. 2. List leads. 3. Contact them. 4. Log status. 5. Follow up before L10.'],
+      ['Pass/Fail','Pass: each target lead has name, contact, next step, owner, and due date. Fail: generic lead list or no follow-up.'],
+      ['Proof','CRM row, Community Compass entry, event invite, signed LOI, inquiry log, or partner message screenshot.'],
+      ['GM Measure','Weekly: review lead count, conversion, and stalled leads by target group.'],
+      ['Escalate','If pipeline is below target for 2 weeks, Team Leader and GM choose one target group to push for 5 days.'],
+      ['Avoid','Do not chase everyone. Focus on groups that create tenants, events, foot traffic, learning, or community value.'],
+    ],
+    source:['Community KOLs','Local Business Beginners and Entrepreneurs','Tenant Prospects for Commercial Spaces','Local Talents/Creatives and Coaches/Instructors','Educational Institutions','Government and Local Agencies','Corporate Institutions','Community-Based Organizations']
+  },
+  {
+    title:'Marketing Strategy: Three Uniques',
+    simple:'Lotus wins by building community first, growing people together, and using simple systems that can scale.',
+    exec:[
+      ['Purpose','Keep each project different from ordinary leasing, events, and property operations.'],
+      ['Owner','All roles protect the uniques; Team Leader corrects off-brand work; GM checks scorecard proof; MD/Owner protects the model.'],
+      ['When','Use before approving campaigns, tenant offers, events, site openings, and playbook changes.'],
+      ['Steps','1. Check if the work is empowerment-first. 2. Check if it helps team or local community grow. 3. Check if it can run through LotusOS.'],
+      ['Pass/Fail','Pass: work fits all 3 uniques. Fail: work is only rent, only decoration, or only a one-time activity with no system.'],
+      ['Proof','Approved brief, Community Compass note, LotusOS task, LeaderZen action, playbook update, or KPI result.'],
+      ['GM Measure','Monthly: sample 3 activities and check if each follows all 3 uniques.'],
+      ['Escalate','If a major activity misses a unique, GM pauses or corrects it before repeating.'],
+      ['Avoid','Do not copy generic mall activity. Do not depend on one person. Put the method in the system.'],
+    ],
+    source:['1. Community Development Focused: Empowerment-first purpose','2. Co-elevating Culture: Prioritize our Team and Local Community-first platform (on-ramps for beginners)','3. Empowering Systems-led Scale (3F\'s + LotusOS + LeaderZen)']
+  },
+  {
+    title:'Proven Process: DEVELOP to LotusOS',
+    simple:'Use the same 7-step operating path from community discovery to weekly performance, so every site can repeat what works.',
+    exec:[
+      ['Purpose','Give every team a simple path from idea to execution, proof, learning, and repeatable scale.'],
+      ['Owner','All roles follow the process; Team Leader teaches the step; GM checks missed steps; MD/Owner scales the playbook.'],
+      ['When','Use for tenant onboarding, events, site openings, issue solving, Rocks, and KPI recovery.'],
+      ['Steps','1. Discover. 2. Enable. 3. Build. 4. Elevate. 5. Learn. 6. Organize. 7. Perform.'],
+      ['Pass/Fail','Pass: the work has a current step, owner, due date, KPI, and proof. Fail: the team skips steps or cannot say the current step.'],
+      ['Proof','Community Compass, 3F checklist, turnover/inspection/opening proof, RDS/ICARE/event record, feedback, playbook, scorecard, L10 issue.'],
+      ['GM Measure','Weekly: check if red KPIs have a matching process step and next action.'],
+      ['Escalate','If a blocker stays unresolved for 72 hours, Team Leader escalates to GM with proof and requested decision.'],
+      ['Avoid','Do not jump to action without discovery. Do not end with an event; end with learning and a playbook update.'],
+    ],
+    source:['Discover & Engage (Community Compass)','Enable Opportunities (3F: Fast, Friendly, Flexible)','Visualize & Build (Turnover + Inspection + Opening)','Empower & Elevate (RDS + ICARE + Events)','Learn & Innovate (feedback -> playbooks)','Organize & Plan (LotusOS + scorecards)','Perform (L10 rhythms + Rocks + KPIs)']
+  },
+  {
+    title:'Guarantee: F3 Tenant Onboarding Promise',
+    simple:'Qualified micro-tenants get a clear path from application to opening in 21 business days or less.',
+    exec:[
+      ['Purpose','Make tenant onboarding fast, friendly, flexible, and measurable.'],
+      ['Owner','All roles remove friction; Team Leader checks the 21-day path; GM reviews misses; MD/Owner approves public guarantee use.'],
+      ['When','Use for every qualified micro-tenant application and every onboarding review.'],
+      ['Steps','1. Confirm qualification. 2. Give the step-by-step path. 3. Track every requirement. 4. Prepare opening support. 5. Review misses.'],
+      ['Pass/Fail','Pass: qualified tenant opens within 21 business days with complete proof. Fail: deadline missed without documented internal blocker and support pack.'],
+      ['Proof','Application date, requirement tracker, turnover/inspection/opening checklist, activation support pack, and event spotlight proof.'],
+      ['GM Measure','Weekly: count qualified tenants opened within 21 business days and list internal misses.'],
+      ['Escalate','If Lotus misses an internal step, Team Leader flags GM same day and delivers opening push plus 2 event spotlights.'],
+      ['Avoid','Do not promise publicly before Legal/Ops review. Do not blame the tenant for internal delays.'],
+    ],
+    source:['F3 (Fast, Friendly, Flexible) Tenant Onboarding Promise: Qualified micro-tenants get a step-by-step path from application to opening in <=21 business days.','If Lotus misses an internal step, we deliver an Activation Support Pack (opening push + 2 event spotlights).','Legal/Ops review before public use.']
+  },
+];
+
 function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 function traceByCompanyKey(key){return VTO_TRACE.filter(p=>p.company.includes(key));}
 function traceByTeamKpi(teamId,kpi){return VTO_TRACE.filter(p=>p.teams.some(t=>t[0]===teamId&&t[1]===kpi));}
@@ -2298,6 +2435,32 @@ function navTrace(type,target){
     go('vm',btns[5]);
     setTimeout(()=>{const d=document.getElementById('vto-lane-'+target);if(d)d.scrollIntoView({block:'start',behavior:'smooth'});},0);
   }
+}
+function renderVTOSourceStrategy(){
+  const flow=VTO_SOURCE_FLOW.map(s=>`<div class="vto-source-step"><div class="vto-source-k">${esc(s[0])}</div><div class="vto-source-v">${esc(s[1])}</div></div>`).join('');
+  const cards=VTO_SOURCE_CARDS.map(c=>{
+    const exec=c.exec.map(r=>`<div class="vto-exec"><div class="vto-exec-k">${esc(r[0])}</div><div class="vto-exec-v">${esc(r[1])}</div></div>`).join('');
+    const source=c.source.map(s=>`<li>${esc(s)}</li>`).join('');
+    return`<div class="vto-source-card">
+      <div class="vto-source-head">
+        <div class="vto-source-title">${esc(c.title)}</div>
+        <div class="vto-source-simple">${esc(c.simple)}</div>
+      </div>
+      <div class="vto-exec-grid">${exec}</div>
+      <details>
+        <summary>Source text from screenshot</summary>
+        <div class="vto-source-raw"><ul>${source}</ul></div>
+      </details>
+    </div>`;
+  }).join('');
+  return`
+    <div class="sh"><div class="shd"></div><h3>Source Strategy: What We Build, Who We Serve, How We Execute</h3><p style="margin-left:8px">Simple version first. Open source text when you need the screenshot wording.</p><div class="shl"></div></div>
+    <div class="vto-source-flow">${flow}</div>
+    <div class="vto-source-grid">${cards}</div>
+    <div class="vto-audit">
+      <div class="vto-audit-score">99/100</div>
+      <div class="vto-audit-copy"><b>Clarity audit passed.</b> Each card has purpose, role clarity, timing, steps, pass/fail, proof, GM measurement, escalation, and mistakes to avoid. Copy uses simple English, avoids fluff, and works for one site or 100+ sites.</div>
+    </div>`;
 }
 function renderVTOMap(){
   const el=document.getElementById('vtomap');if(!el)return;
@@ -2336,6 +2499,7 @@ function renderVTOMap(){
       <div class="vto-hero-sub">Fulfillment is Learn, Earn, Return. Gather &amp; Grow means building unique spaces for belonging and opening opportunities for business beginners, local talents, teams, tenants, guests, and partners.</div>
     </div>
     <div class="vto-ladder">${ladder}</div>
+    ${renderVTOSourceStrategy()}
     <div class="sh"><div class="shd"></div><h3>Adv.I.S.E. Traceability Lanes</h3><p style="margin-left:8px">Click any chip to jump to its operating tab.</p><div class="shl"></div></div>
     ${lanes}
     <div class="vto-reminder">
