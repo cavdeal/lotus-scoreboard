@@ -416,6 +416,24 @@ details[open] summary::before{transform:rotate(90deg);color:var(--lotus);}
 .q12-long-pillar-name{font-size:11px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
 .q12-long-row{display:flex;align-items:center;font-size:12px;color:var(--text-hi);margin:4px 0;}
 
+/* ── VTO MISSION BLOCK (Strategy Canvas) ── */
+.vto-mission{border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.vto-mission-row{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--border);}
+.vto-mission-row:last-child{border-bottom:none;}
+.vto-mission-lbl{background:var(--surface2);font-family:var(--fd);font-weight:600;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--text-dim);padding:10px 12px;}
+.vto-mission-txt{font-family:var(--fm);font-size:12px;color:var(--text-hi);line-height:1.55;padding:10px 12px;}
+
+/* ── VTO MAP TAB ── */
+.vto-pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+.vto-pillar-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--lotus);border-radius:7px;padding:14px 16px;}
+.vto-pillar-name{font-family:var(--fd);font-weight:700;font-size:13px;color:var(--lotus-hi);margin-bottom:4px;}
+.vto-pillar-tag{display:inline-block;font-family:var(--fm);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:2px 8px;margin-bottom:8px;}
+.vto-pillar-txt{font-family:var(--fm);font-size:11.5px;color:var(--text-hi);line-height:1.5;}
+.vto-gg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:8px;}
+.vto-gg-card{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:16px 14px;text-align:center;}
+.vto-gg-name{font-family:var(--fd);font-weight:700;font-size:14px;color:var(--lotus-hi);margin-bottom:6px;}
+.vto-gg-sub{font-family:var(--fm);font-size:11px;color:var(--text-mid);line-height:1.4;}
+
 /* ── PRINT ── */
 @media print{
   #hdr,#tabs,#bar{display:none!important;}
@@ -506,6 +524,8 @@ body.edit-mode #cnt{top:calc(var(--hh) + 28px + var(--th));}
   .fosg{grid-template-columns:repeat(2,1fr)!important;}
   .q12-targets{grid-template-columns:repeat(2,1fr)!important;}
   .sp-rock{grid-template-columns:1fr 1fr!important;}
+  .vto-pillars{grid-template-columns:repeat(2,1fr)!important;}
+  .vto-gg-grid{grid-template-columns:repeat(2,1fr)!important;}
 }
 
 /* ══════════════════════════════════════════════════
@@ -525,6 +545,9 @@ body.edit-mode #cnt{top:calc(var(--hh) + 28px + var(--th));}
   .sp-rev{grid-template-columns:1fr!important;}
   .q12-targets{grid-template-columns:repeat(2,1fr)!important;}
   .sp-rock{grid-template-columns:1fr!important;}
+  .vto-pillars{grid-template-columns:1fr!important;}
+  .vto-gg-grid{grid-template-columns:1fr!important;}
+  .vto-mission-row{grid-template-columns:1fr!important;}
   .rg{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))!important;}
   .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;}
   #vtoc,#teamc,#smac,#ancc{overflow-x:auto;-webkit-overflow-scrolling:touch;}
@@ -597,28 +620,29 @@ table{min-width:100%;}
 <!-- TABS -->
 <div id="tabs">
   <button class="tb on" onclick="go('b',this)"><span class="tb-n">01</span>About</button>
-  <button class="tb"    onclick="go('f',this)"><span class="tb-n">02</span>Founder-Off Dashboard</button>
+  <button class="tb"    onclick="go('f',this)"><span class="tb-n">02</span>GM/MD-Off Dashboard</button>
   <button class="tb"    onclick="go('s',this)"><span class="tb-n">03</span>VTO — Company</button>
   <button class="tb"    onclick="go('t',this)"><span class="tb-n">04</span>VTO — Teams</button>
   <button class="tb"    onclick="go('a',this)"><span class="tb-n">05</span>Strategic Anchors</button>
-  <button class="tb"    onclick="go('sp',this)"><span class="tb-n">06</span>Lotus Strategy Canvas</button>
+  <button class="tb"    onclick="go('vm',this)"><span class="tb-n">06</span>VTO Map</button>
+  <button class="tb"    onclick="go('sp',this)"><span class="tb-n">07</span>Lotus Strategy Canvas</button>
 </div>
 
 <!-- CONTENT -->
 <div id="cnt">
 
-  <!-- TAB 02: FOUNDER-OFF DASHBOARD -->
+  <!-- TAB 02: GM/MD-OFF DASHBOARD -->
   <div class="pan" id="pf">
     <div class="tmeta">
       <div class="tmeta-icon">👁</div>
       <div>
-        <div class="tmeta-q">Can Dennis step back? Are the 6 Founder-Off Switches green?</div>
-        <div class="tmeta-desc">The 6 tests that prove the business can run without the founder. All 6 must stay green for 8 consecutive weeks before Dennis can fully step back. Each switch has a clear success proof and a consequence if red.</div>
+        <div class="tmeta-q">Can the GM/MD step back? Are the 6 GM/MD-Off Switches green?</div>
+        <div class="tmeta-desc">The 6 tests that prove the business can run without the GM/MD. All 6 must stay green for 8 consecutive weeks before the GM/MD can fully step back. Each switch has a clear success proof and a consequence if red.</div>
         <div class="tmeta-row">
           <div class="tmi"><label>Primary Users</label><span>GM/MD + Leadership</span></div>
           <div class="tmi"><label>Publisher</label><span>GM/MD + SMA</span></div>
           <div class="tmi"><label>Cadence</label><span>Weekly review</span></div>
-          <div class="tmi"><label>Rule</label><span>All 6 must stay GREEN for 8 consecutive weeks = Founder-Off confirmed</span></div>
+          <div class="tmi"><label>Rule</label><span>All 6 must stay GREEN for 8 consecutive weeks = GM/MD-Off confirmed</span></div>
         </div>
       </div>
     </div>
@@ -627,7 +651,7 @@ table{min-width:100%;}
       <div class="li"><span class="dot dy">PARTIAL</span> — proxy, not the real number</div>
       <div class="li"><span class="dot ds">MISSING</span> — external system needed</div>
     </div>
-    <div class="sh"><div class="shd"></div><h3>Founder-Off Switch — 6 Tests</h3><div class="shl"></div></div>
+    <div class="sh"><div class="shd"></div><h3>GM/MD-Off Switch — 6 Tests</h3><div class="shl"></div></div>
     <div class="fosg" id="fosg"></div>
     <div class="sh"><div class="shd"></div><h3>55-KPI Readiness Map</h3><p style="margin-left:8px">Clock starts when all 55 are LIVE + all 6 switches hold green for 8 weeks</p><div class="shl"></div></div>
     <div class="rg" id="rdg"></div>
@@ -660,7 +684,7 @@ table{min-width:100%;}
       <span class="rh-compact-lbl">● Rock Health:</span>
       <span id="rh-compact-val" style="font-family:var(--fd);font-size:11px;color:var(--text-mid)">Loading…</span>
       <button class="rh-refresh" onclick="loadRockHealth()" style="margin-left:8px">↻ Refresh</button>
-      <button class="rh-refresh" onclick="go('sp',document.querySelectorAll('.tb')[5])" style="margin-left:4px">→ See full view in Lotus Strategy Canvas</button>
+      <button class="rh-refresh" onclick="go('sp',document.querySelectorAll('.tb')[6])" style="margin-left:4px">→ See full view in Lotus Strategy Canvas</button>
     </div>
     <div id="smac"></div>
   </div>
@@ -704,6 +728,57 @@ table{min-width:100%;}
     <div class="ag" id="ancg"></div>
   </div>
 
+  <!-- TAB 06: VTO MAP -->
+  <div class="pan" id="pvm">
+    <div class="tmeta">
+      <div class="tmeta-icon">🧭</div>
+      <div>
+        <div class="tmeta-q">What is our long-term identity, and how does it cascade into the 3-Year picture?</div>
+        <div class="tmeta-desc">A static reference of the VTO Map (Vision/Traction Organizer) — Lotus Dev's long-horizon identity by pillar. This is a one-time transcription, not a live feed; update it by hand if the source VTO Map changes.</div>
+        <div class="tmeta-row">
+          <div class="tmi"><label>Primary Users</label><span>GM/MD + Leadership</span></div>
+          <div class="tmi"><label>Source</label><span>VTO Map CN KPIs sheet + Lotus Dev Culture deck</span></div>
+          <div class="tmi"><label>Rule</label><span>Company + team KPIs that ladder up to this map live in Tab 03 and Tab 04.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sh"><div class="shd"></div><h3>3-Year Identity — Adv.I.S.E.</h3><div class="shl"></div></div>
+    <p style="font-family:var(--fm);font-size:11px;color:var(--text-dim);margin-bottom:14px">By December 31, 2028 — how each pillar shows up.</p>
+    <div class="vto-pillars">
+      <div class="vto-pillar-card">
+        <div class="vto-pillar-name">Advocates — Loved Brand</div>
+        <div class="vto-pillar-tag">We Make Dreams Happen</div>
+        <p class="vto-pillar-txt">Boutique LIVE‑WORK‑PLAY opportunity platform loved by families, top‑of‑mind for business beginners &amp; local talents.</p>
+      </div>
+      <div class="vto-pillar-card">
+        <div class="vto-pillar-name">Innovators — Living Centers</div>
+        <div class="vto-pillar-tag">We Make Things Unique</div>
+        <p class="vto-pillar-txt">Distinct concepts &amp; experiences make our places the natural home of community life.</p>
+        <p class="vto-pillar-txt" style="margin-top:8px;color:var(--text-dim);font-size:10.5px">Footprint: 18–22 active sites (6+ provinces) · 8+ Yspacio Creative Parks · 9–12 FEC sites · 12–18 Bakery by Handaan kiosks · 4–6 Handaan/H Café units</p>
+      </div>
+      <div class="vto-pillar-card">
+        <div class="vto-pillar-name">Sages — Co‑Elevating Team</div>
+        <div class="vto-pillar-tag">We Make People Great</div>
+        <p class="vto-pillar-txt">A Culture that creates legends and changemakers; leaders who grow leaders.</p>
+      </div>
+      <div class="vto-pillar-card">
+        <div class="vto-pillar-name">Essentialists — Empowering System</div>
+        <div class="vto-pillar-tag">We Make Things Easy</div>
+        <p class="vto-pillar-txt">We organize, simplify, and set the standard.</p>
+      </div>
+    </div>
+
+    <div class="sh"><div class="shd"></div><h3>Meaning of Gather &amp; Grow</h3><div class="shl"></div></div>
+    <p style="font-family:var(--fm);font-size:11px;color:var(--text-dim);margin-bottom:14px">The V/TO column's core — what "Fulfillment" means at Lotus, expressed through Gather &amp; Grow.</p>
+    <div class="vto-gg-grid">
+      <div class="vto-gg-card"><div class="vto-gg-name">Grow</div><div class="vto-gg-sub">Unleash full potential</div></div>
+      <div class="vto-gg-card"><div class="vto-gg-name">Contribute</div><div class="vto-gg-sub">Make an impact while doing what you love</div></div>
+      <div class="vto-gg-card"><div class="vto-gg-name">Belong</div><div class="vto-gg-sub">Can rely on others &amp; vice versa</div></div>
+      <div class="vto-gg-card"><div class="vto-gg-name">Experience</div><div class="vto-gg-sub">Feel emotions &amp; create memories</div></div>
+    </div>
+  </div>
+
   <!-- TAB 6: ABOUT -->
   <div class="pan on" id="pb">
     <div class="about-body">
@@ -739,7 +814,7 @@ table{min-width:100%;}
             <tr><td><b>Team Member</b></td><td>Enter your actual numbers. If your number is red, tell your Team Leader right away.</td><td style="white-space:nowrap">Weekly, before Monday 8am</td></tr>
             <tr><td><b>Team Leader</b></td><td>Check your team's numbers every Monday. Make sure every red number has a written plan. Present the plan at your L10 meeting.</td><td style="white-space:nowrap">Every Monday by 9am</td></tr>
             <tr><td><b>GM / SMA</b></td><td>Review all 6 tabs every Monday. If a Team Leader has a red number without a plan, follow up that day. Tab 03 shows the full weekly picture by site and function.</td><td style="white-space:nowrap">Every Monday by 9am</td></tr>
-            <tr><td><b>MD / Owner</b></td><td>Check Tab 02 (Founder-Off Dashboard) weekly. If all 6 Founder-Off Switches are green for 8 consecutive weeks, the business runs on its own.</td><td style="white-space:nowrap">Weekly</td></tr>
+            <tr><td><b>MD / Owner</b></td><td>Check Tab 02 (GM/MD-Off Dashboard) weekly. If all 6 GM/MD-Off Switches are green for 8 consecutive weeks, the business runs on its own.</td><td style="white-space:nowrap">Weekly</td></tr>
           </tbody>
         </table>
       </div>
@@ -800,9 +875,9 @@ table{min-width:100%;}
             <tr><td>Every week</td><td>GM / SMA</td><td>Tab 03 — Section 0: 10 Critical Numbers across all 4 sites</td></tr>
             <tr><td>Every month</td><td>Finance TL</td><td>Tab 03 — Section 0: Revenue, EBITDA, expenses (monthly KPIs)</td></tr>
             <tr><td>Every quarter</td><td>GM + HR (LRAD)</td><td>Tab 05 — Strategic Anchors progress</td></tr>
-            <tr><td>Every quarter</td><td>GM/MD</td><td>Tab 06 — Lotus Strategy Canvas: Rallying Cry, Revenue Goals, Rocks, North Star, Strategic Themes</td></tr>
-            <tr><td>Every year</td><td>GM/MD</td><td>Tab 06 — Lotus Strategy Canvas: 1-Year Picture targets and priorities</td></tr>
-            <tr><td>Every 3 years</td><td>GM/MD</td><td>Tab 06 — Lotus Strategy Canvas: 3-Year Roadmap milestones</td></tr>
+            <tr><td>Every quarter</td><td>GM/MD</td><td>Tab 07 — Lotus Strategy Canvas: Rallying Cry, Revenue Goals, Rocks, North Star, Strategic Themes</td></tr>
+            <tr><td>Every year</td><td>GM/MD</td><td>Tab 07 — Lotus Strategy Canvas: 1-Year Priority targets, priorities, and 1-Year Roadmap</td></tr>
+            <tr><td>Every 3 years</td><td>GM/MD</td><td>Tab 07 — Lotus Strategy Canvas: 3-Year Roadmap milestones</td></tr>
           </tbody>
         </table>
       </div>
@@ -865,9 +940,9 @@ table{min-width:100%;}
             <tr><td><b>ICARE</b></td><td>The system for recording and resolving complaints and problems. All issues go into ICARE.</td></tr>
             <tr><td><b>LotusOS</b></td><td>The Lotus Development operating system. 9 modules. All teams must use it.</td></tr>
             <tr><td><b>DCFM</b></td><td>Design, Construction, Facilities Management. The team responsible for all building, renovation, maintenance, and technical engineering work across Lotus sites.</td></tr>
-            <tr><td><b>Founder-Off Dashboard</b></td><td>Tab 02. The 6 tests that prove Dennis can step back from day-to-day operations. All 6 must stay green for 8 consecutive weeks to confirm Founder-Off status.</td></tr>
-            <tr><td><b>Lotus Strategy Canvas</b></td><td>Tab 06. Lotus Dev's strategy in one place — quarterly Rocks, 1-Year Picture, and 3-Year Roadmap. Live project health from LCC.</td></tr>
-            <tr><td><b>1-Year Picture</b></td><td>Annual targets (Revenue, EBITDA, Occupancy, NPS) and the top priorities for the year. Collapsible section inside Tab 06.</td></tr>
+            <tr><td><b>GM/MD-Off Dashboard</b></td><td>Tab 02. The 6 tests that prove the GM/MD can step back from day-to-day operations. All 6 must stay green for 8 consecutive weeks to confirm GM/MD-Off status.</td></tr>
+            <tr><td><b>Lotus Strategy Canvas</b></td><td>Tab 07. Lotus Dev's strategy in one place — quarterly Rocks, 1-Year Priority, 1-Year Roadmap, and 3-Year Roadmap. Live project health from LCC.</td></tr>
+            <tr><td><b>1-Year Priority</b></td><td>Annual targets (Revenue, EBITDA, Occupancy, NPS) and the top priorities for the year. Collapsible section inside Tab 07.</td></tr>
             <tr><td><b>OGSM</b></td><td>Objectives, Goals, Strategies, Measures. The planning framework Lotus used previously. Retired Q2 2026 in favor of LotusOS Rocks.</td></tr>
             <tr><td><b>SMA</b></td><td>Site/Stores Management Associate. Coordinates operations and reviews all KPIs.</td></tr>
             <tr><td><b>VTO</b></td><td>Vision/Traction Organizer. The master KPI framework for the whole business. VTO — Company (Tab 03) shows all 10 Critical Numbers by site. VTO — Teams (Tab 04) shows team-level lead KPIs that drive them.</td></tr>
@@ -886,11 +961,12 @@ table{min-width:100%;}
           <thead><tr><th>Tab</th><th>Name</th><th>Key question</th><th>Who publishes</th></tr></thead>
           <tbody>
             <tr><td>01</td><td><b>About</b></td><td>How do I use this scoreboard?</td><td>Fixed — always available</td></tr>
-            <tr><td>02</td><td><b>Founder-Off Dashboard</b></td><td>Can Dennis step back? Are the 6 Founder-Off Switches green?</td><td>GM/MD + SMA</td></tr>
+            <tr><td>02</td><td><b>GM/MD-Off Dashboard</b></td><td>Can the GM/MD step back? Are the 6 GM/MD-Off Switches green?</td><td>GM/MD + SMA</td></tr>
             <tr><td>03</td><td><b>VTO — Company</b></td><td>Are our Critical Numbers on track — by site and by function?</td><td>GM/MD — every Monday</td></tr>
             <tr><td>04</td><td><b>VTO — Teams</b></td><td>Are our teams hitting the KPIs that drive the company numbers?</td><td>Each TL + GM/MD</td></tr>
             <tr><td>05</td><td><b>Strategic Anchors</b></td><td>Are our operating systems being adopted — not just installed?</td><td>GM/MD + LeaderZen Custodian</td></tr>
-            <tr><td>06</td><td><b>Lotus Strategy Canvas</b></td><td>Where are we going — this quarter, this year, and in 3 years?</td><td>GM/MD — quarterly (Rocks) · annually (1-Year) · 3 years (Roadmap)</td></tr>
+            <tr><td>06</td><td><b>VTO Map</b></td><td>What is our long-term identity, and how does it cascade into the 3-Year picture?</td><td>GM/MD + Leadership (static reference)</td></tr>
+            <tr><td>07</td><td><b>Lotus Strategy Canvas</b></td><td>Where are we going — this quarter, this year, and in 3 years?</td><td>GM/MD — quarterly (Rocks) · annually (1-Year) · 3 years (Roadmap)</td></tr>
           </tbody>
         </table>
       </div>
@@ -904,7 +980,7 @@ table{min-width:100%;}
       <div class="tmeta-icon">🗺️</div>
       <div>
         <div class="tmeta-q">Where are we going — this quarter, this year, and in 3 years?</div>
-        <div class="tmeta-desc">Lotus Dev's strategy in one place. Quarterly Rocks show what we are executing now. The 1-Year Picture shows where we are headed by year-end. The 3-Year Roadmap shows the bigger target. Project health comes live from LCC. Tap Edit in the header to update targets and themes.</div>
+        <div class="tmeta-desc">Lotus Dev's strategy in one place, top-down from the VTO Map. Quarterly Rocks show what we are executing now. The 1-Year Priority and 1-Year Roadmap show where we are headed by year-end. The 3-Year Roadmap shows the bigger target. Project health comes live from LCC. Tap Edit in the header to update targets and themes.</div>
         <div class="tmeta-row">
           <div class="tmi"><label>Primary Users</label><span>GM/MD (publisher) + Leadership (review)</span></div>
           <div class="tmi"><label>Cadence</label><span>Rocks: every quarter · 1-Year: every year · 3-Year: every 3 years</span></div>
@@ -994,7 +1070,7 @@ const Q12 = {
     { q: 9,  label: 'Q1 2028', revenue: '₱8.8M', occupancy: '94%', key_event: '' },
     { q: 10, label: 'Q2 2028', revenue: '₱9.2M', occupancy: '95%', key_event: '' },
     { q: 11, label: 'Q3 2028', revenue: '₱9.7M', occupancy: '95%', key_event: '' },
-    { q: 12, label: 'Q4 2028', revenue: '₱10M',  occupancy: '95%', key_event: 'Founder-free target reached' },
+    { q: 12, label: 'Q4 2028', revenue: '₱10M',  occupancy: '95%', key_event: 'GM/MD-free target reached' },
   ],
 };
 const Y1 = {
@@ -1004,7 +1080,7 @@ const Y1 = {
     {p: 'Reach ₱5.5M monthly revenue by Q4', owner: 'GM/MD',           due: 'Dec 2026', status: 'on-track'},
     {p: 'Full LotusOS adoption across all teams', owner: 'SMA',         due: 'Dec 2026', status: 'on-track'},
     {p: 'Portal Mall leasing to ≥85% occupancy', owner: 'Opportunity TL', due: 'Dec 2026', status: 'at-risk'},
-    {p: 'Founder-off switches: all 6 green for 4 weeks', owner: 'GM/MD', due: 'Dec 2026', status: 'at-risk'},
+    {p: 'GM/MD-off switches: all 6 green for 4 weeks', owner: 'GM/MD', due: 'Dec 2026', status: 'at-risk'},
   ],
 };
 /* ── END QUARTERLY EDIT ZONE ── */
@@ -1021,6 +1097,7 @@ let spFilters = {horizon:'rocks', owner:'all', pillar:'all'};
 let spShowCompleted = false;
 let teamSortState = {};
 let smaSortState  = {};
+let spRockSortState = {col:'',dir:''};
 
 function loadConfig() {
   const raw = localStorage.getItem('lotus_gmd_v4_config');
@@ -1194,6 +1271,12 @@ function sortSma(sid, col) {
   else { s.col=col; s.dir='asc'; }
   smaSortState[sid]=s; rSMA();
 }
+function sortSpRock(col) {
+  const s = spRockSortState;
+  if (s.col===col) { s.dir=nextSortDir(s.dir); if(!s.dir) s.col=''; }
+  else { s.col=col; s.dir='asc'; }
+  renderSprint();
+}
 
 async function initAuth() {
   const { data: { session } } = await sb.auth.getSession();
@@ -1350,58 +1433,44 @@ function renderSprint() {
   const active    = filtered.filter(r => !isCompleted(r));
   const completed = filtered.filter(r =>  isCompleted(r));
 
-  const grouped = {};
-  SP_PILLARS.forEach(p => grouped[p] = {active:[],completed:[]});
-  active.forEach(r    => grouped[getPillar(r)].active.push(r));
-  completed.forEach(r => grouped[getPillar(r)].completed.push(r));
-
-  function healthSummary(list) {
-    const c = {'on-track':0,'at-risk':0,'critical':0};
-    list.forEach(p => { if(c[p.data.health]!==undefined) c[p.data.health]++; });
-    const parts=[];
-    if(c['on-track']) parts.push(`● ${c['on-track']} On Track`);
-    if(c['at-risk'])  parts.push(`⚠ ${c['at-risk']} At Risk`);
-    if(c['critical']) parts.push(`✕ ${c['critical']} Critical`);
-    return parts.join('  ');
+  function rockRow(r, dim) {
+    return {
+      pillar: PILLAR_FULL[getPillar(r)] || getPillar(r),
+      project: r.data.name || '—',
+      owner: r.data.assignedLeader || '—',
+      proof: r.data.successDefinition || '—',
+      next: r.data.nextStep || '—',
+      horizon: r.data.timeHorizon || '',
+      health: r.data.health || '',
+      dim,
+    };
   }
+  let rockRows = active.map(r => rockRow(r, false));
+  if (spShowCompleted) rockRows = rockRows.concat(completed.map(r => rockRow(r, true)));
+  rockRows = sortRows(rockRows, spRockSortState.col, spRockSortState.dir);
 
-  function projectCard(r, i, dim) {
-    return `${i>0?'<div class="sp-rock-div"></div>':''}
-    <div class="sp-rock${dim?' sp-done':''}">
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
-        ${horizonBadge(r.data.timeHorizon)}
-        ${dim?'<span class="sp-done-badge">Completed</span>':''}
-      </div>
-      <div><div class="sp-rock-lbl">Project</div><div class="sp-rock-val">${r.data.name||'—'}</div></div>
-      <div><div class="sp-rock-lbl">Owner</div><div class="sp-rock-val">${r.data.assignedLeader||'—'}</div></div>
-      <div><div class="sp-rock-lbl">Success Proof</div><div class="sp-rock-val">${r.data.successDefinition||'—'}</div></div>
-      <div><div class="sp-rock-lbl">Next Step</div><div class="sp-rock-trigger">${r.data.nextStep||'—'}</div></div>
-      <div><div class="sp-rock-lbl">Health</div><div class="sp-rock-val"><span class="dot ${hMap[r.data.health]||'ds'}">${hLabel[r.data.health]||'—'}</span></div></div>
-    </div>`;
-  }
-
-  const pillarsHTML = SP_PILLARS.map(pName => {
-    const a = grouped[pName].active;
-    const c = grouped[pName].completed;
-    if (!a.length && !c.length) return '';
-    const total = a.length + (spShowCompleted ? c.length : 0);
-    const rocksHTML = a.length
-      ? a.map((r,i) => projectCard(r,i,false)).join('')
-      : '<div class="sp-empty">No active projects in this group</div>';
-    const completedHTML = (spShowCompleted && c.length)
-      ? `<div class="sp-completed-section">
-           <div class="sp-completed-lbl">Completed (${c.length})</div>
-           ${c.map((r,i)=>projectCard(r,i,true)).join('')}
-         </div>` : '';
-    return `<div class="sp-pillar">
-      <div class="sp-pillar-hdr">
-        <div class="sp-pillar-name">${PILLAR_FULL[pName]||pName}</div>
-        <span class="ks">${total} Project${total!==1?'s':''}</span>
-        ${a.length?`<span class="sp-health-sum">${healthSummary(a)}</span>`:''}
-      </div>
-      ${rocksHTML}${completedHTML}
-    </div>`;
-  }).join('');
+  const ROCK_COLS = [
+    {key:'pillar',  label:'Pillar'},
+    {key:'project', label:'Project'},
+    {key:'owner',   label:'Owner'},
+    {key:'proof',   label:'Success Proof'},
+    {key:'next',    label:'Next Step'},
+    {key:'horizon', label:'Horizon'},
+    {key:'health',  label:'Health'},
+  ];
+  const rocksTableHTML = rockRows.length ? `
+    <div class="tw tw-x"><table>
+      <thead><tr>${ROCK_COLS.map(c=>`<th onclick="sortSpRock('${c.key}')" style="cursor:pointer">${c.label}${sortIcon(c.key,spRockSortState)}</th>`).join('')}</tr></thead>
+      <tbody>${rockRows.map(r => `<tr${r.dim?' class="sp-done"':''}>
+        <td>${r.pillar}</td>
+        <td class="kn">${r.project}${r.dim?' <span class=\"sp-done-badge\">Completed</span>':''}</td>
+        <td style="font-size:11px;color:var(--text-mid)">${r.owner}</td>
+        <td style="font-size:11px">${r.proof}</td>
+        <td style="font-size:11px;color:var(--po-tx)">${r.next}</td>
+        <td>${horizonBadge(r.horizon)}</td>
+        <td><span class="dot ${hMap[r.health]||'ds'}">${hLabel[r.health]||'—'}</span></td>
+      </tr>`).join('')}</tbody>
+    </table></div>` : '<div class="sp-empty" style="padding:20px 0">No projects match this filter.</div>';
 
   const nsHTML = Q.north_star.map((n,i) => {
     const shBadge = NS_SHARED.has(n.kpi)
@@ -1428,54 +1497,29 @@ function renderSprint() {
     <td><span class="dot ${hMap[p.status]||'ds'}">${hLabel[p.status]||p.status}</span></td>
   </tr>`).join('');
 
+  const y1Now = Q12.milestones.filter(m => m.label.endsWith(Y1.year_label)).slice(0,4);
+  const y1Milestones = y1Now.length ? y1Now : Q12.milestones.slice(0,4);
+
   el.innerHTML = `
-    <div class="rh-wrap">
-      <div class="sh"><div class="shd"></div><h3>Rocks &amp; Projects Health — Live from LCC</h3><div class="shl"></div><button class="rh-refresh" onclick="loadRockHealth()">↻ Refresh</button><span class="rh-status" id="rh-status">Loading…</span></div>
-      <div class="rh-grid">
-        <div class="rh-hdr">Pillar</div><div class="rh-hdr" style="text-align:center">Rocks/Projects</div><div class="rh-hdr" style="text-align:center">On Track</div><div class="rh-hdr" style="text-align:center">At Risk</div><div class="rh-hdr" style="text-align:center">Critical</div>
-        <div id="rh-rows">—</div>
+    <details class="sp-details">
+      <summary class="sp-sum sh"><div class="shd"></div><h3>Universal Mission → V/TO → 5yr → 3yr</h3><div class="shl"></div></summary>
+      <p class="sp-sec-sub">Lotus Dev's long-horizon identity, pasted as-is from the VTO Map — not yet measured by the system.</p>
+      <div class="vto-mission">
+        <div class="vto-mission-row"><div class="vto-mission-lbl">Universal Mission</div><div class="vto-mission-txt">To transform the community into a place of Fulfillment &amp; Joy by Empowering people to Gather &amp; Grow.</div></div>
+        <div class="vto-mission-row"><div class="vto-mission-lbl">Vision / BHAG</div><div class="vto-mission-txt">By 2035, we will become a Boutique Community Developer and a Management Company that builds &amp; operates 100 LIVE‑WORK‑PLAY projects that Empower people to Gather &amp; Grow.</div></div>
+        <div class="vto-mission-row"><div class="vto-mission-lbl">5-Year Picture (2030)</div><div class="vto-mission-txt">Become a Boutique Community Developer and Management Company that builds &amp; operates 100 LIVE‑WORK‑PLAY projects that Empower people to "Gather &amp; Grow," so our community transforms into a place of fulfillment and joy.</div></div>
+        <div class="vto-mission-row"><div class="vto-mission-lbl">3-Year Metric (Lag, pasted)</div><div class="vto-mission-txt">18–22 active sites (6+ provinces) · 8+ Yspacio Creative Parks · 9–12 FEC sites · 12–18 Bakery by Handaan kiosks · 4–6 Handaan/H Café units · Beginner share ≥25%/site</div></div>
+        <div class="vto-mission-row"><div class="vto-mission-lbl">3-Year Metric (Lead, pasted)</div><div class="vto-mission-txt">(NEW) Occupancy % (Area, mature sites) ≥92% · (NEW) Business Beginners ≥25% avg per site (GLA‑weighted) · Community NPS ≥60 / FEC ≥70 / Handaan ≥65</div></div>
       </div>
-    </div>
-    <div class="sp-cry">
-      <div class="sp-cry-lbl">Rallying Cry</div>
-      <div class="sp-cry-txt">${ed('ec-cry',Q.rallying_cry,'display:block')}</div>
-      <div class="sp-quarter">${ed('ec-qlbl',Q.quarter_label)}</div>
-    </div>
-    <div class="sh"><div class="shd"></div><h3>Revenue Goals</h3><div class="shl"></div></div>
-    <div class="sp-rev">
-      <div class="sp-rev-card"><div class="sp-rev-lbl">Good</div><div class="sp-rev-val">${ed('ec-rev-g',Q.revenue.good)}</div></div>
-      <div class="sp-rev-card" style="border-color:var(--lotus-mid)"><div class="sp-rev-lbl">Better</div><div class="sp-rev-val">${ed('ec-rev-b',Q.revenue.better)}</div></div>
-      <div class="sp-rev-card" style="border-top:2px solid var(--lotus)"><div class="sp-rev-lbl">Best</div><div class="sp-rev-val">${ed('ec-rev-x',Q.revenue.best)}</div></div>
-    </div>
-    <details class="sp-details" open>
-      <summary class="sp-sum sh"><div class="shd"></div><h3>Quarterly Rocks — 4 Pillars</h3><span class="sp-live-badge">● LIVE from LCC</span><div class="shl"></div></summary>
-      <p class="sp-sec-sub">What are we executing this quarter? Each rock has one owner, one success proof, one next step.</p>
-      <div class="sp-filter-bar">
-        <span class="sp-sel-lbl">Horizon</span>${horizonSel}
-        <span class="sp-sel-lbl">Owner</span>${ownerSel}
-        <span class="sp-sel-lbl">Pillar</span>${pillarSel}
-        ${completed.length?`<button class="sp-fb sp-fb-right${spShowCompleted?' on':''}" onclick="toggleSpCompleted()">${spShowCompleted?'Hide':'Show'} Completed (${completed.length})</button>`:''}
-      </div>
-      ${pillarsHTML||'<div class="sp-empty" style="padding:20px 0">No projects match this filter.</div>'}
-    </details>
-    <details class="sp-details" open>
-      <summary class="sp-sum sh"><div class="shd"></div><h3>North Star Metrics</h3><div class="shl"></div></summary>
-      <p class="sp-sec-sub">Are the critical numbers on track? These 5–7 measures tell if the quarter is working.</p>
-      <div class="tw"><table>
-        <thead><tr><th>KPI</th><th>Target</th><th>Owner</th><th>Cadence</th></tr></thead>
-        <tbody>${nsHTML}</tbody>
-      </table></div>
-    </details>
-    <details class="sp-details" open>
-      <summary class="sp-sum sh"><div class="shd"></div><h3>Strategic Themes</h3><div class="shl"></div></summary>
-      <p class="sp-sec-sub">What are the broader directional bets this year? These are not individual rocks — they are the patterns the rocks belong to.</p>
-      <div class="tw"><table>
-        <thead><tr><th>Theme</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead>
-        <tbody>${initHTML}</tbody>
-      </table></div>
+      <p style="margin-top:10px"><a href="javascript:void(0)" onclick="go('vm',document.querySelectorAll('.tb')[5])" style="font-family:var(--fd);font-size:11px;color:var(--lotus);font-weight:600">→ Full 3-Year Identity by pillar in Tab 06 — VTO Map</a></p>
     </details>
     <details class="sp-details">
-      <summary class="sp-sum sh"><div class="shd"></div><h3>1-Year Picture — ${ed('ec-y1-lbl',Y1.year_label)}</h3><div class="shl"></div></summary>
+      <summary class="sp-sum sh"><div class="shd"></div><h3>3-Year Roadmap — ${ed('ec-plan-start',Q12.plan_start)} to ${ed('ec-plan-end',Q12.plan_end)}</h3><div class="shl"></div></summary>
+      <p class="sp-sec-sub">Where are we going in 3 years? One row per quarter, with live LCC projects mapped in.</p>
+      ${render3YearSection(Q12.milestones, Q12.targets_3yr, true, 'ec')}
+    </details>
+    <details class="sp-details">
+      <summary class="sp-sum sh"><div class="shd"></div><h3>1-Year Priority — ${ed('ec-y1-lbl',Y1.year_label)}</h3><div class="shl"></div></summary>
       <p class="sp-sec-sub">Where are we going by end of this year? Annual targets and top priorities.</p>
       <div class="q12-targets">
         <div class="q12-card"><div class="q12-card-lbl">Annual Revenue Target</div><div class="q12-card-val">${ed('ec-y1-rev',Y1.targets.revenue||'—')}</div></div>
@@ -1489,15 +1533,70 @@ function renderSprint() {
       </table></div>
     </details>
     <details class="sp-details">
-      <summary class="sp-sum sh"><div class="shd"></div><h3>3-Year Roadmap — ${ed('ec-plan-start',Q12.plan_start)} to ${ed('ec-plan-end',Q12.plan_end)}</h3><div class="shl"></div></summary>
-      <p class="sp-sec-sub">Where are we going in 3 years? One row per quarter, with live LCC projects mapped in.</p>
-      ${render3YearSection()}
+      <summary class="sp-sum sh"><div class="shd"></div><h3>1-Year Roadmap — ${Y1.year_label}</h3><div class="shl"></div></summary>
+      <p class="sp-sec-sub">Same format as the 3-Year Roadmap, scoped to this year's 4 quarters.</p>
+      ${render3YearSection(y1Milestones, Y1.targets, false, null)}
+    </details>
+    <details class="sp-details">
+      <summary class="sp-sum sh"><div class="shd"></div><h3>North Star Metrics</h3><div class="shl"></div></summary>
+      <p class="sp-sec-sub">Are the critical numbers on track? These 5–7 measures tell if the quarter is working.</p>
+      <div class="tw"><table>
+        <thead><tr><th>KPI</th><th>Target</th><th>Owner</th><th>Cadence</th></tr></thead>
+        <tbody>${nsHTML}</tbody>
+      </table></div>
+    </details>
+    <details class="sp-details">
+      <summary class="sp-sum sh"><div class="shd"></div><h3>Strategic Themes</h3><div class="shl"></div></summary>
+      <p class="sp-sec-sub">What are the broader directional bets this year? These are not individual rocks — they are the patterns the rocks belong to.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Theme</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead>
+        <tbody>${initHTML}</tbody>
+      </table></div>
+    </details>
+    <details class="sp-details">
+      <summary class="sp-sum sh"><div class="shd"></div><h3>Revenue Goals</h3><div class="shl"></div></summary>
+      <div class="sp-rev">
+        <div class="sp-rev-card"><div class="sp-rev-lbl">Good</div><div class="sp-rev-val">${ed('ec-rev-g',Q.revenue.good)}</div></div>
+        <div class="sp-rev-card" style="border-color:var(--lotus-mid)"><div class="sp-rev-lbl">Better</div><div class="sp-rev-val">${ed('ec-rev-b',Q.revenue.better)}</div></div>
+        <div class="sp-rev-card" style="border-top:2px solid var(--lotus)"><div class="sp-rev-lbl">Best</div><div class="sp-rev-val">${ed('ec-rev-x',Q.revenue.best)}</div></div>
+      </div>
+    </details>
+    <details class="sp-details" open>
+      <summary class="sp-sum sh"><div class="shd"></div><h3>Rallying Cry</h3><div class="shl"></div></summary>
+      <div class="sp-cry">
+        <div class="sp-cry-lbl">Rallying Cry</div>
+        <div class="sp-cry-txt">${ed('ec-cry',Q.rallying_cry,'display:block')}</div>
+        <div class="sp-quarter">${ed('ec-qlbl',Q.quarter_label)}</div>
+      </div>
+    </details>
+    <details class="sp-details" open>
+      <summary class="sp-sum sh"><div class="shd"></div><h3>Rocks &amp; Projects Health — Live from LCC</h3><div class="shl"></div></summary>
+      <div class="rh-wrap">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><button class="rh-refresh" onclick="loadRockHealth()">↻ Refresh</button><span class="rh-status" id="rh-status">Loading…</span></div>
+        <div class="rh-grid">
+          <div class="rh-hdr">Pillar</div><div class="rh-hdr" style="text-align:center">Rocks/Projects</div><div class="rh-hdr" style="text-align:center">On Track</div><div class="rh-hdr" style="text-align:center">At Risk</div><div class="rh-hdr" style="text-align:center">Critical</div>
+          <div id="rh-rows">—</div>
+        </div>
+      </div>
+    </details>
+    <details class="sp-details">
+      <summary class="sp-sum sh"><div class="shd"></div><h3>Quarterly Rocks — Live from LCC</h3><span class="sp-live-badge">● LIVE from LCC</span><div class="shl"></div></summary>
+      <p class="sp-sec-sub">What are we executing this quarter? Each rock has one owner, one success proof, one next step. Click a column header to sort.</p>
+      <div class="sp-filter-bar">
+        <span class="sp-sel-lbl">Horizon</span>${horizonSel}
+        <span class="sp-sel-lbl">Owner</span>${ownerSel}
+        <span class="sp-sel-lbl">Pillar</span>${pillarSel}
+        ${completed.length?`<button class="sp-fb sp-fb-right${spShowCompleted?' on':''}" onclick="toggleSpCompleted()">${spShowCompleted?'Hide':'Show'} Completed (${completed.length})</button>`:''}
+      </div>
+      ${rocksTableHTML}
     </details>
     ${editMode?'<div class="sp-edit-note">Tap any underlined text to edit. Tap <b>Done</b> in the header to save.</div>':''}`;
 }
 
-function render3YearSection() {
-  const t = Q12.targets_3yr;
+function render3YearSection(milestones, targets, showLongHorizon, idPrefix) {
+  const t = targets;
+  const editable = !!idPrefix;
+  const val = (id, v, style) => editable ? ed(idPrefix+id, v, style) : `<span style="${style||''}">${v}</span>`;
   const hMap = {'on-track':'dg','at-risk':'dy','critical':'dr'};
   const Q12_PILLARS = ['Advocates','Innovator','Sages','Essentialists'];
   const byQ = {};
@@ -1508,16 +1607,16 @@ function render3YearSection() {
     if (!byQ[key]) byQ[key] = [];
     byQ[key].push(r);
   });
-  const longHorizon = allProjects.filter(r =>
+  const longHorizon = showLongHorizon ? allProjects.filter(r =>
     r.data && (r.data.timeHorizon === 'Annual Rock (360d)' || r.data.timeHorizon === 'Long Term')
-  );
+  ) : [];
   const cards = `<div class="q12-targets">
-    <div class="q12-card"><div class="q12-card-lbl">Revenue Target (3yr)</div><div class="q12-card-val">${ed('ec-t-rev',t.revenue)}</div></div>
-    <div class="q12-card"><div class="q12-card-lbl">EBITDA Target</div><div class="q12-card-val">${ed('ec-t-eb',t.ebitda_pct)}</div></div>
-    <div class="q12-card"><div class="q12-card-lbl">Occupancy Target</div><div class="q12-card-val">${ed('ec-t-occ',t.occupancy)}</div></div>
-    <div class="q12-card"><div class="q12-card-lbl">NPS Target</div><div class="q12-card-val">${ed('ec-t-nps',t.nps)}</div></div>
+    <div class="q12-card"><div class="q12-card-lbl">Revenue Target</div><div class="q12-card-val">${val('-t-rev',t.revenue)}</div></div>
+    <div class="q12-card"><div class="q12-card-lbl">EBITDA Target</div><div class="q12-card-val">${val('-t-eb',t.ebitda_pct)}</div></div>
+    <div class="q12-card"><div class="q12-card-lbl">Occupancy Target</div><div class="q12-card-val">${val('-t-occ',t.occupancy)}</div></div>
+    <div class="q12-card"><div class="q12-card-lbl">NPS Target</div><div class="q12-card-val">${val('-t-nps',t.nps)}</div></div>
   </div>`;
-  const rows = Q12.milestones.map((m,i) => {
+  const rows = milestones.map((m,i) => {
     const isNow = m.q === Q12.now_quarter;
     const liveProjects = byQ[m.label] || [];
     const projectBullets = liveProjects.length
@@ -1525,11 +1624,11 @@ function render3YearSection() {
           const pillar = r.data.projectType ? r.data.projectType.split(' — ')[0].trim() : '';
           return `<div class="q12-live-proj"><span class="dot ${hMap[r.data.health]||'ds'}" style="margin-right:4px"></span>${r.data.name||'—'}${pillar?` <span style="color:var(--text-dim);font-size:10px">(${pillar})</span>`:''}</div>`;
         }).join('')
-      : ed(`ec-m-evt-${i}`, m.key_event||'—', 'font-size:11px;color:var(--text-dim)');
+      : val(`-m-evt-${i}`, m.key_event||'—', 'font-size:11px;color:var(--text-dim)');
     return `<div class="q12-row${isNow?' now':''}">
       <div class="q12-q">${m.label}${isNow?'<span class="q12-now-badge">NOW</span>':''}</div>
-      <div style="font-family:var(--fd);font-weight:600;color:var(--text-hi)">${ed(`ec-m-rev-${i}`,m.revenue)}</div>
-      <div style="font-size:11px;color:var(--text-mid)">${ed(`ec-m-occ-${i}`,m.occupancy)}</div>
+      <div style="font-family:var(--fd);font-weight:600;color:var(--text-hi)">${val(`-m-rev-${i}`,m.revenue)}</div>
+      <div style="font-size:11px;color:var(--text-mid)">${val(`-m-occ-${i}`,m.occupancy)}</div>
       <div>${projectBullets}</div>
     </div>`;
   }).join('');
@@ -1602,7 +1701,7 @@ const D = {
 /* ============================================================
    ROUTING
    ============================================================ */
-const PANS = {f:'pf',s:'ps',t:'pt',a:'pa',b:'pb',sp:'psp'};
+const PANS = {f:'pf',s:'ps',t:'pt',a:'pa',b:'pb',vm:'pvm',sp:'psp'};
 function go(id,btn){
   document.querySelectorAll('.pan').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tb').forEach(b=>b.classList.remove('on'));
@@ -1686,25 +1785,25 @@ function stags(src,frm){
 }
 
 /* ============================================================
-   TAB 1: FOUNDER VIEW
+   TAB 1: GM/MD VIEW
    ============================================================ */
 const FOS_DATA=[
-  {id:'FOS-1',lbl:'Owner Draft Quality',        tgt:'≥16/20 avg; 0 rewrites',          st:'PARTIAL',fc:'var(--sy)',fg:'var(--sy-g)',fdot:'dy',src:'lcc-v41-kpi-readiness-map.md',frm:'Founder Freedom Cockpit',
+  {id:'FOS-1',lbl:'Owner Draft Quality',        tgt:'≥16/20 avg; 0 rewrites',          st:'PARTIAL',fc:'var(--sy)',fg:'var(--sy-g)',fdot:'dy',src:'lcc-v41-kpi-readiness-map.md',frm:'GM/MD Freedom Cockpit',
    cons:'SMA flags owner. No project advances until rewrite cycle is broken.'},
-  {id:'FOS-2',lbl:'SMA / GM Compliance Rate',   tgt:'≥90%',                            st:'PARTIAL',fc:'var(--sy)',fg:'var(--sy-g)',fdot:'dy',src:'lcc-v41-kpi-readiness-map.md',frm:'Founder Freedom Cockpit',
+  {id:'FOS-2',lbl:'SMA / GM Compliance Rate',   tgt:'≥90%',                            st:'PARTIAL',fc:'var(--sy)',fg:'var(--sy-g)',fdot:'dy',src:'lcc-v41-kpi-readiness-map.md',frm:'GM/MD Freedom Cockpit',
    cons:'<90%: GM/MD escalates same day. Root cause report due in 24 hours.'},
-  {id:'FOS-3',lbl:'F&B Profit — Clear Owner',   tgt:'Stable; founder not involved',    st:'MISSING',fc:'var(--ss)',fg:'transparent',fdot:'ds',src:'founder-freedom-cockpit-current-state.md',frm:'Founder Freedom Cockpit',
+  {id:'FOS-3',lbl:'F&B Profit — Clear Owner',   tgt:'Stable; GM/MD not involved',    st:'MISSING',fc:'var(--ss)',fg:'transparent',fdot:'ds',src:'founder-freedom-cockpit-current-state.md',frm:'GM/MD Freedom Cockpit',
    cons:'GM/MD confirms weekly until finance feed is live.'},
-  {id:'FOS-4',lbl:'Team-Led Innovations',        tgt:'≥2 per BU per month',             st:'MISSING',fc:'var(--ss)',fg:'transparent',fdot:'ds',src:'founder-freedom-cockpit-current-state.md',frm:'Founder Freedom Cockpit / LotusOS',
+  {id:'FOS-4',lbl:'Team-Led Innovations',        tgt:'≥2 per BU per month',             st:'MISSING',fc:'var(--ss)',fg:'transparent',fdot:'ds',src:'founder-freedom-cockpit-current-state.md',frm:'GM/MD Freedom Cockpit / LotusOS',
    cons:'BU Heads submit innovation log to SMA by last Friday of the month.'},
-  {id:'FOS-5',lbl:'Self-Managed Incidents',      tgt:'≥80% resolved without founder',  st:'MISSING',fc:'var(--ss)',fg:'transparent',fdot:'ds',src:'founder-freedom-cockpit-current-state.md',frm:'ICARE / Founder Freedom Cockpit',
-   cons:'SMA tracks manually. Escalations to founder counted and reviewed weekly.'},
-  {id:'FOS-6',lbl:'Founder Active Hours',        tgt:'≤10 hrs/week; near-zero escal.', st:'PARTIAL',fc:'var(--sy)',fg:'var(--sy-g)',fdot:'dy',src:'lcc-v41-kpi-readiness-map.md',frm:'Founder Freedom Cockpit',
+  {id:'FOS-5',lbl:'Self-Managed Incidents',      tgt:'≥80% resolved without GM/MD',  st:'MISSING',fc:'var(--ss)',fg:'transparent',fdot:'ds',src:'founder-freedom-cockpit-current-state.md',frm:'ICARE / GM/MD Freedom Cockpit',
+   cons:'SMA tracks manually. Escalations to GM/MD counted and reviewed weekly.'},
+  {id:'FOS-6',lbl:'GM/MD Active Hours',        tgt:'≤10 hrs/week; near-zero escal.', st:'PARTIAL',fc:'var(--sy)',fg:'var(--sy-g)',fdot:'dy',src:'lcc-v41-kpi-readiness-map.md',frm:'GM/MD Freedom Cockpit',
    cons:'If >10 hrs: GM/MD flags which task and assigns it to the relevant TL by next Monday.'},
 ];
 
 const RC=[
-  {n:'Founder-Off Switch',   tot:6,  lv:0, pt:3, ms:3, nd:'ICARE module, innovation tracker, Finance feed'},
+  {n:'GM/MD-Off Switch',   tot:6,  lv:0, pt:3, ms:3, nd:'ICARE module, innovation tracker, Finance feed'},
   {n:'Project Execution',    tot:17, lv:17,pt:0, ms:0, nd:'Fully LIVE via LCC v4.1 (lcc-v4-supabase.vercel.app)'},
   {n:'Operational OS',       tot:7,  lv:0, pt:2, ms:5, nd:'LDApps, LDPM, ICARE feeds'},
   {n:'ENGINE (Finance)',     tot:7,  lv:0, pt:0, ms:7, nd:'Finance dashboard: revenue, margin, cash, A/R, inventory'},
@@ -1812,7 +1911,7 @@ const SMA=[
     {k:'% Planned vs Actual – Projects (Technical/Engineering/Special)',ow:'DCFM TL',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (DCFM) / Role Profile',ty:'Lead',tgt:'TBD',cons:'<80%: DCFM TL reviews blockers and escalates to SMA.'},
     {k:'Score / Evaluation / NPS — Projects',                   ow:'DCFM TL',src:'~scoreboard_l10_weekly_view.md',frm:'KPI Laundry List (DCFM) / Role Profile',ty:'Lag',tgt:'TBD',cons:'Below target: DCFM TL reviews with requester in 7 days.'},
   ]},
-  {id:'s6',title:'Section 6 — Systems, Governance & Founder-Free Enforcement',
+  {id:'s6',title:'Section 6 — Systems, Governance & GM/MD-Free Enforcement',
    note:'Tracks LotusOS adoption, L10 compliance, and whether the system is self-running. Owner: SMA + LeaderZen Custodian.',
    rows:[
     {k:'LotusOS Adoption % (Weekly Active ÷ Assigned)',ow:'SMA',src:'~scoreboard_l10_weekly_view.md',frm:'LDApps / LotusOS',  ty:'Governance',tgt:'≥85%', sh:'lotusos_adoption',cons:'<80%: SMA sends individual follow-up. Repeat offenders go to Consequence Ladder.'},
@@ -2210,7 +2309,7 @@ const ANCS=[
     {lb:'SLA Breach Rate',                  tgt:'0%',     src:'lotusos.md + icare.md',   frm:'ICARE / LotusOS'},
   ]},
   {id:'cos',nm:'CultureOS',sb:'Culture-building system',
-   desc:'Are culture rituals running without founder or GM involvement? Is APOGEIC being measured and improving?',
+   desc:'Are culture rituals running without GM/MD involvement? Is APOGEIC being measured and improving?',
    kpis:[
     {lb:'Culture Ritual Compliance (Gather/Grow)', tgt:'≥90%',     src:'cultureos.md',                        frm:'CultureOS / LotusOS'},
     {lb:'APOGEIC Fit Score (avg)',                 tgt:'≥3.5/5',   src:'cultureos.md + apogeic-values.md',    frm:'CultureOS / APOGEIC Values'},
@@ -2225,7 +2324,7 @@ const ANCS=[
     {lb:'Promotion-Ready Shortlist (1 per key role)', tgt:'Updated quarterly',src:'leaderzen.md',frm:'LeaderZen / LRAD'},
   ]},
   {id:'exp',nm:'ExperienceOS',sb:'Guest and tenant experience system',
-   desc:'Are guests and tenants getting a consistent, excellent experience without founder oversight at every touchpoint?',
+   desc:'Are guests and tenants getting a consistent, excellent experience without GM/MD oversight at every touchpoint?',
    kpis:[
     {lb:'NPS — Overall',                     tgt:'≥60',        src:'experienceos.md',              frm:'ExperienceOS / STTACCK'},
     {lb:'NPS — FEC (Playspacio)',             tgt:'≥70',        src:'experienceos.md',              frm:'ExperienceOS / STTACCK'},
@@ -2325,7 +2424,7 @@ SCORING KEY
 7. No fluff   8. System-led   9. Scalable   10. Caviteño/Philippine fit
 
 -----------------------------------------------------------------------
-TAB 1 — Founder View (unchanged from v3)
+TAB 1 — GM/MD View (unchanged from v3)
 Score: 95/100
 Gaps: Criterion 5 — FOS-3/4/5 success proofs are "MISSING" (external
 system not yet connected). Expected, documented. No rewrite needed.
