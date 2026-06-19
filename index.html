@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lotus Dev — GM/MD Integrated Scoreboard v4</title>
+<link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
@@ -424,6 +425,37 @@ details[open] summary::before{transform:rotate(90deg);color:var(--lotus);}
 .vto-mission-txt{font-family:var(--fm);font-size:12px;color:var(--text-hi);line-height:1.55;padding:10px 12px;}
 
 /* ── VTO MAP TAB ── */
+.vto-hero{background:linear-gradient(135deg,rgba(196,163,90,.16),rgba(255,255,255,.72));border:1px solid var(--border-b);border-radius:8px;padding:22px 24px;margin-bottom:18px;}
+.vto-hero-k{font-family:var(--fm);font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--lotus-hi);font-weight:700;margin-bottom:7px;}
+.vto-hero-main{font-family:var(--fd);font-weight:700;font-size:20px;color:var(--text-hi);line-height:1.35;max-width:980px;}
+.vto-hero-sub{font-family:var(--fm);font-size:12px;color:var(--text-mid);line-height:1.6;margin-top:9px;max-width:980px;}
+.vto-ladder{display:grid;grid-template-columns:repeat(7,minmax(120px,1fr));gap:8px;margin:16px 0 22px;}
+.vto-step{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:12px 13px;min-height:96px;}
+.vto-step:not(:last-child)::after{content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);font-family:var(--fd);font-weight:700;color:var(--lotus);z-index:2;}
+.vto-step-num{font-family:var(--fm);font-size:9px;color:var(--lotus);font-weight:700;margin-bottom:5px;}
+.vto-step-lbl{font-family:var(--fd);font-size:11px;font-weight:700;color:var(--text-hi);margin-bottom:5px;}
+.vto-step-txt{font-family:var(--fm);font-size:10.5px;color:var(--text-mid);line-height:1.45;}
+.vto-lane{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:12px;}
+.vto-lane-h{display:grid;grid-template-columns:190px 1fr;border-bottom:1px solid var(--border);background:var(--surface2);}
+.vto-lane-name{padding:14px 16px;border-left:3px solid var(--lotus);}
+.vto-lane-pillar{font-family:var(--fd);font-size:14px;font-weight:700;color:var(--lotus-hi);line-height:1.25;}
+.vto-lane-tag{font-family:var(--fm);font-size:10px;color:var(--text-dim);margin-top:4px;}
+.vto-lane-id{padding:14px 16px;font-family:var(--fm);font-size:12px;color:var(--text-hi);line-height:1.55;}
+.vto-lane-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1.15fr;gap:0;}
+.vto-lane-col{padding:13px 15px;border-right:1px solid var(--border);}
+.vto-lane-col:last-child{border-right:none;}
+.vto-col-lbl{font-family:var(--fd);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;}
+.vto-metric{font-family:var(--fm);font-size:11px;color:var(--text-hi);line-height:1.45;margin:5px 0;}
+.vto-chip-row{display:flex;gap:5px;flex-wrap:wrap;}
+.trace-chip{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--border);border-radius:12px;background:var(--surface2);color:var(--text-mid);font-family:var(--fd);font-size:9.5px;font-weight:600;padding:3px 7px;margin:2px 3px 2px 0;cursor:pointer;white-space:normal;line-height:1.25;transition:border-color .14s,color .14s,background .14s;}
+.trace-chip:hover{border-color:var(--lotus-mid);color:var(--lotus-hi);background:var(--lotus-dim);}
+.trace-chip.mini{font-size:8.5px;padding:2px 5px;border-radius:3px;margin-left:5px;vertical-align:middle;}
+.trace-chip.static{cursor:default;}
+.trace-chip.static:hover{border-color:var(--border);color:var(--text-mid);background:var(--surface2);}
+.vto-reminder{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 8px;}
+.vto-reminder-card{border:1px solid var(--border);background:var(--surface);border-radius:7px;padding:13px 15px;}
+.vto-reminder-k{font-family:var(--fd);font-size:11px;font-weight:700;color:var(--lotus-hi);margin-bottom:5px;}
+.vto-reminder-v{font-family:var(--fm);font-size:11px;color:var(--text-mid);line-height:1.45;}
 .vto-pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
 .vto-pillar-card{background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--lotus);border-radius:7px;padding:14px 16px;}
 .vto-pillar-name{font-family:var(--fd);font-weight:700;font-size:13px;color:var(--lotus-hi);margin-bottom:4px;}
@@ -526,6 +558,12 @@ body.edit-mode #cnt{top:calc(var(--hh) + 28px + var(--th));}
   .sp-rock{grid-template-columns:1fr 1fr!important;}
   .vto-pillars{grid-template-columns:repeat(2,1fr)!important;}
   .vto-gg-grid{grid-template-columns:repeat(2,1fr)!important;}
+  .vto-ladder{grid-template-columns:repeat(2,1fr)!important;}
+  .vto-step::after{display:none;}
+  .vto-lane-h,.vto-lane-grid{grid-template-columns:1fr!important;}
+  .vto-lane-col{border-right:none;border-bottom:1px solid var(--border);}
+  .vto-lane-col:last-child{border-bottom:none;}
+  .vto-reminder{grid-template-columns:repeat(2,1fr)!important;}
 }
 
 /* ══════════════════════════════════════════════════
@@ -548,6 +586,8 @@ body.edit-mode #cnt{top:calc(var(--hh) + 28px + var(--th));}
   .vto-pillars{grid-template-columns:1fr!important;}
   .vto-gg-grid{grid-template-columns:1fr!important;}
   .vto-mission-row{grid-template-columns:1fr!important;}
+  .vto-ladder{grid-template-columns:1fr!important;}
+  .vto-reminder{grid-template-columns:1fr!important;}
   .rg{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))!important;}
   .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;}
   #vtoc,#teamc,#smac,#ancc{overflow-x:auto;-webkit-overflow-scrolling:touch;}
@@ -603,7 +643,7 @@ table{min-width:100%;}
   <div class="hdiv"></div>
   <div class="hmeta">Primary Users: <b>GM/MD + Leadership</b></div>
   <div class="hdiv"></div>
-  <div class="hmeta">Keys <b>1–6</b> switch tabs</div>
+  <div class="hmeta">Keys <b>1–7</b> switch tabs</div>
   <div class="hdiv" id="edit-hdiv"></div>
   <button id="edit-btn" class="hdr-edit-btn" onclick="toggleEditMode()" title="Edit quarterly content">
     <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM1.821 12.943l-.925 3.24 3.241-.928-2.316-2.312z"/></svg>
@@ -733,53 +773,19 @@ table{min-width:100%;}
     <div class="tmeta">
       <div class="tmeta-icon">🧭</div>
       <div>
-        <div class="tmeta-q">What is our long-term identity, and how does it cascade into the 3-Year picture?</div>
-        <div class="tmeta-desc">A static reference of the VTO Map (Vision/Traction Organizer) — Lotus Dev's long-horizon identity by pillar. This is a one-time transcription, not a live feed; update it by hand if the source VTO Map changes.</div>
+        <div class="tmeta-q">How does today's work ladder up to the Universal Mission?</div>
+        <div class="tmeta-desc">The traceability map from Lotus Dev's Universal Mission to the VTO, 5-Year picture, 3-Year Adv.I.S.E. identity, 1-Year targets, company Critical Numbers, and team KPIs. Use this as the weekly reminder that every number connects to Gather &amp; Grow.</div>
         <div class="tmeta-row">
-          <div class="tmi"><label>Primary Users</label><span>GM/MD + Leadership</span></div>
-          <div class="tmi"><label>Source</label><span>VTO Map CN KPIs sheet + Lotus Dev Culture deck</span></div>
-          <div class="tmi"><label>Rule</label><span>Company + team KPIs that ladder up to this map live in Tab 03 and Tab 04.</span></div>
+          <div class="tmi"><label>Primary Users</label><span>All Lotuszens + Leadership</span></div>
+          <div class="tmi"><label>Source</label><span>Culture manifesto + VTO Map CN KPIs Apr 25 2026</span></div>
+          <div class="tmi"><label>Rule</label><span>If a KPI cannot trace upward, clarify why it matters before measuring it.</span></div>
         </div>
       </div>
     </div>
-
-    <div class="sh"><div class="shd"></div><h3>3-Year Identity — Adv.I.S.E.</h3><div class="shl"></div></div>
-    <p style="font-family:var(--fm);font-size:11px;color:var(--text-dim);margin-bottom:14px">By December 31, 2028 — how each pillar shows up.</p>
-    <div class="vto-pillars">
-      <div class="vto-pillar-card">
-        <div class="vto-pillar-name">Advocates — Loved Brand</div>
-        <div class="vto-pillar-tag">We Make Dreams Happen</div>
-        <p class="vto-pillar-txt">Boutique LIVE‑WORK‑PLAY opportunity platform loved by families, top‑of‑mind for business beginners &amp; local talents.</p>
-      </div>
-      <div class="vto-pillar-card">
-        <div class="vto-pillar-name">Innovators — Living Centers</div>
-        <div class="vto-pillar-tag">We Make Things Unique</div>
-        <p class="vto-pillar-txt">Distinct concepts &amp; experiences make our places the natural home of community life.</p>
-        <p class="vto-pillar-txt" style="margin-top:8px;color:var(--text-dim);font-size:10.5px">Footprint: 18–22 active sites (6+ provinces) · 8+ Yspacio Creative Parks · 9–12 FEC sites · 12–18 Bakery by Handaan kiosks · 4–6 Handaan/H Café units</p>
-      </div>
-      <div class="vto-pillar-card">
-        <div class="vto-pillar-name">Sages — Co‑Elevating Team</div>
-        <div class="vto-pillar-tag">We Make People Great</div>
-        <p class="vto-pillar-txt">A Culture that creates legends and changemakers; leaders who grow leaders.</p>
-      </div>
-      <div class="vto-pillar-card">
-        <div class="vto-pillar-name">Essentialists — Empowering System</div>
-        <div class="vto-pillar-tag">We Make Things Easy</div>
-        <p class="vto-pillar-txt">We organize, simplify, and set the standard.</p>
-      </div>
-    </div>
-
-    <div class="sh"><div class="shd"></div><h3>Meaning of Gather &amp; Grow</h3><div class="shl"></div></div>
-    <p style="font-family:var(--fm);font-size:11px;color:var(--text-dim);margin-bottom:14px">The V/TO column's core — what "Fulfillment" means at Lotus, expressed through Gather &amp; Grow.</p>
-    <div class="vto-gg-grid">
-      <div class="vto-gg-card"><div class="vto-gg-name">Grow</div><div class="vto-gg-sub">Unleash full potential</div></div>
-      <div class="vto-gg-card"><div class="vto-gg-name">Contribute</div><div class="vto-gg-sub">Make an impact while doing what you love</div></div>
-      <div class="vto-gg-card"><div class="vto-gg-name">Belong</div><div class="vto-gg-sub">Can rely on others &amp; vice versa</div></div>
-      <div class="vto-gg-card"><div class="vto-gg-name">Experience</div><div class="vto-gg-sub">Feel emotions &amp; create memories</div></div>
-    </div>
+    <div id="vtomap"></div>
   </div>
 
-  <!-- TAB 6: ABOUT -->
+  <!-- TAB 1: ABOUT -->
   <div class="pan on" id="pb">
     <div class="about-body">
 
@@ -793,7 +799,7 @@ table{min-width:100%;}
             <div class="tmi"><label>Primary Users</label><span>All Roles</span></div>
             <div class="tmi"><label>Publisher</label><span>GM/MD + SMA</span></div>
             <div class="tmi"><label>Cadence</label><span>Open every Monday</span></div>
-            <div class="tmi"><label>Keys</label><span>1–6 on keyboard switch tabs</span></div>
+            <div class="tmi"><label>Keys</label><span>1–7 on keyboard switch tabs</span></div>
           </div>
         </div>
       </div>
@@ -801,7 +807,7 @@ table{min-width:100%;}
       <!-- A: What is this scoreboard? -->
       <div class="sh"><div class="shd"></div><h3>A — What is this scoreboard?</h3><div class="shl"></div></div>
       <div class="about-body">
-        <p>This scoreboard tracks all the key numbers across Lotus Development. It has 6 tabs. Each number has a target, an actual, a status, an owner, and a consequence rule. When a number is green, the system is working. When a number is red, the owner must explain and show a plan — the same day. Tab 03 sections are collapsible — click any section header to open or close it.</p>
+        <p>This scoreboard tracks all the key numbers across Lotus Development. It has 7 tabs. Each number has a target, an actual, a status, an owner, and a consequence rule. When a number is green, the system is working. When a number is red, the owner must explain and show a plan — the same day. Tab 03 sections are collapsible — click any section header to open or close it.</p>
         <p>This scoreboard works the same way at every Lotus Development site. If a new site opens tomorrow, the same tabs, the same rules, and the same cadence apply — no setup needed.</p>
       </div>
 
@@ -813,7 +819,7 @@ table{min-width:100%;}
           <tbody>
             <tr><td><b>Team Member</b></td><td>Enter your actual numbers. If your number is red, tell your Team Leader right away.</td><td style="white-space:nowrap">Weekly, before Monday 8am</td></tr>
             <tr><td><b>Team Leader</b></td><td>Check your team's numbers every Monday. Make sure every red number has a written plan. Present the plan at your L10 meeting.</td><td style="white-space:nowrap">Every Monday by 9am</td></tr>
-            <tr><td><b>GM / SMA</b></td><td>Review all 6 tabs every Monday. If a Team Leader has a red number without a plan, follow up that day. Tab 03 shows the full weekly picture by site and function.</td><td style="white-space:nowrap">Every Monday by 9am</td></tr>
+            <tr><td><b>GM / SMA</b></td><td>Review all 7 tabs every Monday. If a Team Leader has a red number without a plan, follow up that day. Tab 03 shows the full weekly picture by site and function.</td><td style="white-space:nowrap">Every Monday by 9am</td></tr>
             <tr><td><b>MD / Owner</b></td><td>Check Tab 02 (GM/MD-Off Dashboard) weekly. If all 6 GM/MD-Off Switches are green for 8 consecutive weeks, the business runs on its own.</td><td style="white-space:nowrap">Weekly</td></tr>
           </tbody>
         </table>
@@ -875,6 +881,7 @@ table{min-width:100%;}
             <tr><td>Every week</td><td>GM / SMA</td><td>Tab 03 — Section 0: 10 Critical Numbers across all 4 sites</td></tr>
             <tr><td>Every month</td><td>Finance TL</td><td>Tab 03 — Section 0: Revenue, EBITDA, expenses (monthly KPIs)</td></tr>
             <tr><td>Every quarter</td><td>GM + HR (LRAD)</td><td>Tab 05 — Strategic Anchors progress</td></tr>
+            <tr><td>Every Monday</td><td>All teams</td><td>Tab 06 — VTO Map: remember how weekly KPIs connect to the Universal Mission</td></tr>
             <tr><td>Every quarter</td><td>GM/MD</td><td>Tab 07 — Lotus Strategy Canvas: Rallying Cry, Revenue Goals, Rocks, North Star, Strategic Themes</td></tr>
             <tr><td>Every year</td><td>GM/MD</td><td>Tab 07 — Lotus Strategy Canvas: 1-Year Priority targets, priorities, and 1-Year Roadmap</td></tr>
             <tr><td>Every 3 years</td><td>GM/MD</td><td>Tab 07 — Lotus Strategy Canvas: 3-Year Roadmap milestones</td></tr>
@@ -946,6 +953,7 @@ table{min-width:100%;}
             <tr><td><b>OGSM</b></td><td>Objectives, Goals, Strategies, Measures. The planning framework Lotus used previously. Retired Q2 2026 in favor of LotusOS Rocks.</td></tr>
             <tr><td><b>SMA</b></td><td>Site/Stores Management Associate. Coordinates operations and reviews all KPIs.</td></tr>
             <tr><td><b>VTO</b></td><td>Vision/Traction Organizer. The master KPI framework for the whole business. VTO — Company (Tab 03) shows all 10 Critical Numbers by site. VTO — Teams (Tab 04) shows team-level lead KPIs that drive them.</td></tr>
+            <tr><td><b>VTO Map</b></td><td>Tab 06. The visual traceability layer from Universal Mission to VTO, 5-Year, 3-Year Adv.I.S.E., 1-Year, Company Critical Numbers, and Team KPIs.</td></tr>
             <tr><td><b>VTO — Company</b></td><td>Tab 03. Shows the 10 most important lag and lead numbers at the company level, broken out by site (Lotus Mall, Stadium Strip, Portal Mall, Consolidated).</td></tr>
             <tr><td><b>VTO — Teams</b></td><td>Tab 04. Shows the team-level lead KPIs (~170 across 11 teams) that drive the company lag numbers in Tab 03.</td></tr>
             <tr><td><b>GLA</b></td><td>Gross Leasable Area. The total space available for rent in our properties.</td></tr>
@@ -965,7 +973,7 @@ table{min-width:100%;}
             <tr><td>03</td><td><b>VTO — Company</b></td><td>Are our Critical Numbers on track — by site and by function?</td><td>GM/MD — every Monday</td></tr>
             <tr><td>04</td><td><b>VTO — Teams</b></td><td>Are our teams hitting the KPIs that drive the company numbers?</td><td>Each TL + GM/MD</td></tr>
             <tr><td>05</td><td><b>Strategic Anchors</b></td><td>Are our operating systems being adopted — not just installed?</td><td>GM/MD + LeaderZen Custodian</td></tr>
-            <tr><td>06</td><td><b>VTO Map</b></td><td>What is our long-term identity, and how does it cascade into the 3-Year picture?</td><td>GM/MD + Leadership (static reference)</td></tr>
+            <tr><td>06</td><td><b>VTO Map</b></td><td>How does today's work ladder up to the Universal Mission?</td><td>All teams + Leadership</td></tr>
             <tr><td>07</td><td><b>Lotus Strategy Canvas</b></td><td>Where are we going — this quarter, this year, and in 3 years?</td><td>GM/MD — quarterly (Rocks) · annually (1-Year) · 3 years (Roadmap)</td></tr>
           </tbody>
         </table>
@@ -974,7 +982,7 @@ table{min-width:100%;}
     </div><!-- /about-body -->
   </div>
 
-  <!-- TAB 06: LOTUS STRATEGY CANVAS -->
+  <!-- TAB 07: LOTUS STRATEGY CANVAS -->
   <div class="pan" id="psp">
     <div class="tmeta">
       <div class="tmeta-icon">🗺️</div>
@@ -1709,7 +1717,7 @@ function go(id,btn){
   if(btn) btn.classList.add('on');
 }
 document.addEventListener('keydown',e=>{
-  const m={1:'f',2:'s',3:'t',4:'a',5:'b',6:'sp'};
+  const m={1:'b',2:'f',3:'s',4:'t',5:'a',6:'vm',7:'sp'};
   if(m[e.key]&&!e.ctrlKey&&!e.metaKey&&!['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)){
     const btns=document.querySelectorAll('.tb');
     const i=Object.keys(m).indexOf(e.key);
@@ -1960,7 +1968,7 @@ function rSMA(){
         </tr></thead>
         <tbody>${rows}</tbody>
       </table></div>`;
-    return`<details class="sma-sec">
+    return`<details class="sma-sec" id="sma-${sec.id}">
       <summary>${sec.title}<span class="ks" style="margin-left:auto">${sec.id==='s0'?'10 KPIs × 4 sites':sec.rows.length+' KPIs'}</span></summary>
       <div style="padding:10px 4px 0">
       <p style="font-size:11px;color:var(--text-dim);margin-bottom:8px">${sec.note||''}</p>
@@ -1993,12 +2001,14 @@ function rVTO(){
     const cols=VCOLS.map(c=>{
       const dk='vto.'+site.replace(/\s+/g,'_')+'_'+c.k;
       const d=id2(dk,{t:'',a:'',s:'ds'});
+      const tr=traceByCompanyKey(c.k);
       return`<td title="Owner: ${c.ow} | Cadence: ${c.cd}">
         <div style="display:flex;gap:6px;align-items:center;margin-bottom:4px">
           <span class="th-src" style="margin:0">T:</span>${vi(dk,'t','—','52px')}
           <span class="th-src" style="margin:0">A:</span>${vi(dk,'a','—','52px')}
         </div>
-        ${dot(d.s)}${sel(dk,d.s)}</td>`;
+        ${dot(d.s)}${sel(dk,d.s)}
+        <div style="margin-top:4px">${traceChipHTML(tr,'vto','',true)}</div></td>`;
     }).join('');
     return`<tr><td style="font-weight:700;font-family:var(--fd);white-space:nowrap;color:var(--text-hi)">${site}</td>${cols}</tr>`;
   }).join('');
@@ -2008,7 +2018,7 @@ function rVTO(){
     const vs=['GM/MD + BU Heads','GM/MD + BU Heads','GM/MD + Finance TL','GM/MD + Finance TL','GM/MD + Leadership','GM/MD + Leadership','GM/MD + E&G TL','GM/MD + E&G TL','GM/MD + Ops TL','GM/MD + Finance TL'];
     return`<tr>
       <td style="font-family:var(--fm);font-size:10px;color:var(--text-dim)">VTO-${i+1}</td>
-      <td><span class="kn">${c.lb}</span></td>
+      <td><span class="kn">${c.lb}</span>${traceChipHTML(traceByCompanyKey(c.k),'vto','',true)}</td>
       <td style="font-size:11px;color:var(--text-mid)">${qs[i]}</td>
       <td style="font-size:11px;color:var(--text-dim)">${vs[i]}</td>
       <td style="font-size:11px;white-space:nowrap">${c.ow}</td>
@@ -2262,6 +2272,80 @@ const TEAMS=[
   ]},
 ];
 
+const VTO_TRACE=[
+  {id:'adv',pillar:'Advocates',tag:'We Make Dreams Happen',identity:'Loved Brand — boutique LIVE-WORK-PLAY opportunity platform loved by families, top-of-mind for business beginners and local talents.',metrics:['Beginners >25% / site','Waitlists thriving','Partner success stories','People love Lotus.'],annual:['Occupancy ≥90%','Community NPS 60+','Portal Mall leasing to ≥85% occupancy'],company:['oa','ou','ov','ns'],teams:[['opp','Business Beginners ≥25% (GLA)'],['opp','# Prospects / Priority Vacant'],['opp','# Online Inquiries Scheduled for Ocular Visit'],['mkt','Engagement Rate (Ave)']]},
+  {id:'inn',pillar:'Innovators',tag:'We Make Things Unique',identity:'Living Centers — distinct concepts and experiences make our places the natural home of community life.',metrics:['18–22 active sites','Utilization >65%','Calendars 8–12 weeks','Our projects are the place to be.'],annual:['Revenue ₱5.5M / month','Occupancy ≥90%','Portal Mall leasing push'],company:['ft','vu','np'],teams:[['eg','Event Pipeline (weeks)'],['eg','Venue Utilization %'],['eg','# Mall Events Generated'],['dcd','Time-to-Launch (months)']]},
+  {id:'sag',pillar:'Sages',tag:'We Make People Great',identity:'Co-Elevating Team — a culture that creates legends and changemakers; leaders who grow leaders.',metrics:['Internal Managers >70%','L10 >8/10','eNPS strong','We create legends and changemakers.'],annual:['Full LotusOS adoption across all teams','GM/MD-off switches: all 6 green for 4 weeks'],company:['ns'],teams:[['lrad','Autonomy Score Growth'],['lrad','% Teammembers "Green" on Role Readiness'],['lrad','Avg L10 Quality Score'],['lrad','Playbook Contributions per Team (per month)']]},
+  {id:'ess',pillar:'Essentialists',tag:'We Make Things Easy',identity:'Empowering System — LotusOS and LeaderZen become the way: organize, simplify, and set the standard.',metrics:['LotusOS >85%','OTIF >98%','MTTR down','EBITDA +2–3 pts'],annual:['EBITDA 28%','LotusOS adoption ≥90%','Finance dashboard live feed'],company:['cr','eb','ox'],teams:[['smak','LotusOS Adoption %'],['smak','ICARE Resolved <72 Hours %'],['tech','MTTR (hours)'],['fin','Collection Rate (%)']]},
+];
+
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function traceByCompanyKey(key){return VTO_TRACE.filter(p=>p.company.includes(key));}
+function traceByTeamKpi(teamId,kpi){return VTO_TRACE.filter(p=>p.teams.some(t=>t[0]===teamId&&t[1]===kpi));}
+function traceChipHTML(items, type, target, mini){
+  if(!items.length)return '';
+  return items.map(p=>`<button type="button" class="trace-chip${mini?' mini':''}" onclick="navTrace('${type}','${target||p.id}')" title="Traces to ${esc(p.pillar)}">${esc(p.pillar)}</button>`).join('');
+}
+function navTrace(type,target){
+  const btns=document.querySelectorAll('.tb');
+  if(type==='company'){
+    go('s',btns[2]);
+    setTimeout(()=>{const d=document.getElementById('sma-s0');if(d)d.open=true;},0);
+  }else if(type==='team'){
+    go('t',btns[3]);
+    setTimeout(()=>{const d=document.getElementById('team-'+target);if(d){d.open=true;d.scrollIntoView({block:'start',behavior:'smooth'});}},0);
+  }else{
+    go('vm',btns[5]);
+    setTimeout(()=>{const d=document.getElementById('vto-lane-'+target);if(d)d.scrollIntoView({block:'start',behavior:'smooth'});},0);
+  }
+}
+function renderVTOMap(){
+  const el=document.getElementById('vtomap');if(!el)return;
+  const ladder=[
+    ['01','Universal Mission','Transform the community into Fulfillment & Joy by Empowering people to Gather & Grow.'],
+    ['02','V/TO / BHAG','100 LIVE-WORK-PLAY projects by 2035, built and operated as a boutique community developer.'],
+    ['03','5-Year Picture','Boutique community developer and management company scaling Gather & Grow across projects.'],
+    ['04','3-Year Adv.I.S.E.','Advocates, Innovators, Sages, Essentialists define the 2028 identity.'],
+    ['05','1-Year Targets','Revenue, EBITDA, occupancy, NPS, LotusOS, and GM/MD-off priorities for the year.'],
+    ['06','Company CN','The 10 company Critical Numbers show whether the mission is becoming measurable.'],
+    ['07','Team KPIs','Weekly team numbers and habits move the company numbers one action at a time.'],
+  ].map(s=>`<div class="vto-step"><div class="vto-step-num">${s[0]}</div><div class="vto-step-lbl">${s[1]}</div><div class="vto-step-txt">${s[2]}</div></div>`).join('');
+  const lanes=VTO_TRACE.map(p=>{
+    const company=p.company.map(k=>{
+      const c=VCOLS.find(x=>x.k===k);
+      return c?`<button type="button" class="trace-chip" onclick="navTrace('company','s0')">${esc(c.lb)}</button>`:'';
+    }).join('');
+    const teams=p.teams.map(t=>`<button type="button" class="trace-chip" onclick="navTrace('team','${t[0]}')">${esc(t[1])}</button>`).join('');
+    return`<div class="vto-lane" id="vto-lane-${p.id}">
+      <div class="vto-lane-h">
+        <div class="vto-lane-name"><div class="vto-lane-pillar">${esc(p.pillar)}</div><div class="vto-lane-tag">${esc(p.tag)}</div></div>
+        <div class="vto-lane-id">${esc(p.identity)}</div>
+      </div>
+      <div class="vto-lane-grid">
+        <div class="vto-lane-col"><div class="vto-col-lbl">3-Year Proof</div>${p.metrics.map(m=>`<div class="vto-metric">${esc(m)}</div>`).join('')}</div>
+        <div class="vto-lane-col"><div class="vto-col-lbl">1-Year / Current Push</div>${p.annual.map(m=>`<div class="vto-metric">${esc(m)}</div>`).join('')}</div>
+        <div class="vto-lane-col"><div class="vto-col-lbl">Company Critical Numbers</div><div class="vto-chip-row">${company}</div></div>
+        <div class="vto-lane-col"><div class="vto-col-lbl">Team KPI Examples</div><div class="vto-chip-row">${teams}</div></div>
+      </div>
+    </div>`;
+  }).join('');
+  el.innerHTML=`
+    <div class="vto-hero">
+      <div class="vto-hero-k">Universal Mission</div>
+      <div class="vto-hero-main">To transform the community into a place of Fulfillment &amp; Joy by Empowering people to Gather &amp; Grow.</div>
+      <div class="vto-hero-sub">Fulfillment is Learn, Earn, Return. Gather &amp; Grow means building unique spaces for belonging and opening opportunities for business beginners, local talents, teams, tenants, guests, and partners.</div>
+    </div>
+    <div class="vto-ladder">${ladder}</div>
+    <div class="sh"><div class="shd"></div><h3>Adv.I.S.E. Traceability Lanes</h3><p style="margin-left:8px">Click any chip to jump to its operating tab.</p><div class="shl"></div></div>
+    ${lanes}
+    <div class="vto-reminder">
+      <div class="vto-reminder-card"><div class="vto-reminder-k">Grow</div><div class="vto-reminder-v">Unleash full potential.</div></div>
+      <div class="vto-reminder-card"><div class="vto-reminder-k">Contribute</div><div class="vto-reminder-v">Make an impact while doing what you love.</div></div>
+      <div class="vto-reminder-card"><div class="vto-reminder-k">Belong</div><div class="vto-reminder-v">Can rely on others and vice versa.</div></div>
+      <div class="vto-reminder-card"><div class="vto-reminder-k">Experience</div><div class="vto-reminder-v">Feel emotions and create memories.</div></div>
+    </div>`;
+}
+
 function rTeams(){
   const c=document.getElementById('teamc');if(!c)return;
   c.innerHTML=TEAMS.map(dept=>{
@@ -2272,8 +2356,9 @@ function rTeams(){
       const dk='teams.'+dept.id+'_'+r.k.replace(/\W+/g,'_').slice(0,28);
       const d=id2(dk,{t:'',a:'',s:'ds',na:''});
       const sb=r.sh?`<span class="ks">↔ SHARED</span>`:'';
+      const tr=traceByTeamKpi(dept.id,r.k);
       return`<tr>
-        <td><span class="kn">${r.k}</span>${sb}</td>
+        <td><span class="kn">${r.k}</span>${sb}${traceChipHTML(tr,'vto','',true)}</td>
         <td style="min-width:110px;font-size:11px;color:var(--text-mid)">${r.ow||'—'}</td>
         <td>${ttag(r.ty)}</td>
         <td>${vi(dk,'t','TBD','68px')}</td>
@@ -2284,7 +2369,7 @@ function rTeams(){
         <td class="cons" style="min-width:175px">${r.cons}</td>
       </tr>`;
     }).join('');
-    return`<details>
+    return`<details id="team-${dept.id}">
       <summary>${dept.lb}<span class="down">${dept.ow}</span><span class="dcnt">${dept.kpis.length} KPIs</span></summary>
       <div style="padding:0 0 8px">
         <div class="tw tw-x"><table>
@@ -2367,7 +2452,7 @@ function rAnc(){
    RENDER ALL
    ============================================================ */
 function renderAll(){
-  rFOS(); rRC(); rSMA(); rVTO(); rTeams(); rAnc(); renderSprint();
+  rFOS(); rRC(); rSMA(); rVTO(); rTeams(); rAnc(); renderVTOMap(); renderSprint();
 }
 
 /* ============================================================
