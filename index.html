@@ -465,11 +465,7 @@ details[open] summary::before{transform:rotate(90deg);color:var(--lotus);}
 .vto-source-card>summary{padding:0!important;background:none!important;border-bottom:none!important;}
 .vto-source-head{padding:13px 15px;background:var(--surface2);}
 .vto-source-title{font-family:var(--fd);font-size:14px;font-weight:700;color:var(--lotus-hi);line-height:1.25;}
-.vto-source-simple{font-family:var(--fm);font-size:12px;color:var(--text-hi);line-height:1.55;margin-top:5px;}
-.vto-card-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
-.vto-card-steps{display:flex;flex-wrap:wrap;gap:6px;padding:12px 15px;}
-.vto-card-step{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:4px 10px 4px 6px;font-family:var(--fm);font-size:10px;color:var(--text-hi);line-height:1.3;}
-.vto-card-step-n{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:var(--lotus);color:#fff;font-family:var(--fd);font-size:8px;font-weight:700;flex-shrink:0;}
+.vto-card-steps{padding:12px 15px;}
 .vto-section{background:none;border:none;margin-bottom:18px;}
 .vto-section>summary{font-family:var(--fd);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--lotus);}
 .vto-section>summary::before{color:var(--lotus);}
@@ -725,7 +721,7 @@ table{min-width:100%;}
       <div class="tmeta-icon">📋</div>
       <div>
         <div class="tmeta-q">Are our Critical Numbers on track — by site and by function?</div>
-        <div class="tmeta-desc">The company-level VTO Scorecard. Section 0 shows the 10 Critical Numbers across all 4 sites — these are the lag indicators (what happened). Sections 1–6 show the lead and governance KPIs that drive them. Published every Monday by 9am. Red = fix plan due same day.</div>
+        <div class="tmeta-desc">The company-level VTO Scorecard. Section 0 shows the 11 Critical Numbers across all 4 sites — these are the lag indicators (what happened). Sections 1–6 show the lead and governance KPIs that drive them. Published every Monday by 9am. Red = fix plan due same day.</div>
         <div class="tmeta-row">
           <div class="tmi"><label>Primary Users</label><span>GM/MD (publisher) + Leadership (review)</span></div>
           <div class="tmi"><label>Publisher</label><span>GM/MD — every Monday by 9am</span></div>
@@ -900,7 +896,7 @@ table{min-width:100%;}
           <tbody>
             <tr><td>Every Monday by 8am</td><td>Team Leader (each dept)</td><td>Tab 04 — VTO Teams: your team's KPIs</td></tr>
             <tr><td>Every Monday by 9am</td><td>GM / SMA</td><td>Tab 03 — VTO Company: full picture by site and function</td></tr>
-            <tr><td>Every week</td><td>GM / SMA</td><td>Tab 03 — Section 0: 10 Critical Numbers across all 4 sites</td></tr>
+            <tr><td>Every week</td><td>GM / SMA</td><td>Tab 03 — Section 0: 11 Critical Numbers across all 4 sites</td></tr>
             <tr><td>Every month</td><td>Finance TL</td><td>Tab 03 — Section 0: Revenue, EBITDA, expenses (monthly KPIs)</td></tr>
             <tr><td>Every quarter</td><td>GM + HR (LRAD)</td><td>Tab 05 — Strategic Anchors progress</td></tr>
             <tr><td>Every Monday</td><td>All teams</td><td>Tab 06 — VTO Map: remember how weekly KPIs connect to the Universal Mission</td></tr>
@@ -974,9 +970,9 @@ table{min-width:100%;}
             <tr><td><b>1-Year Priority</b></td><td>Annual targets (Revenue, EBITDA, Occupancy, NPS) and the top priorities for the year. Collapsible section inside Tab 07.</td></tr>
             <tr><td><b>OGSM</b></td><td>Objectives, Goals, Strategies, Measures. The planning framework Lotus used previously. Retired Q2 2026 in favor of LotusOS Rocks.</td></tr>
             <tr><td><b>SMA</b></td><td>Site/Stores Management Associate. Coordinates operations and reviews all KPIs.</td></tr>
-            <tr><td><b>VTO</b></td><td>Vision/Traction Organizer. The master KPI framework for the whole business. VTO — Company (Tab 03) shows all 10 Critical Numbers by site. VTO — Teams (Tab 04) shows team-level lead KPIs that drive them.</td></tr>
+            <tr><td><b>VTO</b></td><td>Vision/Traction Organizer. The master KPI framework for the whole business. VTO — Company (Tab 03) shows all 11 Critical Numbers by site. VTO — Teams (Tab 04) shows team-level lead KPIs that drive them.</td></tr>
             <tr><td><b>VTO Map</b></td><td>Tab 06. The visual traceability layer from Universal Mission to VTO, 5-Year, 3-Year Adv.I.S.E., 1-Year, Company Critical Numbers, and Team KPIs.</td></tr>
-            <tr><td><b>VTO — Company</b></td><td>Tab 03. Shows the 10 most important lag and lead numbers at the company level, broken out by site (Lotus Mall, Stadium Strip, Portal Mall, Consolidated).</td></tr>
+            <tr><td><b>VTO — Company</b></td><td>Tab 03. Shows the 11 most important lag and lead numbers at the company level, broken out by site (Lotus Mall, Stadium Strip, Portal Mall, Consolidated).</td></tr>
             <tr><td><b>VTO — Teams</b></td><td>Tab 04. Shows the team-level lead KPIs (~170 across 11 teams) that drive the company lag numbers in Tab 03.</td></tr>
             <tr><td><b>GLA</b></td><td>Gross Leasable Area. The total space available for rent in our properties.</td></tr>
             <tr><td><b>NPS</b></td><td>Net Promoter Score. A number from -100 to +100 that measures how likely customers are to recommend us.</td></tr>
@@ -1874,7 +1870,7 @@ function rRC(){
    ============================================================ */
 const SMA=[
   {id:'s0',title:'Section 0 — VTO Critical Numbers (All Sites)',
-   note:'10 Critical Numbers across all 4 sites. These are the company lag indicators — the results. Sections 1–6 show the lead KPIs that drive these numbers.',
+   note:'11 Critical Numbers across all 4 sites. These are the company lag indicators — the results. Sections 1–6 show the lead KPIs that drive these numbers.',
    rows:[]},
   {id:'s1',title:'Section 1 — Growth Engine: Leasing',
    note:'Tracks demand and conversion for commercial spaces. Owner: Opportunity Team.',
@@ -1991,7 +1987,7 @@ function rSMA(){
         <tbody>${rows}</tbody>
       </table></div>`;
     return`<details class="sma-sec" id="sma-${sec.id}">
-      <summary>${sec.title}<span class="ks" style="margin-left:auto">${sec.id==='s0'?'10 KPIs × 4 sites':sec.rows.length+' KPIs'}</span></summary>
+      <summary>${sec.title}<span class="ks" style="margin-left:auto">${sec.id==='s0'?'11 KPIs × 4 sites':sec.rows.length+' KPIs'}</span></summary>
       <div style="padding:10px 4px 0">
       <p style="font-size:11px;color:var(--text-dim);margin-bottom:8px">${sec.note||''}</p>
       ${s0cnt}
@@ -2015,6 +2011,7 @@ const VCOLS=[
   {k:'vu', lb:'Venue Utilization %',  ow:'E&G TL',            cd:'Weekly',  src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'VTO / E&G'},
   {k:'ns', lb:'Community NPS',         ow:'Ops TL',            cd:'Weekly',  src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'VTO / STTACCK'},
   {k:'ox', lb:'Operating Expenses',   ow:'Ops TL',            cd:'Monthly', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'VTO / OGSM'},
+  {k:'av', lb:'Active Venues (Sites)',ow:'MD/Owner',          cd:'Monthly', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'VTO / Adv.I.S.E. Innovators'},
 ];
 
 function rVTO(){
@@ -2036,8 +2033,8 @@ function rVTO(){
   }).join('');
 
   const refRows=VCOLS.map((c,i)=>{
-    const qs=['How much of our total GLA is occupied?','How many units are occupied?','What is revenue-weighted occupancy quality?','Are tenants paying on time?','Is each site generating healthy operating profit?','Is the business making money after all expenses?','Are people showing up to our spaces consistently?','Are our event venues being used efficiently?','Are tenants and guests happy enough to recommend us?','Are we managing costs within the approved plan?'];
-    const vs=['GM/MD + BU Heads','GM/MD + BU Heads','GM/MD + Finance TL','GM/MD + Finance TL','GM/MD + Leadership','GM/MD + Leadership','GM/MD + E&G TL','GM/MD + E&G TL','GM/MD + Ops TL','GM/MD + Finance TL'];
+    const qs=['How much of our total GLA is occupied?','How many units are occupied?','What is revenue-weighted occupancy quality?','Are tenants paying on time?','Is each site generating healthy operating profit?','Is the business making money after all expenses?','Are people showing up to our spaces consistently?','Are our event venues being used efficiently?','Are tenants and guests happy enough to recommend us?','Are we managing costs within the approved plan?','How many sites are live and operating toward the 100-site BHAG?'];
+    const vs=['GM/MD + BU Heads','GM/MD + BU Heads','GM/MD + Finance TL','GM/MD + Finance TL','GM/MD + Leadership','GM/MD + Leadership','GM/MD + E&G TL','GM/MD + E&G TL','GM/MD + Ops TL','GM/MD + Finance TL','GM/MD + Owner'];
     return`<tr>
       <td style="font-family:var(--fm);font-size:10px;color:var(--text-dim)">VTO-${i+1}</td>
       <td><span class="kn">${c.lb}</span>${traceChipHTML(traceByCompanyKey(c.k),'vto','',true)}</td>
@@ -2059,7 +2056,7 @@ function rVTO(){
       <summary>
         <div class="shd" style="flex-shrink:0"></div>
         KPI Reference — Source &amp; Owner
-        <span class="dcnt" style="margin-left:6px">10 KPIs</span>
+        <span class="dcnt" style="margin-left:6px">11 KPIs</span>
         <span class="down">Lookup only — click to expand</span>
       </summary>
       <div style="padding:0 0 4px">
@@ -2080,6 +2077,7 @@ const TEAMS=[
     {k:'Net Profit (₱)',              ow:'Finance Team Leader',       ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List / OGSM',          cons:'Negative: GM/MD and Finance TL review same week.'},
     {k:'Collection Rate (%)',         ow:'Collection Specialist',     ty:'Lead',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List / OGSM',          cons:'<85%: Finance TL reviews aging AR within 24h.'},
     {k:'EBITDA Margin (site-level)',  ow:'Finance Team Leader',       ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'VTO Critical Numbers / Finance',    cons:'Below target 2 months: Finance TL presents recovery plan.'},
+    {k:'EBITDA Margin Improvement (YoY, pts)',ow:'Finance Team Leader', ty:'Lag', src:'~vto-map-cn-kpis-apr2026.md',                  frm:'Adv.I.S.E. Essentialists',          cons:'Below +2 pts at year-end: Finance TL presents margin-improvement plan to GM/MD.'},
     {k:'Electricity Income (₱)',      ow:'Finance Team Leader',       ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List / Finance',        cons:'Variance >10%: Ops TL investigates billing.'},
     {k:'RDS Expense (₱)',             ow:'Finance Team Leader',       ty:'Lag', src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List / OGSM',          cons:'Overrun >15%: Finance TL escalates to GM/MD.'},
   ]},
@@ -2128,6 +2126,7 @@ const TEAMS=[
   ]},
   {id:'ops',lb:'D) Operations',ow:'Ops TL',kpis:[
     {k:'STTACCK NPS / Community NPS',          ow:'Operations Team Leader',                   ty:'Lag',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'STTACCK / VTO Critical Numbers', cons:'<50 for 2 weeks: Ops TL submits ICARE root cause.'},
+    {k:'OTIF — On-Time, In-Full (Handaan + Kiosks)',ow:'Operations Team Leader',              ty:'Lag',      src:'~vto-map-cn-kpis-apr2026.md',                                   frm:'Scaling Up / Adv.I.S.E. Essentialists', cons:'<98%: Ops TL reviews Handaan/kiosk fulfillment process within 48h.'},
     {k:'% Resolved: ICARE (OPR)',              ow:'iCARE Custodian (SMA) / Ops',              ty:'Governance',src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'ICARE / LotusOS',sh:'icare_72h',  cons:'<90%: SMA escalates stale ICARE items same day.'},
     {k:'Site Score %',                         ow:'Site Operations Integrator',               ty:'Lead',      src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',  cons:'Any site <80%: Ops TL submits corrective action in 48h.'},
     {k:'Electricity Expense',                  ow:'Operations Team Leader',                   ty:'Lag',       src:'~vto_map_kpi_laundry_list_master_inventory.md',frm:'KPI Laundry List (Operations)',  cons:'Overrun >10%: Ops TL reviews consumption report.'},
@@ -2311,99 +2310,27 @@ const VTO_SOURCE_FLOW=[
 ];
 const VTO_SOURCE_CARDS=[
   {
-    title:'Core Focus: Purpose and Niche',
-    simple:'We build and operate places where people gather, grow, earn, learn, belong, and feel joy.',
-    exec:[
-      ['Purpose','Remind every team that even small daily work must help people Gather & Grow.'],
-      ['Owner','All roles: Team Member does, Team Leader teaches, GM measures, MD/Owner scales.'],
-      ['When','Use this every Monday L10, every new hire orientation, and every site opening review.'],
-      ['Steps','1. Read the purpose. 2. Name today\'s KPI. 3. Say who benefits. 4. Submit proof.'],
-      ['Pass/Fail','Pass: the work clearly helps a tenant, guest, team member, or community. Fail: the work is busywork with no proof.'],
-      ['Proof','Scoreboard update, tenant/guest feedback, photo, completed checklist, or playbook entry.'],
-      ['GM Measure','Weekly: check if each red or green number has proof tied to Gather & Grow.'],
-      ['Escalate','If a KPI has no owner or proof by L10, Team Leader fixes it same day; repeat miss goes to GM.'],
-      ['Avoid','Do not use big words, vague purpose, or activities that no one can measure.'],
-    ],
-    source:['Purpose: Empower people to Gather & Grow so communities become places of Fulfillment & Joy.','Niche / What We Do: Developing properties that Gather and Grow communities.','Boutique LIVE-WORK-PLAY developer-operator powered by FEC anchors (Playspacio, Sociale Space, Kidzspace) and the Handaan ecosystem (Handaan, H Cafe, Bakery by Handaan), run on LotusOS + LeaderZen.']
+    title:'Core Focus™ — Purpose & Niche',
+    source:['Purpose: Empower people to Gather & Grow so communities become places of Fulfillment & Joy.','Niche / What We Do: Developing properties that Gather and Grow communities.']
   },
   {
     title:'10-Year Target: Dec 31, 2035',
-    simple:'By Dec 31, 2035, Lotus must operate 100+ LIVE-WORK-PLAY projects with strong sites, strong people, and strong community scores.',
-    exec:[
-      ['Purpose','Turn the long-term vision into numbers every team can help move.'],
-      ['Owner','All roles own their part: Team Member updates proof, Team Leader checks quality, GM checks targets, MD/Owner checks scale.'],
-      ['When','Review monthly in scorecard review and quarterly during Rocks planning.'],
-      ['Steps','1. Check your team KPI. 2. Link it to one 10-year number. 3. Fix red numbers. 4. Record proof.'],
-      ['Pass/Fail','Pass: KPI has target, actual, owner, and proof. Fail: target is unclear or no one can show evidence.'],
-      ['Proof','Site count, occupancy, NPS, utilization, internal manager count, beginner share, and Founder role score.'],
-      ['GM Measure','Monthly: confirm target vs actual for each 10-year number.'],
-      ['Escalate','If any 10-year driver is red for 2 reviews, GM opens a Rock or issue for MD/Owner review.'],
-      ['Avoid','Do not treat 2035 as far away. Every weekly number must move one long-term number.'],
-    ],
-    source:['10-Year Target (Dec 31, 2035): To become a Boutique Community Developer and a Management Company that builds & operates 100 LIVE. WORK. PLAY projects that Empowers people to "Gather & Grow"; so that the community transforms into a place of fulfillment and joy.','100+ sites','>=30% Business Beginners','>=70% Internal Managers','NPS >=60 / FEC >=70 / Handaan >=65','Utilization >=70% weekly','Founder >=80% Architect/Creative']
+    source:['100+ sites','>=30% Business Beginners','>=70% Internal Managers','NPS >=60 / FEC >=70 / Handaan >=65','Utilization >=70% weekly','Founder >=80% Architect/Creative']
   },
   {
     title:'Marketing Strategy: Target Market',
-    simple:'We serve local people and groups who can bring life, learning, business, and repeat activity into each site.',
-    exec:[
-      ['Purpose','Make sure outreach focuses on people who can help the site Gather & Grow.'],
-      ['Owner','All roles can spot leads; Team Leader qualifies; GM checks pipeline quality; MD/Owner scales winning segments.'],
-      ['When','Use during weekly pipeline review, events planning, leasing review, and campaign planning.'],
-      ['Steps','1. Pick one target group. 2. List leads. 3. Contact them. 4. Log status. 5. Follow up before L10.'],
-      ['Pass/Fail','Pass: each target lead has name, contact, next step, owner, and due date. Fail: generic lead list or no follow-up.'],
-      ['Proof','CRM row, Community Compass entry, event invite, signed LOI, inquiry log, or partner message screenshot.'],
-      ['GM Measure','Weekly: review lead count, conversion, and stalled leads by target group.'],
-      ['Escalate','If pipeline is below target for 2 weeks, Team Leader and GM choose one target group to push for 5 days.'],
-      ['Avoid','Do not chase everyone. Focus on groups that create tenants, events, foot traffic, learning, or community value.'],
-    ],
     source:['Community KOLs','Local Business Beginners and Entrepreneurs','Tenant Prospects for Commercial Spaces','Local Talents/Creatives and Coaches/Instructors','Educational Institutions','Government and Local Agencies','Corporate Institutions','Community-Based Organizations']
   },
   {
     title:'Marketing Strategy: Three Uniques',
-    simple:'Lotus wins by building community first, growing people together, and using simple systems that can scale.',
-    exec:[
-      ['Purpose','Keep each project different from ordinary leasing, events, and property operations.'],
-      ['Owner','All roles protect the uniques; Team Leader corrects off-brand work; GM checks scorecard proof; MD/Owner protects the model.'],
-      ['When','Use before approving campaigns, tenant offers, events, site openings, and playbook changes.'],
-      ['Steps','1. Check if the work is empowerment-first. 2. Check if it helps team or local community grow. 3. Check if it can run through LotusOS.'],
-      ['Pass/Fail','Pass: work fits all 3 uniques. Fail: work is only rent, only decoration, or only a one-time activity with no system.'],
-      ['Proof','Approved brief, Community Compass note, LotusOS task, LeaderZen action, playbook update, or KPI result.'],
-      ['GM Measure','Monthly: sample 3 activities and check if each follows all 3 uniques.'],
-      ['Escalate','If a major activity misses a unique, GM pauses or corrects it before repeating.'],
-      ['Avoid','Do not copy generic mall activity. Do not depend on one person. Put the method in the system.'],
-    ],
     source:['1. Community Development Focused: Empowerment-first purpose','2. Co-elevating Culture: Prioritize our Team and Local Community-first platform (on-ramps for beginners)','3. Empowering Systems-led Scale (3F\'s + LotusOS + LeaderZen)']
   },
   {
     title:'Proven Process: DEVELOP to LotusOS',
-    simple:'Use the same 7-step operating path from community discovery to weekly performance, so every site can repeat what works.',
-    exec:[
-      ['Purpose','Give every team a simple path from idea to execution, proof, learning, and repeatable scale.'],
-      ['Owner','All roles follow the process; Team Leader teaches the step; GM checks missed steps; MD/Owner scales the playbook.'],
-      ['When','Use for tenant onboarding, events, site openings, issue solving, Rocks, and KPI recovery.'],
-      ['Steps','1. Discover. 2. Enable. 3. Build. 4. Elevate. 5. Learn. 6. Organize. 7. Perform.'],
-      ['Pass/Fail','Pass: the work has a current step, owner, due date, KPI, and proof. Fail: the team skips steps or cannot say the current step.'],
-      ['Proof','Community Compass, 3F checklist, turnover/inspection/opening proof, RDS/ICARE/event record, feedback, playbook, scorecard, L10 issue.'],
-      ['GM Measure','Weekly: check if red KPIs have a matching process step and next action.'],
-      ['Escalate','If a blocker stays unresolved for 72 hours, Team Leader escalates to GM with proof and requested decision.'],
-      ['Avoid','Do not jump to action without discovery. Do not end with an event; end with learning and a playbook update.'],
-    ],
     source:['Discover & Engage (Community Compass)','Enable Opportunities (3F: Fast, Friendly, Flexible)','Visualize & Build (Turnover + Inspection + Opening)','Empower & Elevate (RDS + ICARE + Events)','Learn & Innovate (feedback -> playbooks)','Organize & Plan (LotusOS + scorecards)','Perform (L10 rhythms + Rocks + KPIs)']
   },
   {
-    title:'Guarantee: F3 Tenant Onboarding Promise',
-    simple:'Qualified micro-tenants get a clear path from application to opening in 21 business days or less.',
-    exec:[
-      ['Purpose','Make tenant onboarding fast, friendly, flexible, and measurable.'],
-      ['Owner','All roles remove friction; Team Leader checks the 21-day path; GM reviews misses; MD/Owner approves public guarantee use.'],
-      ['When','Use for every qualified micro-tenant application and every onboarding review.'],
-      ['Steps','1. Confirm qualification. 2. Give the step-by-step path. 3. Track every requirement. 4. Prepare opening support. 5. Review misses.'],
-      ['Pass/Fail','Pass: qualified tenant opens within 21 business days with complete proof. Fail: deadline missed without documented internal blocker and support pack.'],
-      ['Proof','Application date, requirement tracker, turnover/inspection/opening checklist, activation support pack, and event spotlight proof.'],
-      ['GM Measure','Weekly: count qualified tenants opened within 21 business days and list internal misses.'],
-      ['Escalate','If Lotus misses an internal step, Team Leader flags GM same day and delivers opening push plus 2 event spotlights.'],
-      ['Avoid','Do not promise publicly before Legal/Ops review. Do not blame the tenant for internal delays.'],
-    ],
+    title:'Guarantee',
     source:['F3 (Fast, Friendly, Flexible) Tenant Onboarding Promise: Qualified micro-tenants get a step-by-step path from application to opening in <=21 business days.','If Lotus misses an internal step, we deliver an Activation Support Pack (opening push + 2 event spotlights).','Legal/Ops review before public use.']
   },
 ];
@@ -2432,25 +2359,17 @@ function navTrace(type,target){
     },0);
   }
 }
-function execField(c,label){ const r=c.exec.find(x=>x[0]===label); return r?r[1]:''; }
-function splitSteps(s){ return String(s||'').split(/\d+\.\s+/).map(x=>x.trim()).filter(Boolean); }
 function renderVTOSourceStrategy(){
   const flow=VTO_SOURCE_FLOW.map(s=>`<div class="vto-source-step"><div class="vto-source-k">${esc(s[0])}</div><div class="vto-source-v">${esc(s[1])}</div></div>`).join('');
   const cards=VTO_SOURCE_CARDS.map(c=>{
-    const owner=execField(c,'Owner'), when=execField(c,'When');
-    const stepHTML=splitSteps(execField(c,'Steps')).map((s,i)=>`<div class="vto-card-step"><span class="vto-card-step-n">${i+1}</span>${esc(s)}</div>`).join('');
+    const sourceHTML=c.source.map(s=>`<div class="vto-metric">${esc(s)}</div>`).join('');
     return`<details class="vto-source-card">
       <summary>
         <div class="vto-source-head">
           <div class="vto-source-title">${esc(c.title)}</div>
-          <div class="vto-source-simple">${esc(c.simple)}</div>
-          <div class="vto-card-badges">
-            <span class="trace-chip static">Owner: ${esc(owner)}</span>
-            <span class="trace-chip static">When: ${esc(when)}</span>
-          </div>
         </div>
       </summary>
-      <div class="vto-card-steps">${stepHTML}</div>
+      <div class="vto-card-steps">${sourceHTML}</div>
     </details>`;
   }).join('');
   return`<details class="vto-section">
@@ -2467,7 +2386,7 @@ function renderVTOMap(){
     ['03','5-Year Picture','Boutique community developer and management company scaling Gather & Grow across projects.'],
     ['04','3-Year Adv.I.S.E.','Advocates, Innovators, Sages, Essentialists define the 2028 identity.'],
     ['05','1-Year Targets','Revenue, EBITDA, occupancy, NPS, LotusOS, and GM/MD-off priorities for the year.'],
-    ['06','Company CN','The 10 company Critical Numbers show whether the mission is becoming measurable.'],
+    ['06','Company CN','The 11 company Critical Numbers show whether the mission is becoming measurable.'],
     ['07','Team KPIs','Weekly team numbers and habits move the company numbers one action at a time.'],
   ].map(s=>`<div class="vto-step"><div class="vto-step-num">${s[0]}</div><div class="vto-step-lbl">${s[1]}</div><div class="vto-step-txt">${s[2]}</div></div>`).join('');
   const lanes=VTO_TRACE.map(p=>{
