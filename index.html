@@ -132,6 +132,10 @@ body{
 .sh h3{font-family:var(--fd);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--lotus);}
 .sh p{font-family:var(--fm);font-size:11px;color:var(--text-dim);}
 .shl{flex:1;height:1px;background:linear-gradient(to right,var(--border),transparent);}
+details.about-sec{padding:0 14px;}
+details.about-sec>summary.sh{margin:0;padding:12px 2px;}
+details.about-sec>summary.sh::before{margin-right:2px;}
+details.about-sec>:not(summary){margin-top:2px;}
 
 /* ── LEGEND ── */
 .leg{
@@ -252,7 +256,9 @@ tbody tr:hover{background:var(--lotus-dim);border-left-color:var(--lotus-mid);}
 /* ── ANCHOR GRID ── */
 .ag{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding-bottom:14px;}
 .ac{background:var(--surface);border:1px solid var(--border);border-radius:7px;overflow:hidden;}
-.ach{background:var(--surface2);border-bottom:1px solid var(--border);padding:13px 17px;}
+.ach{background:var(--surface2);border-bottom:1px solid var(--border);padding:13px 17px;cursor:pointer;}
+details.ac>summary.ach::before{margin-right:2px;}
+details.ac:not([open])>.ach{border-bottom:none;}
 .acn{font-family:var(--fd);font-weight:700;font-size:15px;color:var(--lotus);}
 .acs{font-family:var(--fm);font-size:9.5px;color:var(--text-dim);margin-top:2px;}
 .acd{font-size:12px;color:var(--text-dim);font-family:var(--fm);padding:11px 17px;border-bottom:1px solid var(--border);line-height:1.5;}
@@ -823,14 +829,17 @@ table{min-width:100%;}
       </div>
 
       <!-- A: What is this scoreboard? -->
-      <div class="sh"><div class="shd"></div><h3>A — What is this scoreboard?</h3><div class="shl"></div></div>
+      <details class="about-sec">
+      <summary class="sh"><div class="shd"></div><h3>A — What is this scoreboard?</h3><div class="shl"></div></summary>
       <div class="about-body">
-        <p>This scoreboard tracks all the key numbers across Lotus Development. It has 7 tabs. Each number has a target, an actual, a status, an owner, and a consequence rule. When a number is green, the system is working. When a number is red, the owner must explain and show a plan — the same day. Tab 03 sections are collapsible — click any section header to open or close it.</p>
+        <p>This scoreboard tracks all the key numbers across Lotus Development. It has 7 tabs. Each number has a target, an actual, a status, an owner, and a consequence rule. When a number is green, the system is working. When a number is red, the owner must explain and show a plan — the same day. Sections across this About tab, Tab 03, Tab 04, and Tab 05 are all collapsible — click any section header to open or close it.</p>
         <p>This scoreboard works the same way at every Lotus Development site. If a new site opens tomorrow, the same tabs, the same rules, and the same cadence apply — no setup needed.</p>
       </div>
+      </details>
 
       <!-- B: Who uses it? -->
-      <div class="sh"><div class="shd"></div><h3>B — Who uses it and what do they do?</h3><div class="shl"></div></div>
+      <details class="about-sec">
+      <summary class="sh"><div class="shd"></div><h3>B — Who uses it and what do they do?</h3><div class="shl"></div></summary>
       <div class="tw">
         <table>
           <thead><tr><th>Your Role</th><th>What you do</th><th>When</th></tr></thead>
@@ -842,9 +851,11 @@ table{min-width:100%;}
           </tbody>
         </table>
       </div>
+      </details>
 
       <!-- C: How to read a KPI row -->
-      <div class="sh"><div class="shd"></div><h3>C — How to read a KPI row</h3><div class="shl"></div></div>
+      <details class="about-sec">
+      <summary class="sh"><div class="shd"></div><h3>C — How to read a KPI row</h3><div class="shl"></div></summary>
       <div class="kpi-example">
         <table>
           <thead><tr><th>KPI Name</th><th>Target</th><th>Actual</th><th>Status</th><th>Owner</th><th>Consequence</th></tr></thead>
@@ -870,9 +881,11 @@ table{min-width:100%;}
           <li><b>Consequence</b> — what must happen if the target is missed</li>
         </ul>
       </div>
+      </details>
 
       <!-- D: Status Guide -->
-      <div class="sh"><div class="shd"></div><h3>D — Status Guide</h3><div class="shl"></div></div>
+      <details class="about-sec">
+      <summary class="sh"><div class="shd"></div><h3>D — Status Guide</h3><div class="shl"></div></summary>
       <div class="tw">
         <table>
           <thead><tr><th>Status</th><th>What it means</th><th>What you must do</th></tr></thead>
@@ -887,9 +900,11 @@ table{min-width:100%;}
         </table>
       </div>
       <div class="about-note">This scoreboard does not blame people. It catches problems early so we can fix them before they grow.</div>
+      </details>
 
       <!-- E: When do I update this? -->
-      <div class="sh"><div class="shd"></div><h3>E — When do I update this?</h3><div class="shl"></div></div>
+      <details class="about-sec">
+      <summary class="sh"><div class="shd"></div><h3>E — When do I update this?</h3><div class="shl"></div></summary>
       <div class="tw">
         <table>
           <thead><tr><th>Cadence</th><th>Who</th><th>What to update</th></tr></thead>
@@ -906,9 +921,11 @@ table{min-width:100%;}
           </tbody>
         </table>
       </div>
+      </details>
 
       <!-- F: What happens when a number is red? -->
-      <div class="sh"><div class="shd"></div><h3>F — What happens when a number is red?</h3><div class="shl"></div></div>
+      <details class="about-sec">
+      <summary class="sh"><div class="shd"></div><h3>F — What happens when a number is red?</h3><div class="shl"></div></summary>
       <div class="about-body">
         <ol>
           <li>The KPI owner sees the red number (or is told by the system or Team Leader).</li>
@@ -920,9 +937,11 @@ table{min-width:100%;}
         </ol>
         <div class="about-note"><b>The rule is simple: red with a plan = manageable. Red without a plan = escalate.</b> The system tracks this — nothing falls through the cracks.</div>
       </div>
+      </details>
 
       <!-- G: Common Mistakes -->
-      <div class="sh"><div class="shd"></div><h3>G — Common Mistakes (and how to avoid them)</h3><div class="shl"></div></div>
+      <details class="about-sec">
+      <summary class="sh"><div class="shd"></div><h3>G — Common Mistakes (and how to avoid them)</h3><div class="shl"></div></summary>
       <div class="tw">
         <table>
           <thead><tr><th>Mistake</th><th>Why it happens</th><th>What to do instead</th></tr></thead>
@@ -934,9 +953,11 @@ table{min-width:100%;}
           </tbody>
         </table>
       </div>
+      </details>
 
       <!-- H: Save, Load, Export -->
-      <div class="sh"><div class="shd"></div><h3>H — How to save, load, and export</h3><div class="shl"></div></div>
+      <details class="about-sec">
+      <summary class="sh"><div class="shd"></div><h3>H — How to save, load, and export</h3><div class="shl"></div></summary>
       <div class="tw">
         <table>
           <thead><tr><th>Button / Field</th><th>What it does</th></tr></thead>
@@ -950,9 +971,11 @@ table{min-width:100%;}
         </table>
       </div>
       <div class="about-note">Data is saved in this browser only. If you open the scoreboard on a different computer, load a JSON backup first.</div>
+      </details>
 
       <!-- I: Glossary -->
-      <div class="sh"><div class="shd"></div><h3>I — Glossary</h3><div class="shl"></div></div>
+      <details class="about-sec">
+      <summary class="sh"><div class="shd"></div><h3>I — Glossary</h3><div class="shl"></div></summary>
       <div class="tw">
         <table>
           <thead><tr><th>Term</th><th>What it means</th></tr></thead>
@@ -979,9 +1002,11 @@ table{min-width:100%;}
           </tbody>
         </table>
       </div>
+      </details>
 
       <!-- J: Tabs Quick Reference -->
-      <div class="sh"><div class="shd"></div><h3>J — Tabs Quick Reference</h3><div class="shl"></div></div>
+      <details class="about-sec">
+      <summary class="sh"><div class="shd"></div><h3>J — Tabs Quick Reference</h3><div class="shl"></div></summary>
       <div class="tw">
         <table>
           <thead><tr><th>Tab</th><th>Name</th><th>Key question</th><th>Who publishes</th></tr></thead>
@@ -996,6 +1021,7 @@ table{min-width:100%;}
           </tbody>
         </table>
       </div>
+      </details>
 
     </div><!-- /about-body -->
   </div>
@@ -2521,17 +2547,17 @@ function rAnc(){
         <td>${stags(kpi.src,kpi.frm)}</td>
       </tr>`;
     }).join('');
-    return`<div class="ac">
-      <div class="ach">
+    return`<details class="ac">
+      <summary class="ach">
         <div><div class="acn">${sys.nm}</div><div class="acs">${sys.sb}</div></div>
         <span class="rmiss" style="margin-left:auto">ALL MISSING</span>
-      </div>
+      </summary>
       <div class="acd">${sys.desc}</div>
       <div class="tw" style="border:none;border-radius:0"><table>
         <thead><tr><th>KPI</th><th>Target</th><th>Actual</th><th>Status</th><th>Source + Framework</th></tr></thead>
         <tbody>${rows}</tbody>
       </table></div>
-    </div>`;
+    </details>`;
   }).join('');
 }
 
