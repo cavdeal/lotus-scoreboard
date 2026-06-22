@@ -1395,27 +1395,28 @@ async function loadRockHealth() {
 function updateRhCompact(rows) {
   const cv = document.getElementById('rh-compact-val'); if(!cv) return;
   const rocks = rows.filter(r=>r.data && typeof r.data.timeHorizon==='string' && r.data.timeHorizon.includes('Rock'));
-  let on=0,risk=0,crit=0;
-  rocks.forEach(r=>{const h=r.data.health||'on-track';if(h==='on-track')on++;else if(h==='at-risk')risk++;else if(h==='critical')crit++;});
+  let on=0,risk=0,crit=0,noStatus=0;
+  rocks.forEach(r=>{const h=r.data.health;if(h==='on-track')on++;else if(h==='at-risk')risk++;else if(h==='critical')crit++;else noStatus++;});
   cv.innerHTML = `<span style="color:var(--col-g)">● ${on} On Track</span> &nbsp;`+
     `<span style="color:var(--col-y)">⚠ ${risk} At Risk</span> &nbsp;`+
-    (crit?`<span style="color:var(--col-r)">✕ ${crit} Critical</span>`:'');
+    (crit?`<span style="color:var(--col-r)">✕ ${crit} Critical</span> &nbsp;`:'')+
+    (noStatus?`<span style="color:var(--text-dim)">— ${noStatus} No Status</span>`:'');
 }
 
 function renderRockHealth(rows) {
   const rocks = rows.filter(r => r.data && typeof r.data.timeHorizon === 'string' && r.data.timeHorizon.includes('Rock'));
   const buckets = {};
-  PILLARS.forEach(p => { buckets[p] = { total:0, on:0, risk:0, crit:0 }; });
+  PILLARS.forEach(p => { buckets[p] = { total:0, on:0, risk:0, crit:0, unset:0 }; });
   let unlinked = 0;
   rocks.forEach(r => {
-    const pt = r.data.projectType || '';
-    const pillar = pt.includes(' — ') ? pt.split(' — ')[0].trim() : null;
-    const h = r.data.health || 'on-track';
-    if (pillar && buckets[pillar]) {
+    const pillar = getPillar(r);
+    const h = r.data.health;
+    if (buckets[pillar]) {
       buckets[pillar].total++;
       if (h === 'on-track') buckets[pillar].on++;
       else if (h === 'at-risk') buckets[pillar].risk++;
       else if (h === 'critical') buckets[pillar].crit++;
+      else buckets[pillar].unset++;
     } else { unlinked++; }
   });
   const el = document.getElementById('rh-rows');
@@ -1423,12 +1424,13 @@ function renderRockHealth(rows) {
   const rows2 = PILLARS.map(p => {
     const b = buckets[p];
     const critFlag = b.crit > 0 ? `<span class="rh-crit"> ⚑ ${b.crit} critical</span>` : '';
+    const unsetFlag = b.unset > 0 ? `<span class="rh-crit" style="color:var(--text-dim)"> · ${b.unset} no status</span>` : '';
     return `<div class="rh-row">
       <div class="rh-pillar">${p}</div>
       <div class="rh-num">${b.total}</div>
       <div class="rh-count"><span class="rh-dot rh-g"></span>${b.on}</div>
       <div class="rh-count"><span class="rh-dot rh-a"></span>${b.risk}</div>
-      <div class="rh-count"><span class="rh-dot rh-r"></span>${b.crit}${critFlag}</div>
+      <div class="rh-count"><span class="rh-dot rh-r"></span>${b.crit}${critFlag}${unsetFlag}</div>
     </div>`;
   });
   if (unlinked > 0) {
