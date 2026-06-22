@@ -1645,8 +1645,8 @@ function renderSprint() {
         <span class="sp-sel-lbl">Horizon</span>${horizonSel}
         <span class="sp-sel-lbl">Owner</span>${ownerSel}
         <span class="sp-sel-lbl">Pillar</span>${pillarSel}
-        ${completed.length?`<button class="sp-fb sp-fb-right${spShowCompleted?' on':''}" onclick="toggleSpCompleted()">${spShowCompleted?'Hide':'Show'} Completed (${completed.length})</button>`:''}
-        ${completed.length?`<button class="sp-fb sp-fb-right${spCompletedOnly?' on':''}" onclick="setSpCompletedOnly(${!spCompletedOnly})" style="margin-left:6px">${spCompletedOnly?'Showing Completed Only':'Show Completed Only'}</button>`:''}
+        <button class="sp-fb sp-fb-right${spShowCompleted?' on':''}" ${completed.length?'':'disabled'} onclick="${completed.length?'toggleSpCompleted()':''}" style="${completed.length?'':'opacity:.4;cursor:not-allowed;'}">${spShowCompleted?'Hide':'Show'} Completed (${completed.length})</button>
+        <button class="sp-fb sp-fb-right${spCompletedOnly?' on':''}" ${completed.length?'':'disabled'} onclick="${completed.length?`setSpCompletedOnly(${!spCompletedOnly})`:''}" style="margin-left:6px${completed.length?'':';opacity:.4;cursor:not-allowed'}">${spCompletedOnly?'Showing Completed Only':'Show Completed Only'}</button>
       </div>
       ${rocksTableHTML}
     </details>
@@ -1696,12 +1696,13 @@ function render3YearSection(milestones, targets, showLongHorizon, idPrefix) {
   }).join('');
   const longGrouped = {};
   Q12_PILLARS.forEach(p => longGrouped[p] = []);
+  longGrouped['Other'] = [];
   longHorizon.forEach(r => {
-    const p = r.data.projectType ? r.data.projectType.split(' — ')[0].trim() : 'Unknown';
-    if (!longGrouped[p]) longGrouped[p] = [];
+    const raw = r.data.projectType && r.data.projectType.includes(' — ') ? r.data.projectType.split(' — ')[0].trim() : '';
+    const p = Q12_PILLARS.includes(raw) ? raw : 'Other';
     longGrouped[p].push(r);
   });
-  const longHTML = Q12_PILLARS.filter(p => longGrouped[p].length > 0).map(p => `
+  const longHTML = [...Q12_PILLARS, 'Other'].filter(p => longGrouped[p].length > 0).map(p => `
     <div class="q12-long-pillar">
       <div class="q12-long-pillar-name">${p}</div>
       ${longGrouped[p].map(r => `
