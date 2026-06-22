@@ -1147,6 +1147,7 @@ let allProjects = [];
 let editMode = false;
 let spFilters = {horizon:'rocks', owner:'all', pillar:'all'};
 let spShowCompleted = false;
+let spCompletedOnly = false;
 let teamSortState = {};
 let smaSortState  = {};
 let spRockSortState = {col:'',dir:''};
@@ -1297,6 +1298,7 @@ function horizonBadge(th) {
 }
 function setSpFilter(key, val) { spFilters[key] = val; renderSprint(); }
 function toggleSpCompleted()   { spShowCompleted = !spShowCompleted; renderSprint(); }
+function setSpCompletedOnly(next) { spCompletedOnly = !!next; renderSprint(); }
 
 function sortRows(rows, col, dir) {
   if (!col || !dir) return rows;
@@ -1497,8 +1499,13 @@ function renderSprint() {
       dim,
     };
   }
-  let rockRows = active.map(r => rockRow(r, false));
-  if (spShowCompleted) rockRows = rockRows.concat(completed.map(r => rockRow(r, true)));
+  let rockRows;
+  if (spCompletedOnly) {
+    rockRows = completed.map(r => rockRow(r, true));
+  } else {
+    rockRows = active.map(r => rockRow(r, false));
+    if (spShowCompleted) rockRows = rockRows.concat(completed.map(r => rockRow(r, true)));
+  }
   rockRows = sortRows(rockRows, spRockSortState.col, spRockSortState.dir);
 
   const ROCK_COLS = [
@@ -1522,7 +1529,7 @@ function renderSprint() {
         <td>${horizonBadge(r.horizon)}</td>
         <td><span class="dot ${hMap[r.health]||'ds'}">${hLabel[r.health]||'—'}</span></td>
       </tr>`).join('')}</tbody>
-    </table></div>` : '<div class="sp-empty" style="padding:20px 0">No projects match this filter.</div>';
+    </table></div>` : `<div class="sp-empty" style="padding:20px 0">${spCompletedOnly?'No completed projects match this filter.':'No projects match this filter.'}</div>`;
 
   const nsHTML = Q.north_star.map((n,i) => {
     const shBadge = NS_SHARED.has(n.kpi)
@@ -1639,6 +1646,7 @@ function renderSprint() {
         <span class="sp-sel-lbl">Owner</span>${ownerSel}
         <span class="sp-sel-lbl">Pillar</span>${pillarSel}
         ${completed.length?`<button class="sp-fb sp-fb-right${spShowCompleted?' on':''}" onclick="toggleSpCompleted()">${spShowCompleted?'Hide':'Show'} Completed (${completed.length})</button>`:''}
+        ${completed.length?`<button class="sp-fb sp-fb-right${spCompletedOnly?' on':''}" onclick="setSpCompletedOnly(${!spCompletedOnly})" style="margin-left:6px">${spCompletedOnly?'Showing Completed Only':'Show Completed Only'}</button>`:''}
       </div>
       ${rocksTableHTML}
     </details>
@@ -1654,14 +1662,16 @@ function render3YearSection(milestones, targets, showLongHorizon, idPrefix) {
   const byQ = {};
   allProjects.forEach(r => {
     if (!r.data || !r.data.timeHorizon) return;
+    if (spCompletedOnly && !isCompleted(r)) return;
     const key = getCompletionQuarterKey(r.created_at, r.data.timeHorizon);
     if (!key) return;
     if (!byQ[key]) byQ[key] = [];
     byQ[key].push(r);
   });
-  const longHorizon = showLongHorizon ? allProjects.filter(r =>
-    r.data && (r.data.timeHorizon === 'Annual Rock (360d)' || r.data.timeHorizon === 'Long Term')
-  ) : [];
+  const longHorizon = showLongHorizon ? allProjects.filter(r => {
+    if (!r.data || !(r.data.timeHorizon === 'Annual Rock (360d)' || r.data.timeHorizon === 'Long Term')) return false;
+    return spCompletedOnly ? isCompleted(r) : true;
+  }) : [];
   const cards = `<div class="q12-targets">
     <div class="q12-card"><div class="q12-card-lbl">Revenue Target</div><div class="q12-card-val">${val('-t-rev',t.revenue)}</div></div>
     <div class="q12-card"><div class="q12-card-lbl">EBITDA Target</div><div class="q12-card-val">${val('-t-eb',t.ebitda_pct)}</div></div>
