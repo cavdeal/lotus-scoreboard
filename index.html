@@ -1917,7 +1917,7 @@ const RC=[
     {k:'Top plan gaps / most common fail types',             tgt:'None repeating', s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
     {k:'Owner quality score per owner',                      tgt:'≥90',      s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
    ]},
-  {n:'Operational OS', nd:'Proves LotusOS is running, not merely designed',
+  {n:'Operational OS', nd:'Is LotusOS actually being used, not just installed?',
    kpis:[
     {k:'LotusOS compliance % — true, not proxy', tgt:'≥85%', s:'ms', frm:'LDApps + LDPM module', ld:'LDApps + LDPM Module', found:'Tab 03 — VTO Company §6 (LotusOS Adoption %)'},
     {k:'PT / Process Tracker accuracy',          tgt:'Stable; red/yellow only', s:'ms', frm:'PT / Scoreboard system', ld:'PT (Planning Tool) Module', found:'PT / Scoreboard system'},
@@ -1927,7 +1927,7 @@ const RC=[
     {k:'Founder-required closures per month',    tgt:'≤3/month, declining', s:'pt', frm:'LCC / GM summary', ld:'LCC v4.1', found:'LCC v4.1'},
     {k:'Rescue rate',                            tgt:'<10%', s:'pt', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1'},
    ]},
-  {n:'ENGINE (Finance)', nd:'Financial-health layer — none of these feeds are live inside LCC v4.1',
+  {n:'ENGINE (Finance)', nd:'Is the business making money, reliably?',
    kpis:[
     {k:'Weekly revenue flash by BU',  tgt:'On target', s:'ms', frm:'Finance dashboard / PT', ld:'? Finance dashboard (not yet live per FOS-3)', found:'Finance dashboard / PT'},
     {k:'Margin by BU',                tgt:'Above target; below-target only shown', s:'ms', frm:'Finance / BU scoreboards', ld:'? Finance dashboard (not yet live per FOS-3)', found:'Finance / BU scoreboards'},
@@ -1937,7 +1937,7 @@ const RC=[
     {k:'Cash Margin',                 tgt:'Stable or improving', s:'ms', frm:'Finance', ld:'? Finance dashboard (not yet live per FOS-3)', found:'Finance'},
     {k:'OTIF — Handaan + kiosks',     tgt:'≥98%', s:'ms', frm:'Finance / Ops', ld:'? Finance dashboard (not yet live per FOS-3)', found:'Tab 04 — VTO Teams, Operations dept'},
    ]},
-  {n:'PULSE (Customer)', nd:'Customer, tenant, and event health — none of these feeds are live inside LCC v4.1',
+  {n:'PULSE (Customer)', nd:'Are customers and tenants happy?',
    kpis:[
     {k:'Foot traffic by site',                       tgt:'Positive trend; red flags only', s:'ms', frm:'Site dashboards', ld:'? Site dashboard (no LDApp registry match)', found:'Tab 03 — VTO Company §2'},
     {k:'Tenant health / at-risk cluster count',      tgt:'No red clusters', s:'ms', frm:'Tenant / Leasing dashboard', ld:'? Leasing dashboard (no LDApp registry match)', found:'Tenant / Leasing dashboard'},
@@ -1947,7 +1947,7 @@ const RC=[
     {k:'NPS — Handaan',                              tgt:'≥65', s:'ms', frm:'ExperienceOS / feedback', ld:'ExpOS Module', found:'Tab 05 — Strategic Anchors (ExperienceOS)'},
     {k:'Recurring ICARE issues + unresolved SLA breaches', tgt:'0 recurring', s:'ms', frm:'ICARE / LDApps', ld:'LDApp Module', found:'Tab 03 — VTO Company §3 (related: ICARE Resolved <72h %)'},
    ]},
-  {n:'SOUL (People)', nd:'Leadership and people health — none of these feeds are live inside LCC v4.1',
+  {n:'SOUL (People)', nd:'Is the team healthy and well led?',
    kpis:[
     {k:'Leadership Autonomy Score per leader',       tgt:'≥80; alert <70', s:'ms', frm:'LeaderZen / L10 / HSM', ld:'LeaderZen Module', found:'Tab 05 — Strategic Anchors (LeaderZen)'},
     {k:'L10 meeting compliance',                     tgt:'≥90%; red flag <75% for 2 weeks', s:'ms', frm:'LeaderZen', ld:'LeaderZen Module', found:'Tab 03 — VTO Company §6'},
@@ -1957,7 +1957,7 @@ const RC=[
     {k:'TL problem-solving rate before escalation',  tgt:'≥80%', s:'ms', frm:'SMA tracking', ld:'? SMA tracking (no dedicated LDApp confirmed)', found:'SMA tracking'},
     {k:'Promotion-ready shortlist',                  tgt:'Updated quarterly; ≥1 per role', s:'ms', frm:'LRAD', ld:'? LeaderZen Module (LRAD feed)', found:'Tab 05 — Strategic Anchors (LeaderZen)'},
    ]},
-  {n:'Growth Pipeline', nd:'Proves future growth is moving without founder chasing',
+  {n:'Growth Pipeline', nd:'Is new growth coming in without the GM/MD chasing it?',
    kpis:[
     {k:'Pre-development sites — stage + blockers', tgt:'Advancing; no stalls', s:'ms', frm:'Biz Dev / pipeline tracker', ld:'? LDPM Module (no Biz Dev tool confirmed)', found:'Biz Dev / pipeline tracker'},
     {k:'Launching sites — risk level',              tgt:'Low risk', s:'ms', frm:'Replication OS / DEVELOP', ld:'? LDPM Module (Replication OS / DEVELOP not in registry)', found:'Replication OS / DEVELOP'},
@@ -2045,13 +2045,14 @@ function rcTableHTML(catIdx){
 }
 function rRC(){
   const g=document.getElementById('rdg');if(!g)return;
+  const wasOpen=new Set(Array.from(g.querySelectorAll('details[open]')).map(d=>d.id).filter(Boolean));
   const fosCnt=fosCatCounts();
   const peCnt=rcCatCounts(0);
   const archCounts=[1,2,3,4,5].map(rcCatCounts);
   const archTot=archCounts.reduce((a,c)=>({lv:a.lv+c.lv,pt:a.pt+c.pt,ms:a.ms+c.ms,tot:a.tot+c.tot}),{lv:0,pt:0,ms:0,tot:0});
   const grand={lv:fosCnt.lv+peCnt.lv+archTot.lv, pt:fosCnt.pt+peCnt.pt+archTot.pt, ms:fosCnt.ms+peCnt.ms+archTot.ms, tot:fosCnt.tot+peCnt.tot+archTot.tot};
 
-  const archSections=[1,2,3,4,5].map((catIdx,i)=>`<details class="sma-sec">
+  const archSections=[1,2,3,4,5].map((catIdx,i)=>`<details class="sma-sec" id="rc-tile-${catIdx}">
       <summary>${RC[catIdx].n} — ${RC[catIdx].nd}<span class="ks" style="margin-left:auto">${RC[catIdx].kpis.length} KPIs</span></summary>
       <div style="padding:10px 4px 0">
         ${rcStatBar(archCounts[i])}
@@ -2066,23 +2067,24 @@ function rRC(){
       <p style="font-size:10.5px;color:var(--text-dim);margin-top:6px;font-family:var(--fm)">Tracker — status fed from LCC v4.1 and external systems. Clock starts when all 55 are LIVE + all 6 switches hold green for 8 weeks.</p>
     </div>
 
-    <details class="tab-sec">
-      <summary class="sh"><div class="shd"></div><h3>Architect Console</h3><p style="margin-left:8px">5 driver tiles: Operational OS, ENGINE, PULSE, SOUL, Growth Pipeline.</p><span class="ks" style="margin-left:6px">${archTot.tot} KPIs</span><div class="shl"></div></summary>
+    <details class="tab-sec" id="rc-arch">
+      <summary class="sh"><div class="shd"></div><h3>Architect Console</h3><p style="margin-left:8px">The 5 systems that have to run themselves before GM/MD-Off counts — Operational OS, ENGINE, PULSE, SOUL, Growth Pipeline.</p><span class="ks" style="margin-left:6px">${archTot.tot} KPIs</span><div class="shl"></div></summary>
       <div style="padding:10px 4px">
-        <p style="font-size:11px;color:var(--text-dim);margin-bottom:8px">Layer 2 of the Founder Freedom Cockpit v2.3 — the 5-tile driver layer SMA tracks and GM owns.</p>
+        <p style="font-size:11px;color:var(--text-dim);margin-bottom:8px">Each tile answers one question without anyone checking by hand: is the operating system actually being used (Operational OS), is the business making money (ENGINE), are customers and tenants happy (PULSE), is the team healthy and well led (SOUL), and is new growth coming in without the GM/MD chasing it (Growth Pipeline)? This is Layer 2 of the Founder Freedom Cockpit v2.3 — SMA tracks each tile, the GM owns the outcome.</p>
         ${rcStatBar(archTot)}
         <div style="margin-top:10px">${archSections}</div>
       </div>
     </details>
 
-    <details class="tab-sec">
-      <summary class="sh"><div class="shd"></div><h3>LCC Project Execution KPIs</h3><p style="margin-left:8px">All 17 KPIs are LIVE, tracked automatically inside LCC v4.1 — Lotus's project and ownership tracking system. Nothing to enter manually here.</p><span class="ks" style="margin-left:6px">17 KPIs</span><div class="shl"></div></summary>
+    <details class="tab-sec" id="rc-pe">
+      <summary class="sh"><div class="shd"></div><h3>LCC Project Execution KPIs</h3><p style="margin-left:8px">Shows whether work is moving cleanly through Lotus or getting stuck — fed automatically by LCC v4.1, nothing entered by hand here.</p><span class="ks" style="margin-left:6px">17 KPIs</span><div class="shl"></div></summary>
       <div style="padding:10px 4px">
         ${rcStatBar(peCnt)}
-        <p style="font-size:11px;color:var(--text-dim);margin:8px 0">This tracks how work actually flows through Lotus, end to end, automatically — no manual entry. It shows whether plans come in clean the first time (Compliance rate, First-pass approval %), where work is getting stuck before SMA can clear it (the three SMA queue KPIs), how many projects need a person to step in and at what severity (L1 Correction → L2 Alignment → L3 Formal Escalation, plus Active strikes), and which Owners are consistently delivering quality work versus needing coaching (Owner quality score per owner). Verified directly against LCC v4.1's own dashboard code, not just a summary doc.</p>
+        <p style="font-size:11px;color:var(--text-dim);margin:8px 0">Compliance rate and First-pass approval % show whether plans come in clean the first time. The three SMA queue KPIs show where work is sitting, waiting on SMA to clear it. L1 Correction, L2 Alignment, L3 Formal Escalation, and Active strikes show how many projects need a person to step in, and how serious it's gotten. Owner quality score shows which Owners are doing consistently good work versus need coaching.</p>
         ${rcTableHTML(0)}
       </div>
     </details>`;
+  wasOpen.forEach(id=>{const el=document.getElementById(id);if(el)el.open=true;});
 }
 
 /* ============================================================

@@ -1,9 +1,10 @@
 # GM/MD Integrated Scoreboard — Master Reference
 
-**Version:** v1.9 — June 2026  
+**Version:** v1.10 — June 2026  
 **Publisher:** SMA  
 **Audience:** Dennis (MD/Founder) · GM/MD · Team Leaders · SMA  
 **Audit Score:** 98/100 (see Section 14)  
+**Changes in v1.10:** Fixed a real bug: changing any KPI's status inside Architect Console or LCC Project Execution KPIs was silently collapsing the whole section (and any of Architect Console's 5 tiles) back closed on every single edit, because the re-render that recomputes the live/partial/missing counts rebuilt those sections' HTML from scratch without preserving which ones were open. Fixed by tracking open/closed state by element id across each re-render. Revised the Architect Console and LCC Project Execution KPIs descriptions (subtitle and the longer explanation shown when expanded) to match the plain-language, purpose-first voice already used for GM/MD-Off Switch — replacing framework jargon ("Layer 2 of the Founder Freedom Cockpit v2.3...") with what each section actually tells you. Each of Architect Console's 5 tile descriptions is now a question, in the same voice (e.g. "Is the business making money, reliably?").  
 **Changes in v1.9:** Dropped the "55-KPI Readiness Map" heading entirely — it only existed to frame "these add up to 55 KPIs," and the TOTAL bar already says that on its own. Tab 02 is now three parallel, collapsed-by-default sections styled identically to Tab 01's About sections (flat diamond-bar header, not a boxy card): GM/MD-Off Switch — 6 Tests, Architect Console, and LCC Project Execution KPIs (renamed from "Project Execution — Live in LCC v4.1"). Each of the 6 GM/MD-Off Switch tests now has its own one-line description; each of Architect Console's 5 inner tiles now shows its description in its own summary row (previously only visible when expanded); LCC Project Execution KPIs gained a full explanatory paragraph on what the 17 KPIs actually measure. The TOTAL (55 KPIs) bar stays always-visible above all three sections, now carrying the "Tracker..." note that used to live under the old heading. **Independently verified** the 17 LCC Project Execution KPIs against the actual LCC v4 source (`Google-AI-Studio---Lotus-Command-Center-v3/src/components/Dashboard.tsx`) — all 17 are genuinely hard-coded there with matching names/targets, not resting solely on the wiki synthesis doc used in v1.7/v1.8.  
 **Changes in v1.8:** Tab 02 editability now matches Tab 07's model instead of v1.7's always-on model — every field across the GM/MD-Off Switch cards, Architect Console, and Project Execution is read-only by default and becomes editable only when the header "Edit" button is switched on. Removed the "Founder Freedom Score Strip" pointer box from inside the Readiness Map (it duplicated heading 1 with no new information) and reordered the Readiness Map to exactly two headings, in this order: Architect Console, then Project Execution — heading 1 (GM/MD-Off Switch) is the existing 6-card section above, unchanged. Added a "Found In" column to both Readiness Map tables, verified by reading the live `SMA`/`VCOLS`/`TEAMS`/`ANCS` arrays directly: 18 of 49 KPIs (Architect Console + Project Execution) already exist elsewhere in this scoreboard and are cross-referenced by tab + section; the other 31 (including all 17 Project Execution KPIs) fall back to their Source System reference (e.g. `LCC v4.1`, `Finance`) since they genuinely don't exist anywhere else in the file — see Section 5.  
 **Changes in v1.7:** Tab 02 is now fully editable end-to-end (previously read-only) — both the 6 GM/MD-Off Switch cards and the 55-KPI Readiness Map. Added a third "LDApp source" tag to KPI rows across Tabs 02–05, alongside the existing Source Doc + Framework tags, naming which internal Lotus tool should feed that KPI's data (`?`-prefixed when unconfirmed — see Section 4). Rebuilt the 55-KPI Readiness Map on the real, individually-named canonical KPI list (previously category aggregate counts only) and restructured it into three tiers matching the actual Founder Freedom Cockpit v2.3 architecture: Founder Freedom Score Strip (points back to the 6-test cards, not duplicated), Project Execution (17 KPIs, live table), and Architect Console (32 KPIs across 5 collapsible tiles: Operational OS, ENGINE, PULSE, SOUL, Growth Pipeline) — see Section 5. File-wide font-size floor re-verified at 10.5px (continuation of the v1.6-adjacent WCAG-AA contrast/readability fix); no sub-floor sizes remain except the two decorative disclosure-triangle glyphs.  
@@ -99,13 +100,15 @@ Three KPIs appear in multiple tabs. They are ONE data point — entered once, sh
 
 ### Architect Console
 
-*"5 driver tiles: Operational OS, ENGINE, PULSE, SOUL, Growth Pipeline."* Layer 2 of the Founder Freedom Cockpit v2.3 (May 21, 2026 canonical readiness boundary) — the 5-tile driver layer SMA tracks and GM owns. 32 KPIs across the 5 tiles below; each tile shows its own description in its own collapsed header, not just when expanded.
+*"The 5 systems that have to run themselves before GM/MD-Off counts — Operational OS, ENGINE, PULSE, SOUL, Growth Pipeline."*
+
+Each tile answers one question without anyone checking by hand: is the operating system actually being used (Operational OS), is the business making money (ENGINE), are customers and tenants happy (PULSE), is the team healthy and well led (SOUL), and is new growth coming in without the GM/MD chasing it (Growth Pipeline)? This is Layer 2 of the Founder Freedom Cockpit v2.3 (May 21, 2026 canonical readiness boundary) — SMA tracks each tile, the GM owns the outcome. 32 KPIs across the 5 tiles below; each tile shows its own one-question description in its own collapsed header, not just when expanded.
 
 Every KPI row also carries a **Found In** column: where else in this scoreboard that KPI already lives (cross-checked directly against the `SMA`/`VCOLS`/`TEAMS`/`ANCS` arrays — not guessed), or its Source System as a fallback when no match exists anywhere else in the file.
 
 **32 KPIs across 5 tiles (Layer 2, Founder Freedom Cockpit v2.3)**
 
-*C1. Operational OS (7 KPIs — 0 LIVE, 2 PARTIAL, 5 MISSING)* — proves LotusOS is running, not merely designed.
+*C1. Operational OS (7 KPIs — 0 LIVE, 2 PARTIAL, 5 MISSING)* — "Is LotusOS actually being used, not just installed?"
 
 | # | KPI | Target | Source System | Status | Found In |
 |---|---|---|---|---|---|
@@ -117,7 +120,7 @@ Every KPI row also carries a **Found In** column: where else in this scoreboard 
 | OOS-6 | Founder-required closures per month | ≤3/month, declining | LCC / GM summary | PARTIAL | *(fallback)* LCC v4.1 |
 | OOS-7 | Rescue rate | <10% | LCC | PARTIAL | *(fallback)* LCC v4.1 |
 
-*C2. ENGINE — Finance (7 KPIs — all MISSING)* — financial-health layer; none of these feeds are live inside LCC v4.1.
+*C2. ENGINE — Finance (7 KPIs — all MISSING)* — "Is the business making money, reliably?"
 
 | # | KPI | Target | Source System | Found In |
 |---|---|---|---|---|
@@ -129,7 +132,7 @@ Every KPI row also carries a **Found In** column: where else in this scoreboard 
 | E-6 | Cash Margin | Stable or improving | Finance | *(fallback)* Finance |
 | E-7 | OTIF — Handaan + kiosks | ≥98% | Finance / Ops | Tab 04 — VTO Teams, Operations dept |
 
-*C3. PULSE — Customer (7 KPIs — all MISSING)* — customer, tenant, and event health.
+*C3. PULSE — Customer (7 KPIs — all MISSING)* — "Are customers and tenants happy?"
 
 | # | KPI | Target | Source System | Found In |
 |---|---|---|---|---|
@@ -141,7 +144,7 @@ Every KPI row also carries a **Found In** column: where else in this scoreboard 
 | PU-6 | NPS — Handaan | ≥65 | ExperienceOS / feedback | Tab 05 — Strategic Anchors (ExperienceOS) |
 | PU-7 | Recurring ICARE issues + unresolved SLA breaches | 0 recurring | ICARE / LDApps | Tab 03 — VTO Company §3 (related: ICARE Resolved <72h %) |
 
-*C4. SOUL — People (7 KPIs — all MISSING)* — leadership and people health.
+*C4. SOUL — People (7 KPIs — all MISSING)* — "Is the team healthy and well led?"
 
 | # | KPI | Target | Source System | Found In |
 |---|---|---|---|---|
@@ -153,7 +156,7 @@ Every KPI row also carries a **Found In** column: where else in this scoreboard 
 | SO-6 | TL problem-solving rate before escalation | ≥80% | SMA tracking | *(fallback)* SMA tracking |
 | SO-7 | Promotion-ready shortlist | Updated quarterly; ≥1 per role | LRAD | Tab 05 — Strategic Anchors (LeaderZen) |
 
-*C5. Growth Pipeline (4 KPIs — all MISSING)* — proves future growth is moving without founder chasing.
+*C5. Growth Pipeline (4 KPIs — all MISSING)* — "Is new growth coming in without the GM/MD chasing it?"
 
 | # | KPI | Target | Source System | Found In |
 |---|---|---|---|---|
@@ -164,9 +167,11 @@ Every KPI row also carries a **Found In** column: where else in this scoreboard 
 
 ### LCC Project Execution KPIs
 
-*"All 17 KPIs are LIVE, tracked automatically inside LCC v4.1 — Lotus's project and ownership tracking system. Nothing to enter manually here."*
+*"Shows whether work is moving cleanly through Lotus or getting stuck — fed automatically by LCC v4.1, nothing entered by hand here."*
 
-This tracks how work actually flows through Lotus, end to end, automatically — no manual entry. It shows whether plans come in clean the first time (Compliance rate, First-pass approval %), where work is getting stuck before SMA can clear it (the three SMA queue KPIs), how many projects need a person to step in and at what severity (L1 Correction → L2 Alignment → L3 Formal Escalation, plus Active strikes), and which Owners are consistently delivering quality work versus needing coaching (Owner quality score per owner). **Independently verified** against LCC v4.1's own dashboard code (`Google-AI-Studio---Lotus-Command-Center-v3/src/components/Dashboard.tsx`), not just the wiki synthesis doc — all 17 are genuinely hard-coded there with matching names and targets.
+Compliance rate and First-pass approval % show whether plans come in clean the first time. The three SMA queue KPIs show where work is sitting, waiting on SMA to clear it. L1 Correction, L2 Alignment, L3 Formal Escalation, and Active strikes show how many projects need a person to step in, and how serious it's gotten. Owner quality score shows which Owners are doing consistently good work versus need coaching.
+
+**Independently verified** against LCC v4.1's own dashboard code (`Google-AI-Studio---Lotus-Command-Center-v3/src/components/Dashboard.tsx`), not just the wiki synthesis doc — all 17 are genuinely hard-coded there with matching names and targets. (This verification note is documentation-only — it doesn't appear in the live app, which stays focused on what the numbers tell you, not how they were sourced.)
 
 **17 KPIs, all LIVE (source: LCC).** Found In: `LCC v4.1 (lcc-v4-supabase.vercel.app)` for all 17 — none exist anywhere else in this scoreboard.
 
