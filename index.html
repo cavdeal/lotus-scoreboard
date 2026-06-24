@@ -133,10 +133,10 @@ body{
 .sh h3{font-family:var(--fd);font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--lotus-tx);}
 .sh p{font-family:var(--fm);font-size:11px;color:var(--text-dim);}
 .shl{flex:1;height:1px;background:linear-gradient(to right,var(--border),transparent);}
-details.about-sec{padding:0 14px;}
-details.about-sec>summary.sh{margin:0;padding:12px 2px;}
-details.about-sec>summary.sh::before{margin-right:2px;}
-details.about-sec>:not(summary){margin-top:2px;}
+details.about-sec,details.tab-sec{padding:0 14px;}
+details.about-sec>summary.sh,details.tab-sec>summary.sh{margin:0;padding:12px 2px;}
+details.about-sec>summary.sh::before,details.tab-sec>summary.sh::before{margin-right:2px;}
+details.about-sec>:not(summary),details.tab-sec>:not(summary){margin-top:2px;}
 
 /* ── LEGEND ── */
 .leg{
@@ -623,7 +623,9 @@ body.edit-mode #cnt{top:calc(var(--hh) + 28px + var(--th));}
   .sp-filter-bar{gap:4px;}
   .sp-fb{padding:5px 10px;font-size:10.5px;}
   .sp-fb-right{margin-left:0;width:100%;justify-content:center;margin-top:4px;}
-  .sh{margin:18px 0 10px;}
+  .sh{margin:18px 0 10px;flex-wrap:wrap;}
+  .sh p{flex:1 0 100%;margin-top:4px;}
+  .sh .ks{margin-top:4px;}
   .about-body{font-size:12px;line-height:1.65;}
   .hdate{display:none;}
   .htime{font-size:12px;}
@@ -715,9 +717,10 @@ table{min-width:100%;}
       <div class="li"><span class="dot dy">PARTIAL</span> — proxy, not the real number</div>
       <div class="li"><span class="dot ds">MISSING</span> — external system needed</div>
     </div>
-    <div class="sh"><div class="shd"></div><h3>GM/MD-Off Switch — 6 Tests</h3><div class="shl"></div></div>
-    <div class="fosg" id="fosg"></div>
-    <div class="sh"><div class="shd"></div><h3>55-KPI Readiness Map</h3><p style="margin-left:8px">Tracker — status fed from LCC v4.1 and external systems. Clock starts when all 55 are LIVE + all 6 switches hold green for 8 weeks.</p><div class="shl"></div></div>
+    <details class="tab-sec">
+      <summary class="sh"><div class="shd"></div><h3>GM/MD-Off Switch — 6 Tests</h3><p style="margin-left:8px">The 6 tests that prove the business runs without the GM/MD — all must hold green for 8 weeks.</p><span class="ks" style="margin-left:6px">6 KPIs</span><div class="shl"></div></summary>
+      <div class="fosg" id="fosg"></div>
+    </details>
     <div id="rdg"></div>
   </div>
 
@@ -1860,16 +1863,22 @@ function ldtag(ld){
    ============================================================ */
 const FOS_DATA=[
   {id:'FOS-1',lbl:'Owner Draft Quality',        tgt:'≥16/20 avg; 0 rewrites',          st:'PARTIAL',fc:'var(--sy)',fg:'var(--sy-g)',fdot:'dy',src:'lcc-v41-kpi-readiness-map.md',frm:'GM/MD Freedom Cockpit',ld:'LCC v4.1',
+   desc:'Are plans coming in clean the first time, without GM/MD rewrites?',
    cons:'SMA flags owner. No project advances until rewrite cycle is broken.'},
   {id:'FOS-2',lbl:'SMA / GM Compliance Rate',   tgt:'≥90%',                            st:'PARTIAL',fc:'var(--sy)',fg:'var(--sy-g)',fdot:'dy',src:'lcc-v41-kpi-readiness-map.md',frm:'GM/MD Freedom Cockpit',ld:'LCC v4.1',
+   desc:'Are reviews and approvals happening on schedule, without the GM/MD chasing anyone?',
    cons:'<90%: GM/MD escalates same day. Root cause report due in 24 hours.'},
   {id:'FOS-3',lbl:'F&B Profit — Clear Owner',   tgt:'Stable; GM/MD not involved',    st:'MISSING',fc:'var(--ss)',fg:'transparent',fdot:'ds',src:'founder-freedom-cockpit-current-state.md',frm:'GM/MD Freedom Cockpit',ld:'? Finance dashboard (not yet live per FOS-3)',
+   desc:'Does someone other than the GM/MD own F&B profit performance?',
    cons:'GM/MD confirms weekly until finance feed is live.'},
   {id:'FOS-4',lbl:'Team-Led Innovations',        tgt:'≥2 per BU per month',             st:'MISSING',fc:'var(--ss)',fg:'transparent',fdot:'ds',src:'founder-freedom-cockpit-current-state.md',frm:'GM/MD Freedom Cockpit / LotusOS',ld:'? LMDB',
+   desc:'Are teams generating their own improvements, instead of waiting on the GM/MD?',
    cons:'BU Heads submit innovation log to SMA by last Friday of the month.'},
   {id:'FOS-5',lbl:'Self-Managed Incidents',      tgt:'≥80% resolved without GM/MD',  st:'MISSING',fc:'var(--ss)',fg:'transparent',fdot:'ds',src:'founder-freedom-cockpit-current-state.md',frm:'ICARE / GM/MD Freedom Cockpit',ld:'? ICARE',
+   desc:'Are problems getting resolved by the team itself, without GM/MD intervention?',
    cons:'SMA tracks manually. Escalations to GM/MD counted and reviewed weekly.'},
   {id:'FOS-6',lbl:'GM/MD Active Hours',        tgt:'≤10 hrs/week; near-zero escal.', st:'PARTIAL',fc:'var(--sy)',fg:'var(--sy-g)',fdot:'dy',src:'lcc-v41-kpi-readiness-map.md',frm:'GM/MD Freedom Cockpit',ld:'LCC v4.1',
+   desc:'Is the GM/MD’s hands-on time shrinking toward zero?',
    cons:'If >10 hrs: GM/MD flags which task and assigns it to the relevant TL by next Monday.'},
 ];
 
@@ -1998,6 +2007,7 @@ function rFOS(){
       <div class="fid">${f.id}</div>
       <div class="fstat">${editMode?fosSel(i,d.s):rcStatusBadge(d.s)}</div>
       <div class="flbl">${f.lbl}</div>
+      <p style="font-size:11px;color:var(--text-dim);margin-bottom:7px;line-height:1.4">${f.desc}</p>
       <div class="ftgt">Target: ${editMode?vi(dk,'t',f.tgt,'150px'):rcTextVal(d.t)}</div>
       <div style="margin-bottom:8px">${stags(f.src,f.frm)}${ldtag(f.ld)}</div>
       <div class="fcons">${editMode?`<input class="ai" style="width:100%" value="${(d.c??f.cons).replace(/"/g,'&quot;')}" onchange="sv2('${dk}','c',this.value)">`:rcTextVal(d.c)}</div>
@@ -2042,9 +2052,8 @@ function rRC(){
   const grand={lv:fosCnt.lv+peCnt.lv+archTot.lv, pt:fosCnt.pt+peCnt.pt+archTot.pt, ms:fosCnt.ms+peCnt.ms+archTot.ms, tot:fosCnt.tot+peCnt.tot+archTot.tot};
 
   const archSections=[1,2,3,4,5].map((catIdx,i)=>`<details class="sma-sec">
-      <summary>${RC[catIdx].n}<span class="ks" style="margin-left:auto">${RC[catIdx].kpis.length} KPIs</span></summary>
+      <summary>${RC[catIdx].n} — ${RC[catIdx].nd}<span class="ks" style="margin-left:auto">${RC[catIdx].kpis.length} KPIs</span></summary>
       <div style="padding:10px 4px 0">
-        <p style="font-size:11px;color:var(--text-dim);margin-bottom:8px">${RC[catIdx].nd}</p>
         ${rcStatBar(archCounts[i])}
         <div style="margin-top:10px">${rcTableHTML(catIdx)}</div>
       </div>
@@ -2054,10 +2063,11 @@ function rRC(){
     <div class="rc" style="margin-bottom:14px">
       <div class="rcn">TOTAL (${grand.tot} KPIs)</div>
       ${rcStatBar(grand)}
+      <p style="font-size:10.5px;color:var(--text-dim);margin-top:6px;font-family:var(--fm)">Tracker — status fed from LCC v4.1 and external systems. Clock starts when all 55 are LIVE + all 6 switches hold green for 8 weeks.</p>
     </div>
 
-    <details class="sma-sec" open>
-      <summary>Architect Console — Operational OS / ENGINE / PULSE / SOUL / Growth Pipeline<span class="ks" style="margin-left:auto">${archTot.tot} KPIs</span></summary>
+    <details class="tab-sec">
+      <summary class="sh"><div class="shd"></div><h3>Architect Console</h3><p style="margin-left:8px">5 driver tiles: Operational OS, ENGINE, PULSE, SOUL, Growth Pipeline.</p><span class="ks" style="margin-left:6px">${archTot.tot} KPIs</span><div class="shl"></div></summary>
       <div style="padding:10px 4px">
         <p style="font-size:11px;color:var(--text-dim);margin-bottom:8px">Layer 2 of the Founder Freedom Cockpit v2.3 — the 5-tile driver layer SMA tracks and GM owns.</p>
         ${rcStatBar(archTot)}
@@ -2065,11 +2075,11 @@ function rRC(){
       </div>
     </details>
 
-    <details class="sma-sec" open>
-      <summary>Project Execution — Live in LCC v4.1<span class="ks" style="margin-left:auto">17 KPIs</span></summary>
+    <details class="tab-sec">
+      <summary class="sh"><div class="shd"></div><h3>LCC Project Execution KPIs</h3><p style="margin-left:8px">All 17 KPIs are LIVE, tracked automatically inside LCC v4.1 — Lotus's project and ownership tracking system. Nothing to enter manually here.</p><span class="ks" style="margin-left:6px">17 KPIs</span><div class="shl"></div></summary>
       <div style="padding:10px 4px">
         ${rcStatBar(peCnt)}
-        <p style="font-size:11px;color:var(--text-dim);margin:8px 0">Fully live, native to LCC v4.1 — tracked there, not a separate manual feed.</p>
+        <p style="font-size:11px;color:var(--text-dim);margin:8px 0">This tracks how work actually flows through Lotus, end to end, automatically — no manual entry. It shows whether plans come in clean the first time (Compliance rate, First-pass approval %), where work is getting stuck before SMA can clear it (the three SMA queue KPIs), how many projects need a person to step in and at what severity (L1 Correction → L2 Alignment → L3 Formal Escalation, plus Active strikes), and which Owners are consistently delivering quality work versus needing coaching (Owner quality score per owner). Verified directly against LCC v4.1's own dashboard code, not just a summary doc.</p>
         ${rcTableHTML(0)}
       </div>
     </details>`;

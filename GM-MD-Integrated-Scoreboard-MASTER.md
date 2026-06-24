@@ -1,9 +1,10 @@
 # GM/MD Integrated Scoreboard — Master Reference
 
-**Version:** v1.8 — June 2026  
+**Version:** v1.9 — June 2026  
 **Publisher:** SMA  
 **Audience:** Dennis (MD/Founder) · GM/MD · Team Leaders · SMA  
 **Audit Score:** 98/100 (see Section 14)  
+**Changes in v1.9:** Dropped the "55-KPI Readiness Map" heading entirely — it only existed to frame "these add up to 55 KPIs," and the TOTAL bar already says that on its own. Tab 02 is now three parallel, collapsed-by-default sections styled identically to Tab 01's About sections (flat diamond-bar header, not a boxy card): GM/MD-Off Switch — 6 Tests, Architect Console, and LCC Project Execution KPIs (renamed from "Project Execution — Live in LCC v4.1"). Each of the 6 GM/MD-Off Switch tests now has its own one-line description; each of Architect Console's 5 inner tiles now shows its description in its own summary row (previously only visible when expanded); LCC Project Execution KPIs gained a full explanatory paragraph on what the 17 KPIs actually measure. The TOTAL (55 KPIs) bar stays always-visible above all three sections, now carrying the "Tracker..." note that used to live under the old heading. **Independently verified** the 17 LCC Project Execution KPIs against the actual LCC v4 source (`Google-AI-Studio---Lotus-Command-Center-v3/src/components/Dashboard.tsx`) — all 17 are genuinely hard-coded there with matching names/targets, not resting solely on the wiki synthesis doc used in v1.7/v1.8.  
 **Changes in v1.8:** Tab 02 editability now matches Tab 07's model instead of v1.7's always-on model — every field across the GM/MD-Off Switch cards, Architect Console, and Project Execution is read-only by default and becomes editable only when the header "Edit" button is switched on. Removed the "Founder Freedom Score Strip" pointer box from inside the Readiness Map (it duplicated heading 1 with no new information) and reordered the Readiness Map to exactly two headings, in this order: Architect Console, then Project Execution — heading 1 (GM/MD-Off Switch) is the existing 6-card section above, unchanged. Added a "Found In" column to both Readiness Map tables, verified by reading the live `SMA`/`VCOLS`/`TEAMS`/`ANCS` arrays directly: 18 of 49 KPIs (Architect Console + Project Execution) already exist elsewhere in this scoreboard and are cross-referenced by tab + section; the other 31 (including all 17 Project Execution KPIs) fall back to their Source System reference (e.g. `LCC v4.1`, `Finance`) since they genuinely don't exist anywhere else in the file — see Section 5.  
 **Changes in v1.7:** Tab 02 is now fully editable end-to-end (previously read-only) — both the 6 GM/MD-Off Switch cards and the 55-KPI Readiness Map. Added a third "LDApp source" tag to KPI rows across Tabs 02–05, alongside the existing Source Doc + Framework tags, naming which internal Lotus tool should feed that KPI's data (`?`-prefixed when unconfirmed — see Section 4). Rebuilt the 55-KPI Readiness Map on the real, individually-named canonical KPI list (previously category aggregate counts only) and restructured it into three tiers matching the actual Founder Freedom Cockpit v2.3 architecture: Founder Freedom Score Strip (points back to the 6-test cards, not duplicated), Project Execution (17 KPIs, live table), and Architect Console (32 KPIs across 5 collapsible tiles: Operational OS, ENGINE, PULSE, SOUL, Growth Pipeline) — see Section 5. File-wide font-size floor re-verified at 10.5px (continuation of the v1.6-adjacent WCAG-AA contrast/readability fix); no sub-floor sizes remain except the two decorative disclosure-triangle glyphs.  
 **Changes in v1.6:** Renamed Tab 02 and all 6 switch tests from "Founder-Off" to "GM/MD-Off" throughout this document to match the live app (code already uses role-based "GM/MD" language, not "Founder/Dennis," reflecting the founder-transition already underway). Corrected Tab 07 section list — 10 collapsible sections, not 7 (added Universal Mission recap block; split "1-Year Picture" into 1-Year Priority + 1-Year Roadmap; split "Rallying Cry + Revenue Goals" into two sections, matching actual render order). Documented Google OAuth sign-in gate (not previously mentioned). Documented the completed-item status model (`done-obs`/`done-signed`/`archived`/`dropped`) and its two always-visible view controls on Quarterly Rocks and Long-Horizon Projects.  
@@ -80,29 +81,29 @@ Three KPIs appear in multiple tabs. They are ONE data point — entered once, sh
 
 **Question:** Can the GM/MD step back? Are the 6 GM/MD-Off Switches green?  
 **Logic:** All 6 GM/MD-Off Switch (FOS) tests must stay GREEN for 8 consecutive weeks. If any is red, the GM/MD is still needed in that area.  
-**Edit:** This tab is read-only by default, same as Tab 07 — tap ✏ Edit in the header to make every field (status, target, consequence, source, LDApp tag) editable, tap Done to save to this browser. (Changed in v1.8 — v1.7 made these fields always-editable with no toggle; that's no longer the case.)
+**Edit:** This tab is read-only by default, same as Tab 07 — tap ✏ Edit in the header to make every field (status, target, consequence, source, LDApp tag) editable, tap Done to save to this browser. (Changed in v1.8 — v1.7 made these fields always-editable with no toggle; that's no longer the case.)  
+**Layout (changed in v1.9):** Three collapsed-by-default sections, each styled like Tab 01's About sections (flat diamond-bar header you click to expand, not a boxy card) — GM/MD-Off Switch, Architect Console, LCC Project Execution KPIs. There's no longer a "55-KPI Readiness Map" umbrella heading; the TOTAL (55 KPIs) bar sits always-visible above all three and carries the tracker note that used to live under that heading.
 
 ### GM/MD-Off Switch — 6 Tests
 
-| # | Test | Target | Readiness | What Happens If Red |
-|---|---|---|---|---|
-| FOS-1 | Owner Draft Quality (avg + 0 rewrites) | ≥16/20 avg; 0 rewrites | PARTIAL | SMA flags the owner. No project moves forward until the rewrite cycle stops. |
-| FOS-2 | SMA / GM Compliance Rate | ≥90% | PARTIAL | SMA escalates to GM same day. Root cause report due in 24 hours. |
-| FOS-3 | F&B Profit — Clear Owner | Stable; GM/MD not involved | MISSING | Dennis confirms manually each week until Finance feed is live. |
-| FOS-4 | Team-Led Innovations | ≥2 per BU per month | MISSING | BU Heads submit innovation log to SMA by last Friday of the month. |
-| FOS-5 | Self-Managed Incidents | ≥80% resolved without GM/MD | MISSING | SMA tracks manually. Escalations are counted and reviewed weekly. |
-| FOS-6 | GM/MD Active Hours | ≤10 hrs/week; near-zero escalations | PARTIAL | Dennis flags which task he should not be doing. GM takes it over by next Monday. |
+*"The 6 tests that prove the business runs without the GM/MD — all must hold green for 8 weeks."*
 
-### 55-KPI Readiness Map — Tracker
+| # | Test | What It Asks | Target | Readiness | What Happens If Red |
+|---|---|---|---|---|---|
+| FOS-1 | Owner Draft Quality (avg + 0 rewrites) | Are plans coming in clean the first time, without GM/MD rewrites? | ≥16/20 avg; 0 rewrites | PARTIAL | SMA flags the owner. No project moves forward until the rewrite cycle stops. |
+| FOS-2 | SMA / GM Compliance Rate | Are reviews and approvals happening on schedule, without the GM/MD chasing anyone? | ≥90% | PARTIAL | SMA escalates to GM same day. Root cause report due in 24 hours. |
+| FOS-3 | F&B Profit — Clear Owner | Does someone other than the GM/MD own F&B profit performance? | Stable; GM/MD not involved | MISSING | Dennis confirms manually each week until Finance feed is live. |
+| FOS-4 | Team-Led Innovations | Are teams generating their own improvements, instead of waiting on the GM/MD? | ≥2 per BU per month | MISSING | BU Heads submit innovation log to SMA by last Friday of the month. |
+| FOS-5 | Self-Managed Incidents | Are problems getting resolved by the team itself, without GM/MD intervention? | ≥80% resolved without GM/MD | MISSING | SMA tracks manually. Escalations are counted and reviewed weekly. |
+| FOS-6 | GM/MD Active Hours | Is the GM/MD's hands-on time shrinking toward zero? | ≤10 hrs/week; near-zero escalations | PARTIAL | Dennis flags which task he should not be doing. GM takes it over by next Monday. |
 
-A status tracker, not a data-entry form — it shows what's LIVE inside LCC v4.1 today versus what still needs an external feed connected. Source: the canonical Founder Freedom Cockpit v2.3 KPI map (May 21, 2026 readiness boundary). Two headings live inside this map, in render order; the GM/MD-Off Switch tests above are heading 1 and are **not** duplicated as a third heading here:
+### Architect Console
 
-- **Heading 2 — Architect Console** — 5 driver tiles SMA tracks and GM owns: Operational OS, ENGINE, PULSE, SOUL, Growth Pipeline. Renders first.
-- **Heading 3 — Project Execution** — the one category fully live, native to LCC v4.1. Renders second.
+*"5 driver tiles: Operational OS, ENGINE, PULSE, SOUL, Growth Pipeline."* Layer 2 of the Founder Freedom Cockpit v2.3 (May 21, 2026 canonical readiness boundary) — the 5-tile driver layer SMA tracks and GM owns. 32 KPIs across the 5 tiles below; each tile shows its own description in its own collapsed header, not just when expanded.
 
 Every KPI row also carries a **Found In** column: where else in this scoreboard that KPI already lives (cross-checked directly against the `SMA`/`VCOLS`/`TEAMS`/`ANCS` arrays — not guessed), or its Source System as a fallback when no match exists anywhere else in the file.
 
-**Heading 2. Architect Console — 32 KPIs across 5 tiles (Layer 2, Founder Freedom Cockpit v2.3)** — renders first.
+**32 KPIs across 5 tiles (Layer 2, Founder Freedom Cockpit v2.3)**
 
 *C1. Operational OS (7 KPIs — 0 LIVE, 2 PARTIAL, 5 MISSING)* — proves LotusOS is running, not merely designed.
 
@@ -161,7 +162,13 @@ Every KPI row also carries a **Found In** column: where else in this scoreboard 
 | GP-3 | Tenant pipeline health | Growing or stable | Leasing / tenant DB | Tab 03 — VTO Company §1 (related: Tenant Mix Plan) |
 | GP-4 | Brand innovation pipeline per BU | ≥2 per BU per month | Brand / MarCom / BU tracker | *(fallback)* Brand / MarCom / BU tracker |
 
-**Heading 3. Project Execution — 17 KPIs, all LIVE (source: LCC)** — renders second. Found In: `LCC v4.1 (lcc-v4-supabase.vercel.app)` for all 17 — none exist anywhere else in this scoreboard.
+### LCC Project Execution KPIs
+
+*"All 17 KPIs are LIVE, tracked automatically inside LCC v4.1 — Lotus's project and ownership tracking system. Nothing to enter manually here."*
+
+This tracks how work actually flows through Lotus, end to end, automatically — no manual entry. It shows whether plans come in clean the first time (Compliance rate, First-pass approval %), where work is getting stuck before SMA can clear it (the three SMA queue KPIs), how many projects need a person to step in and at what severity (L1 Correction → L2 Alignment → L3 Formal Escalation, plus Active strikes), and which Owners are consistently delivering quality work versus needing coaching (Owner quality score per owner). **Independently verified** against LCC v4.1's own dashboard code (`Google-AI-Studio---Lotus-Command-Center-v3/src/components/Dashboard.tsx`), not just the wiki synthesis doc — all 17 are genuinely hard-coded there with matching names and targets.
+
+**17 KPIs, all LIVE (source: LCC).** Found In: `LCC v4.1 (lcc-v4-supabase.vercel.app)` for all 17 — none exist anywhere else in this scoreboard.
 
 | # | KPI | Target |
 |---|---|---|
