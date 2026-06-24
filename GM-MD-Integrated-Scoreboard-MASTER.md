@@ -1,9 +1,10 @@
 # GM/MD Integrated Scoreboard — Master Reference
 
-**Version:** v1.7 — June 2026  
+**Version:** v1.8 — June 2026  
 **Publisher:** SMA  
 **Audience:** Dennis (MD/Founder) · GM/MD · Team Leaders · SMA  
 **Audit Score:** 98/100 (see Section 14)  
+**Changes in v1.8:** Tab 02 editability now matches Tab 07's model instead of v1.7's always-on model — every field across the GM/MD-Off Switch cards, Architect Console, and Project Execution is read-only by default and becomes editable only when the header "Edit" button is switched on. Removed the "Founder Freedom Score Strip" pointer box from inside the Readiness Map (it duplicated heading 1 with no new information) and reordered the Readiness Map to exactly two headings, in this order: Architect Console, then Project Execution — heading 1 (GM/MD-Off Switch) is the existing 6-card section above, unchanged. Added a "Found In" column to both Readiness Map tables, verified by reading the live `SMA`/`VCOLS`/`TEAMS`/`ANCS` arrays directly: 18 of 49 KPIs (Architect Console + Project Execution) already exist elsewhere in this scoreboard and are cross-referenced by tab + section; the other 31 (including all 17 Project Execution KPIs) fall back to their Source System reference (e.g. `LCC v4.1`, `Finance`) since they genuinely don't exist anywhere else in the file — see Section 5.  
 **Changes in v1.7:** Tab 02 is now fully editable end-to-end (previously read-only) — both the 6 GM/MD-Off Switch cards and the 55-KPI Readiness Map. Added a third "LDApp source" tag to KPI rows across Tabs 02–05, alongside the existing Source Doc + Framework tags, naming which internal Lotus tool should feed that KPI's data (`?`-prefixed when unconfirmed — see Section 4). Rebuilt the 55-KPI Readiness Map on the real, individually-named canonical KPI list (previously category aggregate counts only) and restructured it into three tiers matching the actual Founder Freedom Cockpit v2.3 architecture: Founder Freedom Score Strip (points back to the 6-test cards, not duplicated), Project Execution (17 KPIs, live table), and Architect Console (32 KPIs across 5 collapsible tiles: Operational OS, ENGINE, PULSE, SOUL, Growth Pipeline) — see Section 5. File-wide font-size floor re-verified at 10.5px (continuation of the v1.6-adjacent WCAG-AA contrast/readability fix); no sub-floor sizes remain except the two decorative disclosure-triangle glyphs.  
 **Changes in v1.6:** Renamed Tab 02 and all 6 switch tests from "Founder-Off" to "GM/MD-Off" throughout this document to match the live app (code already uses role-based "GM/MD" language, not "Founder/Dennis," reflecting the founder-transition already underway). Corrected Tab 07 section list — 10 collapsible sections, not 7 (added Universal Mission recap block; split "1-Year Picture" into 1-Year Priority + 1-Year Roadmap; split "Rallying Cry + Revenue Goals" into two sections, matching actual render order). Documented Google OAuth sign-in gate (not previously mentioned). Documented the completed-item status model (`done-obs`/`done-signed`/`archived`/`dropped`) and its two always-visible view controls on Quarterly Rocks and Long-Horizon Projects.  
 **Changes in v1.5:** Added Tab 06 — VTO Map (6 Source Strategy cards, verified verbatim against the GM Strategy one-pager screenshot dated Jun 16, 2026); Lotus Strategy Canvas renumbered Tab 06 → Tab 07. Added 3 KPIs found missing during the completeness audit: Active Venues (Sites) to Tab 03 Section 0, OTIF — On-Time In-Full (Handaan + Kiosks) to Tab 04 Operations, EBITDA Margin Improvement (YoY) to Tab 04 Finance. Tab 03 total 65 → 66 KPIs. Tab 04 total ~197 → ~199 KPIs. Total tabs: 6 → 7.  
@@ -79,7 +80,7 @@ Three KPIs appear in multiple tabs. They are ONE data point — entered once, sh
 
 **Question:** Can the GM/MD step back? Are the 6 GM/MD-Off Switches green?  
 **Logic:** All 6 GM/MD-Off Switch (FOS) tests must stay GREEN for 8 consecutive weeks. If any is red, the GM/MD is still needed in that area.  
-**Edit:** Every field on this tab — status, target, consequence, source, LDApp tag — is inline-editable. Changes save to this browser; no separate edit-mode toggle needed (unlike Tab 07).
+**Edit:** This tab is read-only by default, same as Tab 07 — tap ✏ Edit in the header to make every field (status, target, consequence, source, LDApp tag) editable, tap Done to save to this browser. (Changed in v1.8 — v1.7 made these fields always-editable with no toggle; that's no longer the case.)
 
 ### GM/MD-Off Switch — 6 Tests
 
@@ -94,13 +95,73 @@ Three KPIs appear in multiple tabs. They are ONE data point — entered once, sh
 
 ### 55-KPI Readiness Map — Tracker
 
-A status tracker, not a data-entry form — it shows what's LIVE inside LCC v4.1 today versus what still needs an external feed connected. Source: the canonical Founder Freedom Cockpit v2.3 KPI map (May 21, 2026 readiness boundary). Structured in three tiers, matching that architecture exactly:
+A status tracker, not a data-entry form — it shows what's LIVE inside LCC v4.1 today versus what still needs an external feed connected. Source: the canonical Founder Freedom Cockpit v2.3 KPI map (May 21, 2026 readiness boundary). Two headings live inside this map, in render order; the GM/MD-Off Switch tests above are heading 1 and are **not** duplicated as a third heading here:
 
-- **Layer 0 — Founder Freedom Score Strip** = the 6 GM/MD-Off Switch tests above. Shown in the live app as a one-line pointer back up to that section — not duplicated as a second list.
-- **Layer 1 — Project Execution** — the one category fully live, native to LCC v4.1.
-- **Layer 2 — Architect Console** — 5 driver tiles SMA tracks and GM owns: Operational OS, ENGINE, PULSE, SOUL, Growth Pipeline.
+- **Heading 2 — Architect Console** — 5 driver tiles SMA tracks and GM owns: Operational OS, ENGINE, PULSE, SOUL, Growth Pipeline. Renders first.
+- **Heading 3 — Project Execution** — the one category fully live, native to LCC v4.1. Renders second.
 
-**B. Project Execution — 17 KPIs, all LIVE (source: LCC)**
+Every KPI row also carries a **Found In** column: where else in this scoreboard that KPI already lives (cross-checked directly against the `SMA`/`VCOLS`/`TEAMS`/`ANCS` arrays — not guessed), or its Source System as a fallback when no match exists anywhere else in the file.
+
+**Heading 2. Architect Console — 32 KPIs across 5 tiles (Layer 2, Founder Freedom Cockpit v2.3)** — renders first.
+
+*C1. Operational OS (7 KPIs — 0 LIVE, 2 PARTIAL, 5 MISSING)* — proves LotusOS is running, not merely designed.
+
+| # | KPI | Target | Source System | Status | Found In |
+|---|---|---|---|---|---|
+| OOS-1 | LotusOS compliance % — true, not proxy | ≥85% | LDApps + LDPM module | MISSING | Tab 03 — VTO Company §6 (LotusOS Adoption %) |
+| OOS-2 | PT / Process Tracker accuracy | Stable; red/yellow only | PT / Scoreboard system | MISSING | *(fallback)* PT / Scoreboard system |
+| OOS-3 | Module submission % — on time | 100% | LDApps module | MISSING | Tab 05 — Strategic Anchors (LotusOS) |
+| OOS-4 | SLA breach rate | 0% | ICARE / LCC / LDApps | MISSING | Tab 05 — Strategic Anchors (LotusOS) |
+| OOS-5 | Side tracker count | 0 | LDApps audit | MISSING | Tab 05 — Strategic Anchors (LotusOS) |
+| OOS-6 | Founder-required closures per month | ≤3/month, declining | LCC / GM summary | PARTIAL | *(fallback)* LCC v4.1 |
+| OOS-7 | Rescue rate | <10% | LCC | PARTIAL | *(fallback)* LCC v4.1 |
+
+*C2. ENGINE — Finance (7 KPIs — all MISSING)* — financial-health layer; none of these feeds are live inside LCC v4.1.
+
+| # | KPI | Target | Source System | Found In |
+|---|---|---|---|---|
+| E-1 | Weekly revenue flash by BU | On target | Finance dashboard / PT | *(fallback)* Finance dashboard / PT |
+| E-2 | Margin by BU | Above target; below-target only shown | Finance / BU scoreboards | *(fallback)* Finance / BU scoreboards |
+| E-3 | Cash position / buffer | Safe zone | Finance | *(fallback)* Finance |
+| E-4 | Days A/R — Accounts Receivable | Declining trend | Finance | *(fallback)* Finance |
+| E-5 | Days Inventory | Declining trend | Finance | *(fallback)* Finance |
+| E-6 | Cash Margin | Stable or improving | Finance | *(fallback)* Finance |
+| E-7 | OTIF — Handaan + kiosks | ≥98% | Finance / Ops | Tab 04 — VTO Teams, Operations dept |
+
+*C3. PULSE — Customer (7 KPIs — all MISSING)* — customer, tenant, and event health.
+
+| # | KPI | Target | Source System | Found In |
+|---|---|---|---|---|
+| PU-1 | Foot traffic by site | Positive trend; red flags only | Site dashboards | Tab 03 — VTO Company §2 |
+| PU-2 | Tenant health / at-risk cluster count | No red clusters | Tenant / Leasing dashboard | *(fallback)* Tenant / Leasing dashboard |
+| PU-3 | Event utilization | Above target | Events / FEC dashboards | Tab 03 — VTO Company §0 (Venue Utilization %) |
+| PU-4 | NPS — Overall | ≥60 | ExperienceOS / feedback | Tab 05 — Strategic Anchors (ExperienceOS) |
+| PU-5 | NPS — FEC | ≥70 | ExperienceOS / feedback | Tab 05 — Strategic Anchors (ExperienceOS) |
+| PU-6 | NPS — Handaan | ≥65 | ExperienceOS / feedback | Tab 05 — Strategic Anchors (ExperienceOS) |
+| PU-7 | Recurring ICARE issues + unresolved SLA breaches | 0 recurring | ICARE / LDApps | Tab 03 — VTO Company §3 (related: ICARE Resolved <72h %) |
+
+*C4. SOUL — People (7 KPIs — all MISSING)* — leadership and people health.
+
+| # | KPI | Target | Source System | Found In |
+|---|---|---|---|---|
+| SO-1 | Leadership Autonomy Score per leader | ≥80; alert <70 | LeaderZen / L10 / HSM | Tab 05 — Strategic Anchors (LeaderZen) |
+| SO-2 | L10 meeting compliance | ≥90%; red flag <75% for 2 weeks | LeaderZen | Tab 03 — VTO Company §6 |
+| SO-3 | Culture ritual compliance — Gather / Grow | ≥90% | CultureOS / L10 | Tab 05 — Strategic Anchors (CultureOS) |
+| SO-4 | Engagement trend — direction only | Improving | HSM / Human360 / HR | Tab 05 — Strategic Anchors (CultureOS) |
+| SO-5 | APOGEIC Fit score — People Analyzer | ≥3.5/5 avg; no one <3 for 2 consecutive quarters | LeaderZen / HSM | Tab 05 — Strategic Anchors (CultureOS) |
+| SO-6 | TL problem-solving rate before escalation | ≥80% | SMA tracking | *(fallback)* SMA tracking |
+| SO-7 | Promotion-ready shortlist | Updated quarterly; ≥1 per role | LRAD | Tab 05 — Strategic Anchors (LeaderZen) |
+
+*C5. Growth Pipeline (4 KPIs — all MISSING)* — proves future growth is moving without founder chasing.
+
+| # | KPI | Target | Source System | Found In |
+|---|---|---|---|---|
+| GP-1 | Pre-development sites — stage + blockers | Advancing; no stalls | Biz Dev / pipeline tracker | *(fallback)* Biz Dev / pipeline tracker |
+| GP-2 | Launching sites — risk level | Low risk | Replication OS / DEVELOP | *(fallback)* Replication OS / DEVELOP |
+| GP-3 | Tenant pipeline health | Growing or stable | Leasing / tenant DB | Tab 03 — VTO Company §1 (related: Tenant Mix Plan) |
+| GP-4 | Brand innovation pipeline per BU | ≥2 per BU per month | Brand / MarCom / BU tracker | *(fallback)* Brand / MarCom / BU tracker |
+
+**Heading 3. Project Execution — 17 KPIs, all LIVE (source: LCC)** — renders second. Found In: `LCC v4.1 (lcc-v4-supabase.vercel.app)` for all 17 — none exist anywhere else in this scoreboard.
 
 | # | KPI | Target |
 |---|---|---|
@@ -122,66 +183,7 @@ A status tracker, not a data-entry form — it shows what's LIVE inside LCC v4.1
 | PE-16 | Top plan gaps / most common fail types | None repeating |
 | PE-17 | Owner quality score per owner | ≥90 |
 
-**C. Architect Console — 32 KPIs across 5 tiles (Layer 2, Founder Freedom Cockpit v2.3)**
-
-*C1. Operational OS (7 KPIs — 0 LIVE, 2 PARTIAL, 5 MISSING)* — proves LotusOS is running, not merely designed.
-
-| # | KPI | Target | Source System | Status |
-|---|---|---|---|---|
-| OOS-1 | LotusOS compliance % — true, not proxy | ≥85% | LDApps + LDPM module | MISSING |
-| OOS-2 | PT / Process Tracker accuracy | Stable; red/yellow only | PT / Scoreboard system | MISSING |
-| OOS-3 | Module submission % — on time | 100% | LDApps module | MISSING |
-| OOS-4 | SLA breach rate | 0% | ICARE / LCC / LDApps | MISSING |
-| OOS-5 | Side tracker count | 0 | LDApps audit | MISSING |
-| OOS-6 | Founder-required closures per month | ≤3/month, declining | LCC / GM summary | PARTIAL |
-| OOS-7 | Rescue rate | <10% | LCC | PARTIAL |
-
-*C2. ENGINE — Finance (7 KPIs — all MISSING)* — financial-health layer; none of these feeds are live inside LCC v4.1.
-
-| # | KPI | Target | Source System |
-|---|---|---|---|
-| E-1 | Weekly revenue flash by BU | On target | Finance dashboard / PT |
-| E-2 | Margin by BU | Above target; below-target only shown | Finance / BU scoreboards |
-| E-3 | Cash position / buffer | Safe zone | Finance |
-| E-4 | Days A/R — Accounts Receivable | Declining trend | Finance |
-| E-5 | Days Inventory | Declining trend | Finance |
-| E-6 | Cash Margin | Stable or improving | Finance |
-| E-7 | OTIF — Handaan + kiosks | ≥98% | Finance / Ops |
-
-*C3. PULSE — Customer (7 KPIs — all MISSING)* — customer, tenant, and event health.
-
-| # | KPI | Target | Source System |
-|---|---|---|---|
-| PU-1 | Foot traffic by site | Positive trend; red flags only | Site dashboards |
-| PU-2 | Tenant health / at-risk cluster count | No red clusters | Tenant / Leasing dashboard |
-| PU-3 | Event utilization | Above target | Events / FEC dashboards |
-| PU-4 | NPS — Overall | ≥60 | ExperienceOS / feedback |
-| PU-5 | NPS — FEC | ≥70 | ExperienceOS / feedback |
-| PU-6 | NPS — Handaan | ≥65 | ExperienceOS / feedback |
-| PU-7 | Recurring ICARE issues + unresolved SLA breaches | 0 recurring | ICARE / LDApps |
-
-*C4. SOUL — People (7 KPIs — all MISSING)* — leadership and people health.
-
-| # | KPI | Target | Source System |
-|---|---|---|---|
-| SO-1 | Leadership Autonomy Score per leader | ≥80; alert <70 | LeaderZen / L10 / HSM |
-| SO-2 | L10 meeting compliance | ≥90%; red flag <75% for 2 weeks | LeaderZen |
-| SO-3 | Culture ritual compliance — Gather / Grow | ≥90% | CultureOS / L10 |
-| SO-4 | Engagement trend — direction only | Improving | HSM / Human360 / HR |
-| SO-5 | APOGEIC Fit score — People Analyzer | ≥3.5/5 avg; no one <3 for 2 consecutive quarters | LeaderZen / HSM |
-| SO-6 | TL problem-solving rate before escalation | ≥80% | SMA tracking |
-| SO-7 | Promotion-ready shortlist | Updated quarterly; ≥1 per role | LRAD |
-
-*C5. Growth Pipeline (4 KPIs — all MISSING)* — proves future growth is moving without founder chasing.
-
-| # | KPI | Target | Source System |
-|---|---|---|---|
-| GP-1 | Pre-development sites — stage + blockers | Advancing; no stalls | Biz Dev / pipeline tracker |
-| GP-2 | Launching sites — risk level | Low risk | Replication OS / DEVELOP |
-| GP-3 | Tenant pipeline health | Growing or stable | Leasing / tenant DB |
-| GP-4 | Brand innovation pipeline per BU | ≥2 per BU per month | Brand / MarCom / BU tracker |
-
-**TOTAL: 55 KPIs — 17 LIVE / 5 PARTIAL / 33 MISSING** (6 Founder Freedom Score Strip + 17 Project Execution + 32 Architect Console).
+**TOTAL: 55 KPIs — 17 LIVE / 5 PARTIAL / 33 MISSING** (6 GM/MD-Off Switch + 17 Project Execution + 32 Architect Console).
 
 ---
 

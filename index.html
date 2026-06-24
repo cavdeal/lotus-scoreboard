@@ -1270,6 +1270,7 @@ function toggleEditMode() {
     document.getElementById('edit-btn-label').textContent = 'Done';
   }
   renderSprint();
+  rFOS();rRC();
 }
 
 const KNOWN_PILLARS = new Set(['Advocates','Innovator','Sages','Essentialists']);
@@ -1883,73 +1884,76 @@ const FOS_DATA=[
    src is the citing doc for all rows; frm carries the wiki's literal per-KPI
    "Source" system; ld is a best-guess internal LDApp tool, "? "-prefixed when
    no confirmed registry match exists. */
+/* found: where else (if anywhere) this KPI already lives in this scoreboard, verified
+   directly against the SMA/VCOLS/TEAMS/ANCS arrays — not guessed. Falls back to the
+   KPI's own Source System (frm) when no match exists anywhere else in the file. */
 const RC=[
   {n:'Project Execution', nd:'Fully LIVE — native to LCC v4.1',
    kpis:[
-    {k:'Compliance rate',                                    tgt:'≥90%',     s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'Escalation rate / Founder Dependency proxy',         tgt:'≤20%',     s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'Active escalations — L3 + Serious Breach',           tgt:'Near 0',   s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'First-pass Owner Plan approval %',                   tgt:'≥70%',     s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'Return rate %',                                      tgt:'≤20%',     s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'Avg days to SMA approval',                           tgt:'≤1 day',   s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'L1 Correction active count',                         tgt:'Near 0',   s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'L2 Alignment active count',                          tgt:'Near 0',   s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'L3 Formal Escalation active count',                  tgt:'0',        s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'Active strikes',                                     tgt:'≤2',       s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'SMA queue — Owner Plans pending',                    tgt:'Cleared within 48 hrs', s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'SMA queue — Final sign-offs pending',                tgt:'0',        s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'SMA queue — Returned work aging',                    tgt:'0 stale >3 days', s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'Project flow — stale stages',                        tgt:'0 stale',  s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'Projects completed this month',                      tgt:'Trending up', s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'Top plan gaps / most common fail types',             tgt:'None repeating', s:'lv', frm:'LCC', ld:'LCC v4.1'},
-    {k:'Owner quality score per owner',                      tgt:'≥90',      s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'Compliance rate',                                    tgt:'≥90%',     s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'Escalation rate / Founder Dependency proxy',         tgt:'≤20%',     s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'Active escalations — L3 + Serious Breach',           tgt:'Near 0',   s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'First-pass Owner Plan approval %',                   tgt:'≥70%',     s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'Return rate %',                                      tgt:'≤20%',     s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'Avg days to SMA approval',                           tgt:'≤1 day',   s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'L1 Correction active count',                         tgt:'Near 0',   s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'L2 Alignment active count',                          tgt:'Near 0',   s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'L3 Formal Escalation active count',                  tgt:'0',        s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'Active strikes',                                     tgt:'≤2',       s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'SMA queue — Owner Plans pending',                    tgt:'Cleared within 48 hrs', s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'SMA queue — Final sign-offs pending',                tgt:'0',        s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'SMA queue — Returned work aging',                    tgt:'0 stale >3 days', s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'Project flow — stale stages',                        tgt:'0 stale',  s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'Projects completed this month',                      tgt:'Trending up', s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'Top plan gaps / most common fail types',             tgt:'None repeating', s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
+    {k:'Owner quality score per owner',                      tgt:'≥90',      s:'lv', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1 (lcc-v4-supabase.vercel.app)'},
    ]},
   {n:'Operational OS', nd:'Proves LotusOS is running, not merely designed',
    kpis:[
-    {k:'LotusOS compliance % — true, not proxy', tgt:'≥85%', s:'ms', frm:'LDApps + LDPM module', ld:'LDApps + LDPM Module'},
-    {k:'PT / Process Tracker accuracy',          tgt:'Stable; red/yellow only', s:'ms', frm:'PT / Scoreboard system', ld:'PT (Planning Tool) Module'},
-    {k:'Module submission % — on time',          tgt:'100%', s:'ms', frm:'LDApps module', ld:'LDApp Module'},
-    {k:'SLA breach rate',                        tgt:'0%',   s:'ms', frm:'ICARE / LCC / LDApps', ld:'LCC v4.1 / LDApp Module'},
-    {k:'Side tracker count',                     tgt:'0',    s:'ms', frm:'LDApps audit', ld:'LDApp Module'},
-    {k:'Founder-required closures per month',    tgt:'≤3/month, declining', s:'pt', frm:'LCC / GM summary', ld:'LCC v4.1'},
-    {k:'Rescue rate',                            tgt:'<10%', s:'pt', frm:'LCC', ld:'LCC v4.1'},
+    {k:'LotusOS compliance % — true, not proxy', tgt:'≥85%', s:'ms', frm:'LDApps + LDPM module', ld:'LDApps + LDPM Module', found:'Tab 03 — VTO Company §6 (LotusOS Adoption %)'},
+    {k:'PT / Process Tracker accuracy',          tgt:'Stable; red/yellow only', s:'ms', frm:'PT / Scoreboard system', ld:'PT (Planning Tool) Module', found:'PT / Scoreboard system'},
+    {k:'Module submission % — on time',          tgt:'100%', s:'ms', frm:'LDApps module', ld:'LDApp Module', found:'Tab 05 — Strategic Anchors (LotusOS)'},
+    {k:'SLA breach rate',                        tgt:'0%',   s:'ms', frm:'ICARE / LCC / LDApps', ld:'LCC v4.1 / LDApp Module', found:'Tab 05 — Strategic Anchors (LotusOS)'},
+    {k:'Side tracker count',                     tgt:'0',    s:'ms', frm:'LDApps audit', ld:'LDApp Module', found:'Tab 05 — Strategic Anchors (LotusOS)'},
+    {k:'Founder-required closures per month',    tgt:'≤3/month, declining', s:'pt', frm:'LCC / GM summary', ld:'LCC v4.1', found:'LCC v4.1'},
+    {k:'Rescue rate',                            tgt:'<10%', s:'pt', frm:'LCC', ld:'LCC v4.1', found:'LCC v4.1'},
    ]},
   {n:'ENGINE (Finance)', nd:'Financial-health layer — none of these feeds are live inside LCC v4.1',
    kpis:[
-    {k:'Weekly revenue flash by BU',  tgt:'On target', s:'ms', frm:'Finance dashboard / PT', ld:'? Finance dashboard (not yet live per FOS-3)'},
-    {k:'Margin by BU',                tgt:'Above target; below-target only shown', s:'ms', frm:'Finance / BU scoreboards', ld:'? Finance dashboard (not yet live per FOS-3)'},
-    {k:'Cash position / buffer',      tgt:'Safe zone', s:'ms', frm:'Finance', ld:'? Finance dashboard (not yet live per FOS-3)'},
-    {k:'Days A/R — Accounts Receivable', tgt:'Declining trend', s:'ms', frm:'Finance', ld:'? Finance dashboard (not yet live per FOS-3)'},
-    {k:'Days Inventory',              tgt:'Declining trend', s:'ms', frm:'Finance', ld:'? Finance dashboard (not yet live per FOS-3)'},
-    {k:'Cash Margin',                 tgt:'Stable or improving', s:'ms', frm:'Finance', ld:'? Finance dashboard (not yet live per FOS-3)'},
-    {k:'OTIF — Handaan + kiosks',     tgt:'≥98%', s:'ms', frm:'Finance / Ops', ld:'? Finance dashboard (not yet live per FOS-3)'},
+    {k:'Weekly revenue flash by BU',  tgt:'On target', s:'ms', frm:'Finance dashboard / PT', ld:'? Finance dashboard (not yet live per FOS-3)', found:'Finance dashboard / PT'},
+    {k:'Margin by BU',                tgt:'Above target; below-target only shown', s:'ms', frm:'Finance / BU scoreboards', ld:'? Finance dashboard (not yet live per FOS-3)', found:'Finance / BU scoreboards'},
+    {k:'Cash position / buffer',      tgt:'Safe zone', s:'ms', frm:'Finance', ld:'? Finance dashboard (not yet live per FOS-3)', found:'Finance'},
+    {k:'Days A/R — Accounts Receivable', tgt:'Declining trend', s:'ms', frm:'Finance', ld:'? Finance dashboard (not yet live per FOS-3)', found:'Finance'},
+    {k:'Days Inventory',              tgt:'Declining trend', s:'ms', frm:'Finance', ld:'? Finance dashboard (not yet live per FOS-3)', found:'Finance'},
+    {k:'Cash Margin',                 tgt:'Stable or improving', s:'ms', frm:'Finance', ld:'? Finance dashboard (not yet live per FOS-3)', found:'Finance'},
+    {k:'OTIF — Handaan + kiosks',     tgt:'≥98%', s:'ms', frm:'Finance / Ops', ld:'? Finance dashboard (not yet live per FOS-3)', found:'Tab 04 — VTO Teams, Operations dept'},
    ]},
   {n:'PULSE (Customer)', nd:'Customer, tenant, and event health — none of these feeds are live inside LCC v4.1',
    kpis:[
-    {k:'Foot traffic by site',                       tgt:'Positive trend; red flags only', s:'ms', frm:'Site dashboards', ld:'? Site dashboard (no LDApp registry match)'},
-    {k:'Tenant health / at-risk cluster count',      tgt:'No red clusters', s:'ms', frm:'Tenant / Leasing dashboard', ld:'? Leasing dashboard (no LDApp registry match)'},
-    {k:'Event utilization',                          tgt:'Above target', s:'ms', frm:'Events / FEC dashboards', ld:'? Events/FEC dashboard (no LDApp registry match)'},
-    {k:'NPS — Overall',                              tgt:'≥60', s:'ms', frm:'ExperienceOS / feedback', ld:'ExpOS Module'},
-    {k:'NPS — FEC',                                  tgt:'≥70', s:'ms', frm:'ExperienceOS / feedback', ld:'ExpOS Module'},
-    {k:'NPS — Handaan',                              tgt:'≥65', s:'ms', frm:'ExperienceOS / feedback', ld:'ExpOS Module'},
-    {k:'Recurring ICARE issues + unresolved SLA breaches', tgt:'0 recurring', s:'ms', frm:'ICARE / LDApps', ld:'LDApp Module'},
+    {k:'Foot traffic by site',                       tgt:'Positive trend; red flags only', s:'ms', frm:'Site dashboards', ld:'? Site dashboard (no LDApp registry match)', found:'Tab 03 — VTO Company §2'},
+    {k:'Tenant health / at-risk cluster count',      tgt:'No red clusters', s:'ms', frm:'Tenant / Leasing dashboard', ld:'? Leasing dashboard (no LDApp registry match)', found:'Tenant / Leasing dashboard'},
+    {k:'Event utilization',                          tgt:'Above target', s:'ms', frm:'Events / FEC dashboards', ld:'? Events/FEC dashboard (no LDApp registry match)', found:'Tab 03 — VTO Company §0 (Venue Utilization %)'},
+    {k:'NPS — Overall',                              tgt:'≥60', s:'ms', frm:'ExperienceOS / feedback', ld:'ExpOS Module', found:'Tab 05 — Strategic Anchors (ExperienceOS)'},
+    {k:'NPS — FEC',                                  tgt:'≥70', s:'ms', frm:'ExperienceOS / feedback', ld:'ExpOS Module', found:'Tab 05 — Strategic Anchors (ExperienceOS)'},
+    {k:'NPS — Handaan',                              tgt:'≥65', s:'ms', frm:'ExperienceOS / feedback', ld:'ExpOS Module', found:'Tab 05 — Strategic Anchors (ExperienceOS)'},
+    {k:'Recurring ICARE issues + unresolved SLA breaches', tgt:'0 recurring', s:'ms', frm:'ICARE / LDApps', ld:'LDApp Module', found:'Tab 03 — VTO Company §3 (related: ICARE Resolved <72h %)'},
    ]},
   {n:'SOUL (People)', nd:'Leadership and people health — none of these feeds are live inside LCC v4.1',
    kpis:[
-    {k:'Leadership Autonomy Score per leader',       tgt:'≥80; alert <70', s:'ms', frm:'LeaderZen / L10 / HSM', ld:'LeaderZen Module'},
-    {k:'L10 meeting compliance',                     tgt:'≥90%; red flag <75% for 2 weeks', s:'ms', frm:'LeaderZen', ld:'LeaderZen Module'},
-    {k:'Culture ritual compliance — Gather / Grow',  tgt:'≥90%', s:'ms', frm:'CultureOS / L10', ld:'LCDM Module'},
-    {k:'Engagement trend — direction only',          tgt:'Improving', s:'ms', frm:'HSM / Human360 / HR', ld:'HSRM Module'},
-    {k:'APOGEIC Fit score — People Analyzer',        tgt:'≥3.5/5 avg; no one <3 for 2 consecutive quarters', s:'ms', frm:'LeaderZen / HSM', ld:'LeaderZen Module'},
-    {k:'TL problem-solving rate before escalation',  tgt:'≥80%', s:'ms', frm:'SMA tracking', ld:'? SMA tracking (no dedicated LDApp confirmed)'},
-    {k:'Promotion-ready shortlist',                  tgt:'Updated quarterly; ≥1 per role', s:'ms', frm:'LRAD', ld:'? LeaderZen Module (LRAD feed)'},
+    {k:'Leadership Autonomy Score per leader',       tgt:'≥80; alert <70', s:'ms', frm:'LeaderZen / L10 / HSM', ld:'LeaderZen Module', found:'Tab 05 — Strategic Anchors (LeaderZen)'},
+    {k:'L10 meeting compliance',                     tgt:'≥90%; red flag <75% for 2 weeks', s:'ms', frm:'LeaderZen', ld:'LeaderZen Module', found:'Tab 03 — VTO Company §6'},
+    {k:'Culture ritual compliance — Gather / Grow',  tgt:'≥90%', s:'ms', frm:'CultureOS / L10', ld:'LCDM Module', found:'Tab 05 — Strategic Anchors (CultureOS)'},
+    {k:'Engagement trend — direction only',          tgt:'Improving', s:'ms', frm:'HSM / Human360 / HR', ld:'HSRM Module', found:'Tab 05 — Strategic Anchors (CultureOS)'},
+    {k:'APOGEIC Fit score — People Analyzer',        tgt:'≥3.5/5 avg; no one <3 for 2 consecutive quarters', s:'ms', frm:'LeaderZen / HSM', ld:'LeaderZen Module', found:'Tab 05 — Strategic Anchors (CultureOS)'},
+    {k:'TL problem-solving rate before escalation',  tgt:'≥80%', s:'ms', frm:'SMA tracking', ld:'? SMA tracking (no dedicated LDApp confirmed)', found:'SMA tracking'},
+    {k:'Promotion-ready shortlist',                  tgt:'Updated quarterly; ≥1 per role', s:'ms', frm:'LRAD', ld:'? LeaderZen Module (LRAD feed)', found:'Tab 05 — Strategic Anchors (LeaderZen)'},
    ]},
   {n:'Growth Pipeline', nd:'Proves future growth is moving without founder chasing',
    kpis:[
-    {k:'Pre-development sites — stage + blockers', tgt:'Advancing; no stalls', s:'ms', frm:'Biz Dev / pipeline tracker', ld:'? LDPM Module (no Biz Dev tool confirmed)'},
-    {k:'Launching sites — risk level',              tgt:'Low risk', s:'ms', frm:'Replication OS / DEVELOP', ld:'? LDPM Module (Replication OS / DEVELOP not in registry)'},
-    {k:'Tenant pipeline health',                    tgt:'Growing or stable', s:'ms', frm:'Leasing / tenant DB', ld:'? VTO + CN Map (Leasing feed)'},
-    {k:'Brand innovation pipeline per BU',          tgt:'≥2 per BU per month', s:'ms', frm:'Brand / MarCom / BU tracker', ld:'? Marcom tracker (not in LDApps registry)'},
+    {k:'Pre-development sites — stage + blockers', tgt:'Advancing; no stalls', s:'ms', frm:'Biz Dev / pipeline tracker', ld:'? LDPM Module (no Biz Dev tool confirmed)', found:'Biz Dev / pipeline tracker'},
+    {k:'Launching sites — risk level',              tgt:'Low risk', s:'ms', frm:'Replication OS / DEVELOP', ld:'? LDPM Module (Replication OS / DEVELOP not in registry)', found:'Replication OS / DEVELOP'},
+    {k:'Tenant pipeline health',                    tgt:'Growing or stable', s:'ms', frm:'Leasing / tenant DB', ld:'? VTO + CN Map (Leasing feed)', found:'Tab 03 — VTO Company §1 (related: Tenant Mix Plan)'},
+    {k:'Brand innovation pipeline per BU',          tgt:'≥2 per BU per month', s:'ms', frm:'Brand / MarCom / BU tracker', ld:'? Marcom tracker (not in LDApps registry)', found:'Brand / MarCom / BU tracker'},
    ]},
 ];
 const RC_SRC='lcc-v41-kpi-readiness-map.md';
@@ -1967,6 +1971,11 @@ function fosStMap(s){return s==='lv'?{st:'LIVE',fdot:'dg'}:s==='pt'?{st:'PARTIAL
 function fosCatCounts(){
   return FOS_DATA.reduce((a,f,i)=>{const s=id2('fos.'+f.id,{s:fosCur(f)}).s;a[s]=(a[s]||0)+1;a.tot++;return a;},{lv:0,pt:0,ms:0,tot:0});
 }
+function rcStatusBadge(cur){
+  const cls=cur==='lv'?'rnl':cur==='pt'?'rnp':'rnm';
+  return`<span class="${cls}" style="font-family:var(--fm);font-size:10.5px;font-weight:600">${RC_SLABEL[cur]}</span>`;
+}
+function rcTextVal(val){return`<span style="font-family:var(--fm);font-size:11px;color:var(--text-mid)">${val||'—'}</span>`;}
 function fosSel(i,cur){
   return`<select class="ssel" style="padding:1px 3px" onchange="fosSetStatus(${i},this.value)">
     ${['lv','pt','ms'].map(s=>`<option value="${s}" ${cur===s?'selected':''}>${RC_SLABEL[s]}</option>`).join('')}
@@ -1987,11 +1996,11 @@ function rFOS(){
     return`
     <div class="fosc ${m.fdot}">
       <div class="fid">${f.id}</div>
-      <div class="fstat">${fosSel(i,d.s)}</div>
+      <div class="fstat">${editMode?fosSel(i,d.s):rcStatusBadge(d.s)}</div>
       <div class="flbl">${f.lbl}</div>
-      <div class="ftgt">Target: ${vi(dk,'t',f.tgt,'150px')}</div>
+      <div class="ftgt">Target: ${editMode?vi(dk,'t',f.tgt,'150px'):rcTextVal(d.t)}</div>
       <div style="margin-bottom:8px">${stags(f.src,f.frm)}${ldtag(f.ld)}</div>
-      <div class="fcons"><input class="ai" style="width:100%" value="${(d.c??f.cons).replace(/"/g,'&quot;')}" onchange="sv2('${dk}','c',this.value)"></div>
+      <div class="fcons">${editMode?`<input class="ai" style="width:100%" value="${(d.c??f.cons).replace(/"/g,'&quot;')}" onchange="sv2('${dk}','c',this.value)">`:rcTextVal(d.c)}</div>
     </div>`;
   }).join('');
 }
@@ -2004,11 +2013,12 @@ function rcStatSel(catIdx,kpiIdx,dk,cur){
 function rcRowHTML(catIdx,kpiIdx,k){
   const {dk,d}=rcRowData(catIdx,kpiIdx,k);
   return`<tr>
-    <td style="min-width:230px">${vi(dk,'k',k.k,'100%')}</td>
-    <td style="min-width:90px">${vi(dk,'tgt','TBD','90px')}</td>
-    <td>${dot(d.s)}${rcStatSel(catIdx,kpiIdx,dk,d.s)}</td>
-    <td style="min-width:170px">${vi(dk,'frm','Source system','150px')}</td>
-    <td style="min-width:140px">${vi(dk,'ld','LDApp (best guess)','130px')}</td>
+    <td style="min-width:230px">${editMode?vi(dk,'k',k.k,'100%'):rcTextVal(d.k)}</td>
+    <td style="min-width:90px">${editMode?vi(dk,'tgt','TBD','90px'):rcTextVal(d.tgt)}</td>
+    <td>${editMode?rcStatSel(catIdx,kpiIdx,dk,d.s):rcStatusBadge(d.s)}</td>
+    <td style="min-width:170px">${editMode?vi(dk,'frm','Source system','150px'):rcTextVal(d.frm)}</td>
+    <td style="min-width:140px">${editMode?vi(dk,'ld','LDApp (best guess)','130px'):rcTextVal(d.ld)}</td>
+    <td style="min-width:170px">${rcTextVal(k.found)}</td>
   </tr>`;
 }
 function rcStatBar(cnt){
@@ -2019,7 +2029,7 @@ function rcStatBar(cnt){
 function rcTableHTML(catIdx){
   const rows=RC[catIdx].kpis.map((k,ki)=>rcRowHTML(catIdx,ki,k)).join('');
   return`<div class="tw tw-x"><table>
-    <thead><tr><th>KPI</th><th>Target</th><th>Status</th><th>Source System</th><th>LDApp</th></tr></thead>
+    <thead><tr><th>KPI</th><th>Target</th><th>Status</th><th>Source System</th><th>LDApp</th><th>Found In</th></tr></thead>
     <tbody>${rows}</tbody>
   </table></div>`;
 }
@@ -2046,12 +2056,12 @@ function rRC(){
       ${rcStatBar(grand)}
     </div>
 
-    <details class="sma-sec">
-      <summary>Founder Freedom Score Strip — GM/MD-Off Switch<span class="ks" style="margin-left:auto">6 KPIs</span></summary>
+    <details class="sma-sec" open>
+      <summary>Architect Console — Operational OS / ENGINE / PULSE / SOUL / Growth Pipeline<span class="ks" style="margin-left:auto">${archTot.tot} KPIs</span></summary>
       <div style="padding:10px 4px">
-        ${rcStatBar(fosCnt)}
-        <button class="bb" style="margin-top:10px" onclick="document.getElementById('fosg').scrollIntoView({behavior:'smooth'})">↑ See the 6 tests above</button>
-        <p style="font-size:10.5px;color:var(--text-dim);margin-top:6px">Edited above, not duplicated here.</p>
+        <p style="font-size:11px;color:var(--text-dim);margin-bottom:8px">Layer 2 of the Founder Freedom Cockpit v2.3 — the 5-tile driver layer SMA tracks and GM owns.</p>
+        ${rcStatBar(archTot)}
+        <div style="margin-top:10px">${archSections}</div>
       </div>
     </details>
 
@@ -2061,15 +2071,6 @@ function rRC(){
         ${rcStatBar(peCnt)}
         <p style="font-size:11px;color:var(--text-dim);margin:8px 0">Fully live, native to LCC v4.1 — tracked there, not a separate manual feed.</p>
         ${rcTableHTML(0)}
-      </div>
-    </details>
-
-    <details class="sma-sec" open>
-      <summary>Architect Console — Operational OS / ENGINE / PULSE / SOUL / Growth Pipeline<span class="ks" style="margin-left:auto">${archTot.tot} KPIs</span></summary>
-      <div style="padding:10px 4px">
-        <p style="font-size:11px;color:var(--text-dim);margin-bottom:8px">Layer 2 of the Founder Freedom Cockpit v2.3 — the 5-tile driver layer SMA tracks and GM owns.</p>
-        ${rcStatBar(archTot)}
-        <div style="margin-top:10px">${archSections}</div>
       </div>
     </details>`;
 }
