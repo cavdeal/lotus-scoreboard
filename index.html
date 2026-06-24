@@ -243,7 +243,6 @@ tbody tr:hover{background:var(--lotus-dim);border-left-color:var(--lotus-mid);}
 .fcons{font-size:11px;color:var(--po-tx);font-family:var(--fm);border-top:1px solid var(--border);padding-top:9px;margin-top:7px;line-height:1.4;}
 
 /* ── READINESS GRID ── */
-.rg{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:9px;margin-bottom:22px;}
 .rc{background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:13px 15px;}
 .rcn{font-family:var(--fd);font-weight:600;font-size:12px;color:var(--text-hi);margin-bottom:7px;}
 .rbar{height:4px;background:var(--surface3);border-radius:2px;margin-bottom:7px;overflow:hidden;display:flex;gap:1px;}
@@ -254,14 +253,6 @@ tbody tr:hover{background:var(--lotus-dim);border-left-color:var(--lotus-mid);}
 .rnl{color:var(--pg-tx);}
 .rnp{color:var(--py-tx);}
 .rnm{color:var(--ps-tx);}
-.rc>details{margin-top:9px;border:none;background:transparent;border-radius:0;}
-.rc>details summary{padding:4px 0;font-family:var(--fm);font-size:10px;font-weight:600;color:var(--text-dim);background:transparent;}
-.rc>details summary:hover{background:transparent;color:var(--text-mid);}
-.rc>details[open] summary{background:transparent;border-bottom:none;color:var(--text-mid);}
-.rc-kpi-row{display:flex;justify-content:space-between;align-items:center;gap:6px;font-family:var(--fm);font-size:10.5px;padding:3px 0;border-top:1px solid var(--border);}
-.rc-kpi-row:first-child{border-top:none;}
-.rc-kpi-k{color:var(--text-mid);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.rc-kpi-s{flex-shrink:0;display:flex;align-items:center;gap:4px;}
 
 /* ── ANCHOR GRID ── */
 .ag{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding-bottom:14px;}
@@ -623,7 +614,6 @@ body.edit-mode #cnt{top:calc(var(--hh) + 28px + var(--th));}
   .vto-ladder{grid-template-columns:1fr!important;}
   .vto-reminder{grid-template-columns:1fr!important;}
   .vto-source-flow,.vto-source-grid{grid-template-columns:1fr!important;}
-  .rg{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))!important;}
   .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;}
   #vtoc,#teamc,#smac,#ancc{overflow-x:auto;-webkit-overflow-scrolling:touch;}
   .rh-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
@@ -727,8 +717,8 @@ table{min-width:100%;}
     </div>
     <div class="sh"><div class="shd"></div><h3>GM/MD-Off Switch — 6 Tests</h3><div class="shl"></div></div>
     <div class="fosg" id="fosg"></div>
-    <div class="sh"><div class="shd"></div><h3>55-KPI Readiness Map</h3><p style="margin-left:8px">Clock starts when all 55 are LIVE + all 6 switches hold green for 8 weeks</p><div class="shl"></div></div>
-    <div class="rg" id="rdg"></div>
+    <div class="sh"><div class="shd"></div><h3>55-KPI Readiness Map</h3><p style="margin-left:8px">Tracker — status fed from LCC v4.1 and external systems. Clock starts when all 55 are LIVE + all 6 switches hold green for 8 weeks.</p><div class="shl"></div></div>
+    <div id="rdg"></div>
   </div>
 
   <!-- TAB 03: VTO — COMPANY -->
@@ -1886,81 +1876,105 @@ const FOS_DATA=[
    confident match exists (decision: derive breakdown from existing tabs, flag the rest).
    Project Execution has no itemized source elsewhere (it's tracked live inside LCC v4.1 itself,
    a separate system) — its 17 slots are explicit "not itemized" placeholders, not invented KPIs. */
+/* Canonical 55-KPI list, verbatim from wiki/sources/lcc-v41-kpi-readiness-map.md
+   (Founder Freedom Cockpit v2.3 / "5-Tile Architect Console", confirmed in
+   wiki/overview-lotus-ops.md:121). RC excludes the 6 GM/MD-Off Switch KPIs —
+   those live in FOS_DATA above and are not duplicated here (see rRC()).
+   src is the citing doc for all rows; frm carries the wiki's literal per-KPI
+   "Source" system; ld is a best-guess internal LDApp tool, "? "-prefixed when
+   no confirmed registry match exists. */
 const RC=[
-  {n:'GM/MD-Off Switch', nd:'ICARE module, innovation tracker, Finance feed',
-   kpis:FOS_DATA.map(f=>({k:f.lbl, s:f.st==='LIVE'?'lv':f.st==='PARTIAL'?'pt':'ms', src:f.src, frm:f.frm, ld:f.ld}))},
-  {n:'Project Execution', nd:'Fully LIVE via LCC v4.1 (lcc-v4-supabase.vercel.app) — project-level detail tracked in LCC, not itemized in this scoreboard',
-   kpis:Array.from({length:17},(_,i)=>({k:`Project-Execution KPI ${i+1} (not itemized — see LCC v4.1)`, s:'lv', src:'', frm:'LCC v4.1', ld:'LCC v4.1'}))},
-  {n:'Operational OS', nd:'LDApps, LDPM, ICARE feeds',
+  {n:'Project Execution', nd:'Fully LIVE — native to LCC v4.1',
    kpis:[
-    {k:'LotusOS Adoption % (Weekly Active ÷ Assigned)', s:'pt', src:'~scoreboard_l10_weekly_view.md', frm:'LDApps / LotusOS', ld:'LDApp Module'},
-    {k:'% On time & Accurate: LDApp Module Audit',       s:'pt', src:'~scoreboard_l10_weekly_view.md', frm:'KPI Laundry List (SMA)', ld:'LDApp Module'},
-    {k:'L10 Weekly Compliance Rate (All Teams)',         s:'ms', src:'~scoreboard_l10_weekly_view.md', frm:'KPI Laundry List (LRAD) / LeaderZen', ld:'LeaderZen Module'},
-    {k:'% Complete & Updated: LotusOS (All LDApps)',     s:'ms', src:'~scoreboard_l10_weekly_view.md', frm:'KPI Laundry List (SMA)', ld:'? LDApp Module (SMA governance feed)'},
-    {k:'% Addressed: ICARE (All Teams)',                 s:'ms', src:'~scoreboard_l10_weekly_view.md', frm:'KPI Laundry List (SMA)', ld:'? LDApp Module (SMA governance feed)'},
-    {k:'% On time & Accurate: PropMan Module',           s:'ms', src:'~scoreboard_l10_weekly_view.md', frm:'KPI Laundry List (SMA)', ld:'? PropMan Module (no PM software confirmed)'},
-    {k:'Updated & Accurate LMDB Stories & Scores',       s:'ms', src:'~scoreboard_l10_weekly_view.md', frm:'KPI Laundry List (LRAD)', ld:'LMDB'},
+    {k:'Compliance rate',                                    tgt:'≥90%',     s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'Escalation rate / Founder Dependency proxy',         tgt:'≤20%',     s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'Active escalations — L3 + Serious Breach',           tgt:'Near 0',   s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'First-pass Owner Plan approval %',                   tgt:'≥70%',     s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'Return rate %',                                      tgt:'≤20%',     s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'Avg days to SMA approval',                           tgt:'≤1 day',   s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'L1 Correction active count',                         tgt:'Near 0',   s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'L2 Alignment active count',                          tgt:'Near 0',   s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'L3 Formal Escalation active count',                  tgt:'0',        s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'Active strikes',                                     tgt:'≤2',       s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'SMA queue — Owner Plans pending',                    tgt:'Cleared within 48 hrs', s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'SMA queue — Final sign-offs pending',                tgt:'0',        s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'SMA queue — Returned work aging',                    tgt:'0 stale >3 days', s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'Project flow — stale stages',                        tgt:'0 stale',  s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'Projects completed this month',                      tgt:'Trending up', s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'Top plan gaps / most common fail types',             tgt:'None repeating', s:'lv', frm:'LCC', ld:'LCC v4.1'},
+    {k:'Owner quality score per owner',                      tgt:'≥90',      s:'lv', frm:'LCC', ld:'LCC v4.1'},
    ]},
-  {n:'ENGINE (Finance)', nd:'Finance dashboard: revenue, margin, cash, A/R, inventory',
+  {n:'Operational OS', nd:'Proves LotusOS is running, not merely designed',
    kpis:[
-    {k:'Gross Revenue (₱)',          s:'ms', src:'~vto_map_kpi_laundry_list_master_inventory.md', frm:'KPI Laundry List / OGSM', ld:'? Finance dashboard (not yet live per FOS-3)'},
-    {k:'Net Profit (₱)',             s:'ms', src:'~vto_map_kpi_laundry_list_master_inventory.md', frm:'KPI Laundry List / OGSM', ld:'? Finance dashboard (not yet live per FOS-3)'},
-    {k:'Collection Rate (%)',        s:'ms', src:'~vto_map_kpi_laundry_list_master_inventory.md', frm:'KPI Laundry List / OGSM', ld:'VTO + CN Map'},
-    {k:'EBITDA Margin (site-level)', s:'ms', src:'~vto_map_kpi_laundry_list_master_inventory.md', frm:'VTO Critical Numbers / Finance', ld:'VTO + CN Map'},
-    {k:'EBITDA Margin Improvement (YoY, pts)', s:'ms', src:'~vto-map-cn-kpis-apr2026.md', frm:'Adv.I.S.E. Essentialists', ld:'? Finance dashboard (Adv.I.S.E. framework)'},
-    {k:'Electricity Income (₱)',     s:'ms', src:'~vto_map_kpi_laundry_list_master_inventory.md', frm:'KPI Laundry List / Finance', ld:'? Finance dashboard (not yet live per FOS-3)'},
-    {k:'RDS Expense (₱)',            s:'ms', src:'~vto_map_kpi_laundry_list_master_inventory.md', frm:'KPI Laundry List / OGSM', ld:'? Finance dashboard (not yet live per FOS-3)'},
+    {k:'LotusOS compliance % — true, not proxy', tgt:'≥85%', s:'ms', frm:'LDApps + LDPM module', ld:'LDApps + LDPM Module'},
+    {k:'PT / Process Tracker accuracy',          tgt:'Stable; red/yellow only', s:'ms', frm:'PT / Scoreboard system', ld:'PT (Planning Tool) Module'},
+    {k:'Module submission % — on time',          tgt:'100%', s:'ms', frm:'LDApps module', ld:'LDApp Module'},
+    {k:'SLA breach rate',                        tgt:'0%',   s:'ms', frm:'ICARE / LCC / LDApps', ld:'LCC v4.1 / LDApp Module'},
+    {k:'Side tracker count',                     tgt:'0',    s:'ms', frm:'LDApps audit', ld:'LDApp Module'},
+    {k:'Founder-required closures per month',    tgt:'≤3/month, declining', s:'pt', frm:'LCC / GM summary', ld:'LCC v4.1'},
+    {k:'Rescue rate',                            tgt:'<10%', s:'pt', frm:'LCC', ld:'LCC v4.1'},
    ]},
-  {n:'PULSE (Customer)', nd:'ExperienceOS, ICARE, site dashboards',
+  {n:'ENGINE (Finance)', nd:'Financial-health layer — none of these feeds are live inside LCC v4.1',
    kpis:[
-    {k:'NPS — Overall',                      s:'ms', src:'experienceos.md', frm:'ExperienceOS / STTACCK', ld:'ExpOS Module'},
-    {k:'NPS — FEC (Playspacio)',             s:'ms', src:'experienceos.md', frm:'ExperienceOS / STTACCK', ld:'ExpOS Module'},
-    {k:'NPS — Handaan',                      s:'ms', src:'experienceos.md', frm:'ExperienceOS / Handaan feedback', ld:'ExpOS Module'},
-    {k:'ICARE Resolved <72h %',              s:'ms', src:'experienceos.md + icare.md', frm:'ICARE / ExperienceOS', ld:'? ICARE Module (not in LDApps registry)'},
-    {k:'Recurring ICARE Issues (target: 0)', s:'ms', src:'icare.md', frm:'ICARE / LotusOS', ld:'? ICARE Module (not in LDApps registry)'},
-    {k:'Community NPS',                      s:'ms', src:'~vto_map_kpi_laundry_list_master_inventory.md', frm:'VTO / STTACCK', ld:'VTO + CN Map'},
-    {k:'(unmatched — needs confirmation)',   s:'ms', src:'', frm:'', ld:''},
+    {k:'Weekly revenue flash by BU',  tgt:'On target', s:'ms', frm:'Finance dashboard / PT', ld:'? Finance dashboard (not yet live per FOS-3)'},
+    {k:'Margin by BU',                tgt:'Above target; below-target only shown', s:'ms', frm:'Finance / BU scoreboards', ld:'? Finance dashboard (not yet live per FOS-3)'},
+    {k:'Cash position / buffer',      tgt:'Safe zone', s:'ms', frm:'Finance', ld:'? Finance dashboard (not yet live per FOS-3)'},
+    {k:'Days A/R — Accounts Receivable', tgt:'Declining trend', s:'ms', frm:'Finance', ld:'? Finance dashboard (not yet live per FOS-3)'},
+    {k:'Days Inventory',              tgt:'Declining trend', s:'ms', frm:'Finance', ld:'? Finance dashboard (not yet live per FOS-3)'},
+    {k:'Cash Margin',                 tgt:'Stable or improving', s:'ms', frm:'Finance', ld:'? Finance dashboard (not yet live per FOS-3)'},
+    {k:'OTIF — Handaan + kiosks',     tgt:'≥98%', s:'ms', frm:'Finance / Ops', ld:'? Finance dashboard (not yet live per FOS-3)'},
    ]},
-  {n:'SOUL (People)', nd:'LeaderZen, HSM, LRAD feeds',
+  {n:'PULSE (Customer)', nd:'Customer, tenant, and event health — none of these feeds are live inside LCC v4.1',
    kpis:[
-    {k:'L10 Quality Score (avg)',                      s:'ms', src:'leaderzen.md', frm:'LeaderZen / LotusOS', ld:'LeaderZen Module'},
-    {k:'Autonomy Score Growth',                        s:'ms', src:'leaderzen.md', frm:'LeaderZen / VTO Critical Numbers', ld:'LeaderZen Module'},
-    {k:'% Teammembers "Green" on Role Readiness',      s:'ms', src:'leaderzen.md', frm:'LeaderZen / VTO Critical Numbers', ld:'LeaderZen Module'},
-    {k:'Promotion-Ready Shortlist (1 per key role)',   s:'ms', src:'leaderzen.md', frm:'LeaderZen / LRAD', ld:'LeaderZen Module'},
-    {k:'Culture Ritual Compliance (Gather/Grow)',      s:'ms', src:'cultureos.md', frm:'CultureOS / LotusOS', ld:'LCDM Module'},
-    {k:'APOGEIC Fit Score (avg)',                      s:'ms', src:'cultureos.md + apogeic-values.md', frm:'CultureOS / APOGEIC Values', ld:'LCDM Module'},
-    {k:'Engagement Trend (direction)',                 s:'ms', src:'cultureos.md', frm:'CultureOS / HSM / Human360', ld:'HSRM Module'},
+    {k:'Foot traffic by site',                       tgt:'Positive trend; red flags only', s:'ms', frm:'Site dashboards', ld:'? Site dashboard (no LDApp registry match)'},
+    {k:'Tenant health / at-risk cluster count',      tgt:'No red clusters', s:'ms', frm:'Tenant / Leasing dashboard', ld:'? Leasing dashboard (no LDApp registry match)'},
+    {k:'Event utilization',                          tgt:'Above target', s:'ms', frm:'Events / FEC dashboards', ld:'? Events/FEC dashboard (no LDApp registry match)'},
+    {k:'NPS — Overall',                              tgt:'≥60', s:'ms', frm:'ExperienceOS / feedback', ld:'ExpOS Module'},
+    {k:'NPS — FEC',                                  tgt:'≥70', s:'ms', frm:'ExperienceOS / feedback', ld:'ExpOS Module'},
+    {k:'NPS — Handaan',                              tgt:'≥65', s:'ms', frm:'ExperienceOS / feedback', ld:'ExpOS Module'},
+    {k:'Recurring ICARE issues + unresolved SLA breaches', tgt:'0 recurring', s:'ms', frm:'ICARE / LDApps', ld:'LDApp Module'},
    ]},
-  {n:'Growth Pipeline', nd:'Biz Dev tracker, DEVELOP, leasing pipeline, brand innovation',
+  {n:'SOUL (People)', nd:'Leadership and people health — none of these feeds are live inside LCC v4.1',
    kpis:[
-    {k:'# Prospects / Priority Vacant Spaces',    s:'ms', src:'~scoreboard_l10_weekly_view.md', frm:'KPI Laundry List / OGSM', ld:'? LDPM Module (no specific tool found)'},
-    {k:'# Online Inquiries Scheduled for Ocular', s:'ms', src:'~scoreboard_l10_weekly_view.md', frm:'KPI Laundry List / OGSM', ld:'? LDPM Module (no specific tool found)'},
-    {k:'# Closed Prospects',                      s:'ms', src:'~scoreboard_l10_weekly_view.md', frm:'KPI Laundry List / OGSM', ld:'? LDPM Module (no specific tool found)'},
-    {k:'Pull-out Aversion Rate',                  s:'ms', src:'~scoreboard_l10_weekly_view.md', frm:'KPI Laundry List / OGSM', ld:'? LDPM Module (no specific tool found)'},
+    {k:'Leadership Autonomy Score per leader',       tgt:'≥80; alert <70', s:'ms', frm:'LeaderZen / L10 / HSM', ld:'LeaderZen Module'},
+    {k:'L10 meeting compliance',                     tgt:'≥90%; red flag <75% for 2 weeks', s:'ms', frm:'LeaderZen', ld:'LeaderZen Module'},
+    {k:'Culture ritual compliance — Gather / Grow',  tgt:'≥90%', s:'ms', frm:'CultureOS / L10', ld:'LCDM Module'},
+    {k:'Engagement trend — direction only',          tgt:'Improving', s:'ms', frm:'HSM / Human360 / HR', ld:'HSRM Module'},
+    {k:'APOGEIC Fit score — People Analyzer',        tgt:'≥3.5/5 avg; no one <3 for 2 consecutive quarters', s:'ms', frm:'LeaderZen / HSM', ld:'LeaderZen Module'},
+    {k:'TL problem-solving rate before escalation',  tgt:'≥80%', s:'ms', frm:'SMA tracking', ld:'? SMA tracking (no dedicated LDApp confirmed)'},
+    {k:'Promotion-ready shortlist',                  tgt:'Updated quarterly; ≥1 per role', s:'ms', frm:'LRAD', ld:'? LeaderZen Module (LRAD feed)'},
+   ]},
+  {n:'Growth Pipeline', nd:'Proves future growth is moving without founder chasing',
+   kpis:[
+    {k:'Pre-development sites — stage + blockers', tgt:'Advancing; no stalls', s:'ms', frm:'Biz Dev / pipeline tracker', ld:'? LDPM Module (no Biz Dev tool confirmed)'},
+    {k:'Launching sites — risk level',              tgt:'Low risk', s:'ms', frm:'Replication OS / DEVELOP', ld:'? LDPM Module (Replication OS / DEVELOP not in registry)'},
+    {k:'Tenant pipeline health',                    tgt:'Growing or stable', s:'ms', frm:'Leasing / tenant DB', ld:'? VTO + CN Map (Leasing feed)'},
+    {k:'Brand innovation pipeline per BU',          tgt:'≥2 per BU per month', s:'ms', frm:'Brand / MarCom / BU tracker', ld:'? Marcom tracker (not in LDApps registry)'},
    ]},
 ];
-function rcCounts(cat){
-  return cat.kpis.reduce((a,k)=>{a[k.s]=(a[k.s]||0)+1;a.tot++;return a;},{lv:0,pt:0,ms:0,tot:0});
-}
+const RC_SRC='lcc-v41-kpi-readiness-map.md';
+const RC_SLABEL={lv:'LIVE',pt:'PARTIAL',ms:'MISSING'};
 function rcSlug(s){return s.toLowerCase().replace(/\W+/g,'_').slice(0,20);}
-function rcSetStatus(catIdx,kpiIdx,val){
-  RC[catIdx].kpis[kpiIdx].s=val;
+function rcRowData(catIdx,kpiIdx,k){
   const dk='rc.'+rcSlug(RC[catIdx].n)+'_'+kpiIdx;
-  id2(dk,{s:val}).s=val;
-  rRC();
+  return {dk, d:id2(dk,{k:k.k, tgt:k.tgt||'', frm:k.frm||'', ld:k.ld||'', s:k.s})};
 }
-
+function rcCatCounts(catIdx){
+  return RC[catIdx].kpis.reduce((a,k,ki)=>{const s=rcRowData(catIdx,ki,k).d.s;a[s]=(a[s]||0)+1;a.tot++;return a;},{lv:0,pt:0,ms:0,tot:0});
+}
 function fosCur(f){return f.st==='LIVE'?'lv':f.st==='PARTIAL'?'pt':'ms';}
 function fosStMap(s){return s==='lv'?{st:'LIVE',fdot:'dg'}:s==='pt'?{st:'PARTIAL',fdot:'dy'}:{st:'MISSING',fdot:'ds'};}
+function fosCatCounts(){
+  return FOS_DATA.reduce((a,f,i)=>{const s=id2('fos.'+f.id,{s:fosCur(f)}).s;a[s]=(a[s]||0)+1;a.tot++;return a;},{lv:0,pt:0,ms:0,tot:0});
+}
 function fosSel(i,cur){
-  return`<select class="ssel" style="font-size:9.5px;padding:1px 3px" onchange="fosSetStatus(${i},this.value)">
+  return`<select class="ssel" style="padding:1px 3px" onchange="fosSetStatus(${i},this.value)">
     ${['lv','pt','ms'].map(s=>`<option value="${s}" ${cur===s?'selected':''}>${RC_SLABEL[s]}</option>`).join('')}
   </select>`;
 }
 function fosSetStatus(i,val){
   const m=fosStMap(val);
   FOS_DATA[i].st=m.st;FOS_DATA[i].fdot=m.fdot;
-  if(RC[0]&&RC[0].kpis[i]) RC[0].kpis[i].s=val;
   sv2('fos.'+FOS_DATA[i].id,'s',val);
   rFOS();rRC();
 }
@@ -1982,40 +1996,82 @@ function rFOS(){
   }).join('');
 }
 
-const RC_SLABEL={lv:'LIVE',pt:'PARTIAL',ms:'MISSING'};
-function rcSel(catIdx,kpiIdx,cur){
-  return`<select class="ssel" style="font-size:9.5px;padding:1px 3px" onchange="rcSetStatus(${catIdx},${kpiIdx},this.value)">
+function rcStatSel(catIdx,kpiIdx,dk,cur){
+  return`<select class="ssel" style="padding:1px 4px" onchange="sv2('${dk}','s',this.value);rRC()">
     ${['lv','pt','ms'].map(s=>`<option value="${s}" ${cur===s?'selected':''}>${RC_SLABEL[s]}</option>`).join('')}
   </select>`;
 }
+function rcRowHTML(catIdx,kpiIdx,k){
+  const {dk,d}=rcRowData(catIdx,kpiIdx,k);
+  return`<tr>
+    <td style="min-width:230px">${vi(dk,'k',k.k,'100%')}</td>
+    <td style="min-width:90px">${vi(dk,'tgt','TBD','90px')}</td>
+    <td>${dot(d.s)}${rcStatSel(catIdx,kpiIdx,dk,d.s)}</td>
+    <td style="min-width:170px">${vi(dk,'frm','Source system','150px')}</td>
+    <td style="min-width:140px">${vi(dk,'ld','LDApp (best guess)','130px')}</td>
+  </tr>`;
+}
+function rcStatBar(cnt){
+  const t=cnt.tot||1,lw=(cnt.lv/t*100).toFixed(0),pw=(cnt.pt/t*100).toFixed(0),mw=(cnt.ms/t*100).toFixed(0);
+  return`<div class="rbar"><div class="rlb" style="width:${lw}%"></div><div class="rpb" style="width:${pw}%"></div><div class="rmb" style="width:${mw}%"></div></div>
+    <div class="rnums"><span class="rnl">▲ ${cnt.lv} LIVE</span><span class="rnp">◑ ${cnt.pt} PARTIAL</span><span class="rnm">○ ${cnt.ms} MISSING</span></div>`;
+}
+function rcTableHTML(catIdx){
+  const rows=RC[catIdx].kpis.map((k,ki)=>rcRowHTML(catIdx,ki,k)).join('');
+  return`<div class="tw tw-x"><table>
+    <thead><tr><th>KPI</th><th>Target</th><th>Status</th><th>Source System</th><th>LDApp</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+}
 function rRC(){
   const g=document.getElementById('rdg');if(!g)return;
-  // apply any saved per-KPI status overrides from localStorage (D.rc) before counting
-  RC.forEach((cat,ci)=>cat.kpis.forEach((k,ki)=>{
-    const ov=gd('rc.'+rcSlug(cat.n)+'_'+ki);
-    if(ov&&ov.s) k.s=ov.s;
-  }));
-  const counts=RC.map(rcCounts);
-  const tot=counts.reduce((a,c)=>({lv:a.lv+c.lv,pt:a.pt+c.pt,ms:a.ms+c.ms,tot:a.tot+c.tot}),{lv:0,pt:0,ms:0,tot:0});
-  g.innerHTML=RC.map((c,ci)=>{
-    const cnt=counts[ci],t=cnt.tot||1,lw=(cnt.lv/t*100).toFixed(0),pw=(cnt.pt/t*100).toFixed(0),mw=(cnt.ms/t*100).toFixed(0);
-    const kpiRows=c.kpis.map((k,ki)=>`
-      <div class="rc-kpi-row">
-        <span class="rc-kpi-k" title="${k.k}">${k.k}</span>
-        <span class="rc-kpi-s">${rcSel(ci,ki,k.s)}</span>
-      </div>`).join('');
-    return`<div class="rc">
-      <div class="rcn">${c.n}</div>
-      <div class="rbar"><div class="rlb" style="width:${lw}%"></div><div class="rpb" style="width:${pw}%"></div><div class="rmb" style="width:${mw}%"></div></div>
-      <div class="rnums"><span class="rnl">▲ ${cnt.lv} LIVE</span><span class="rnp">◑ ${cnt.pt} PARTIAL</span><span class="rnm">○ ${cnt.ms} MISSING</span></div>
-      ${c.nd?`<div style="font-size:10.5px;color:var(--text-dim);margin-top:6px;font-family:var(--fm)">${c.nd}</div>`:''}
-      <details><summary>${cnt.tot} KPIs — view breakdown</summary><div>${kpiRows}</div></details>
-    </div>`;
-  }).join('')+`<div class="rc">
-      <div class="rcn">TOTAL (${tot.tot} KPIs)</div>
-      <div class="rbar"><div class="rlb" style="width:${(tot.lv/(tot.tot||1)*100).toFixed(0)}%"></div><div class="rpb" style="width:${(tot.pt/(tot.tot||1)*100).toFixed(0)}%"></div><div class="rmb" style="width:${(tot.ms/(tot.tot||1)*100).toFixed(0)}%"></div></div>
-      <div class="rnums"><span class="rnl">▲ ${tot.lv} LIVE</span><span class="rnp">◑ ${tot.pt} PARTIAL</span><span class="rnm">○ ${tot.ms} MISSING</span></div>
-    </div>`;
+  const fosCnt=fosCatCounts();
+  const peCnt=rcCatCounts(0);
+  const archCounts=[1,2,3,4,5].map(rcCatCounts);
+  const archTot=archCounts.reduce((a,c)=>({lv:a.lv+c.lv,pt:a.pt+c.pt,ms:a.ms+c.ms,tot:a.tot+c.tot}),{lv:0,pt:0,ms:0,tot:0});
+  const grand={lv:fosCnt.lv+peCnt.lv+archTot.lv, pt:fosCnt.pt+peCnt.pt+archTot.pt, ms:fosCnt.ms+peCnt.ms+archTot.ms, tot:fosCnt.tot+peCnt.tot+archTot.tot};
+
+  const archSections=[1,2,3,4,5].map((catIdx,i)=>`<details class="sma-sec">
+      <summary>${RC[catIdx].n}<span class="ks" style="margin-left:auto">${RC[catIdx].kpis.length} KPIs</span></summary>
+      <div style="padding:10px 4px 0">
+        <p style="font-size:11px;color:var(--text-dim);margin-bottom:8px">${RC[catIdx].nd}</p>
+        ${rcStatBar(archCounts[i])}
+        <div style="margin-top:10px">${rcTableHTML(catIdx)}</div>
+      </div>
+    </details>`).join('');
+
+  g.innerHTML=`
+    <div class="rc" style="margin-bottom:14px">
+      <div class="rcn">TOTAL (${grand.tot} KPIs)</div>
+      ${rcStatBar(grand)}
+    </div>
+
+    <details class="sma-sec">
+      <summary>Founder Freedom Score Strip — GM/MD-Off Switch<span class="ks" style="margin-left:auto">6 KPIs</span></summary>
+      <div style="padding:10px 4px">
+        ${rcStatBar(fosCnt)}
+        <button class="bb" style="margin-top:10px" onclick="document.getElementById('fosg').scrollIntoView({behavior:'smooth'})">↑ See the 6 tests above</button>
+        <p style="font-size:10.5px;color:var(--text-dim);margin-top:6px">Edited above, not duplicated here.</p>
+      </div>
+    </details>
+
+    <details class="sma-sec" open>
+      <summary>Project Execution — Live in LCC v4.1<span class="ks" style="margin-left:auto">17 KPIs</span></summary>
+      <div style="padding:10px 4px">
+        ${rcStatBar(peCnt)}
+        <p style="font-size:11px;color:var(--text-dim);margin:8px 0">Fully live, native to LCC v4.1 — tracked there, not a separate manual feed.</p>
+        ${rcTableHTML(0)}
+      </div>
+    </details>
+
+    <details class="sma-sec" open>
+      <summary>Architect Console — Operational OS / ENGINE / PULSE / SOUL / Growth Pipeline<span class="ks" style="margin-left:auto">${archTot.tot} KPIs</span></summary>
+      <div style="padding:10px 4px">
+        <p style="font-size:11px;color:var(--text-dim);margin-bottom:8px">Layer 2 of the Founder Freedom Cockpit v2.3 — the 5-tile driver layer SMA tracks and GM owns.</p>
+        ${rcStatBar(archTot)}
+        <div style="margin-top:10px">${archSections}</div>
+      </div>
+    </details>`;
 }
 
 /* ============================================================
