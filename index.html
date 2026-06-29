@@ -1618,17 +1618,24 @@ function renderSprint() {
   const y1Now = Q12.milestones.filter(m => m.label.endsWith(Y1.year_label)).slice(0,4);
   const y1Milestones = y1Now.length ? y1Now : Q12.milestones.slice(0,4);
 
+  const y5KpiHTML = Y5.kpis.map((k,i) => `
+    <div class="q12-card">
+      <div class="q12-card-lbl">${ed('ec-y5-t-'+i, k.title)}</div>
+      <div class="q12-card-val" style="font-size:12px;font-weight:500">${ed('ec-y5-d-'+i, k.desc)}</div>
+      <div style="margin-top:5px;font-size:10.5px;color:var(--text-dim);font-family:var(--fd)">${ed('ec-y5-g-'+i, k.tags)}</div>
+    </div>`).join('');
+
   el.innerHTML = `
     <details class="sp-details">
-      <summary class="sp-sum sh"><div class="shd"></div><h3>Universal Mission → V/TO → 5yr → 3yr</h3><div class="shl"></div></summary>
-      <p class="sp-sec-sub">Lotus Dev's long-horizon identity, pasted as-is from the VTO Map — not yet measured by the system.</p>
+      <summary class="sp-sum sh"><div class="shd"></div><h3>Universal Mission → VTO → 5yr</h3><div class="shl"></div></summary>
+      <p class="sp-sec-sub">Lotus Dev's long-horizon identity — from Universal Mission to 5-Year targets.</p>
       <div class="vto-mission">
         <div class="vto-mission-row"><div class="vto-mission-lbl">Universal Mission</div><div class="vto-mission-txt">To transform the community into a place of Fulfillment &amp; Joy by Empowering people to Gather &amp; Grow.</div></div>
         <div class="vto-mission-row"><div class="vto-mission-lbl">Vision / BHAG</div><div class="vto-mission-txt">By 2035, we will become a Boutique Community Developer and a Management Company that builds &amp; operates 100 LIVE‑WORK‑PLAY projects that Empower people to Gather &amp; Grow.</div></div>
         <div class="vto-mission-row"><div class="vto-mission-lbl">5-Year Picture (2030)</div><div class="vto-mission-txt">Become a Boutique Community Developer and Management Company that builds &amp; operates 100 LIVE‑WORK‑PLAY projects that Empower people to "Gather &amp; Grow," so our community transforms into a place of fulfillment and joy.</div></div>
-        <div class="vto-mission-row"><div class="vto-mission-lbl">3-Year Metric (Lag, pasted)</div><div class="vto-mission-txt">18–22 active sites (6+ provinces) · 8+ Yspacio Creative Parks · 9–12 FEC sites · 12–18 Bakery by Handaan kiosks · 4–6 Handaan/H Café units · Beginner share ≥25%/site</div></div>
-        <div class="vto-mission-row"><div class="vto-mission-lbl">3-Year Metric (Lead, pasted)</div><div class="vto-mission-txt">(NEW) Occupancy % (Area, mature sites) ≥92% · (NEW) Business Beginners ≥25% avg per site (GLA‑weighted) · Community NPS ≥60 / FEC ≥70 / Handaan ≥65</div></div>
       </div>
+      <p style="margin-top:12px;font-family:var(--fd);font-size:11px;color:var(--text-dim);font-weight:600;letter-spacing:.04em">5-YEAR KPIs</p>
+      <div class="q12-targets" style="margin-top:6px">${y5KpiHTML}</div>
       <p style="margin-top:10px"><a href="javascript:void(0)" onclick="go('vm',document.querySelectorAll('.tb')[5])" style="font-family:var(--fd);font-size:11px;color:var(--lotus-tx);font-weight:600">→ Full 3-Year Identity by pillar in Tab 06 — VTO Map</a></p>
     </details>
     <details class="sp-details">
