@@ -1625,6 +1625,18 @@ function renderSprint() {
       <div style="margin-top:5px;font-size:10.5px;color:var(--text-dim);font-family:var(--fd)">${ed('ec-y5-g-'+i, k.tags)}</div>
     </div>`).join('');
 
+  const y3PriHTML = Y3.priorities.map((p,i) => `
+    <div class="vto-mission-row" style="align-items:flex-start">
+      <div class="vto-mission-lbl" style="min-width:110px;padding-top:2px">
+        <span style="font-family:var(--fd);font-weight:700;font-size:12px;color:var(--lotus)">${p.pillar}</span><br>
+        <span style="font-family:var(--fd);font-size:10px;color:var(--text-dim);font-style:italic">${ed('ec-y3-tag-'+i, p.tag)}</span>
+      </div>
+      <div class="vto-mission-txt" style="flex:1">
+        <div style="font-size:12px;color:var(--text-hi)">${ed('ec-y3-id-'+i, p.identity)}</div>
+        <div style="margin-top:5px;font-size:10.5px;color:var(--text-dim)">${ed('ec-y3-met-'+i, p.metrics)}</div>
+      </div>
+    </div>`).join('');
+
   el.innerHTML = `
     <details class="sp-details">
       <summary class="sp-sum sh"><div class="shd"></div><h3>Universal Mission → VTO → 5yr</h3><div class="shl"></div></summary>
@@ -1637,6 +1649,17 @@ function renderSprint() {
       <p style="margin-top:12px;font-family:var(--fd);font-size:11px;color:var(--text-dim);font-weight:600;letter-spacing:.04em">5-YEAR KPIs</p>
       <div class="q12-targets" style="margin-top:6px">${y5KpiHTML}</div>
       <p style="margin-top:10px"><a href="javascript:void(0)" onclick="go('vm',document.querySelectorAll('.tb')[5])" style="font-family:var(--fd);font-size:11px;color:var(--lotus-tx);font-weight:600">→ Full 3-Year Identity by pillar in Tab 06 — VTO Map</a></p>
+    </details>
+    <details class="sp-details">
+      <summary class="sp-sum sh"><div class="shd"></div><h3>3-Year Priority — Adv.I.S.E. — ${Q12.plan_start} to ${Q12.plan_end}</h3><div class="shl"></div></summary>
+      <p class="sp-sec-sub">Where are we going in 3 years? One strategic priority per Adv.I.S.E. pillar.</p>
+      <div class="q12-targets">
+        <div class="q12-card"><div class="q12-card-lbl">Revenue Target</div><div class="q12-card-val">${ed('ec-t-rev',Q12.targets_3yr.revenue)}</div></div>
+        <div class="q12-card"><div class="q12-card-lbl">EBITDA Target</div><div class="q12-card-val">${ed('ec-t-eb',Q12.targets_3yr.ebitda_pct)}</div></div>
+        <div class="q12-card"><div class="q12-card-lbl">Occupancy Target</div><div class="q12-card-val">${ed('ec-t-occ',Q12.targets_3yr.occupancy)}</div></div>
+        <div class="q12-card"><div class="q12-card-lbl">NPS Target</div><div class="q12-card-val">${ed('ec-t-nps',Q12.targets_3yr.nps)}</div></div>
+      </div>
+      <div class="vto-mission" style="margin-top:14px">${y3PriHTML}</div>
     </details>
     <details class="sp-details">
       <summary class="sp-sum sh"><div class="shd"></div><h3>3-Year Roadmap — ${ed('ec-plan-start',Q12.plan_start)} to ${ed('ec-plan-end',Q12.plan_end)}</h3><div class="shl"></div></summary>
