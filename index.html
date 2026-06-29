@@ -1192,6 +1192,10 @@ function loadConfig() {
     if (y1.year_label)   Y1.year_label    = y1.year_label;
     if (y1.targets)      Object.assign(Y1.targets, y1.targets);
     if (y1.priorities)   Y1.priorities    = y1.priorities;
+    const y3 = cfg.y3 || {};
+    if (y3.priorities)   Y3.priorities    = y3.priorities;
+    const y5 = cfg.y5 || {};
+    if (y5.kpis)         Y5.kpis          = y5.kpis;
   } catch(e) {}
 }
 
@@ -1258,9 +1262,27 @@ function saveEdits() {
     const pEl = document.getElementById(`ec-y1-p-${i}`);
     const oEl = document.getElementById(`ec-y1-o-${i}`);
     const dEl = document.getElementById(`ec-y1-d-${i}`);
-    if (pEl) item.p     = pEl.textContent.trim() || item.p;
-    if (oEl) item.owner = oEl.textContent.trim() || item.owner;
-    if (dEl) item.due   = dEl.textContent.trim() || item.due;
+    const sEl = document.getElementById(`ec-y1-s-${i}`);
+    if (pEl) item.p      = pEl.textContent.trim() || item.p;
+    if (oEl) item.owner  = oEl.textContent.trim() || item.owner;
+    if (dEl) item.due    = (dEl.value || dEl.textContent.trim()) || item.due;
+    if (sEl) item.status = sEl.value || item.status;
+  });
+  Y3.priorities.forEach((item, i) => {
+    const tEl = document.getElementById(`ec-y3-tag-${i}`);
+    const iEl = document.getElementById(`ec-y3-id-${i}`);
+    const mEl = document.getElementById(`ec-y3-met-${i}`);
+    if (tEl) item.tag      = tEl.textContent.trim() || item.tag;
+    if (iEl) item.identity = iEl.textContent.trim() || item.identity;
+    if (mEl) item.metrics  = mEl.textContent.trim() || item.metrics;
+  });
+  Y5.kpis.forEach((item, i) => {
+    const titleEl = document.getElementById(`ec-y5-t-${i}`);
+    const descEl  = document.getElementById(`ec-y5-d-${i}`);
+    const tagsEl  = document.getElementById(`ec-y5-g-${i}`);
+    if (titleEl) item.title = titleEl.textContent.trim() || item.title;
+    if (descEl)  item.desc  = descEl.textContent.trim()  || item.desc;
+    if (tagsEl)  item.tags  = tagsEl.textContent.trim()  || item.tags;
   });
   const tRevY1 = document.getElementById('ec-y1-rev');
   const tEbY1  = document.getElementById('ec-y1-eb');
@@ -1272,7 +1294,7 @@ function saveEdits() {
   if (tOccY1) Y1.targets.occupancy  = tOccY1.textContent.trim() || Y1.targets.occupancy;
   if (tNpsY1) Y1.targets.nps        = tNpsY1.textContent.trim() || Y1.targets.nps;
   if (lblY1)  Y1.year_label         = lblY1.textContent.trim()  || Y1.year_label;
-  localStorage.setItem('lotus_gmd_v4_config', JSON.stringify({ q: Q, q12: Q12, y1: Y1 }));
+  localStorage.setItem('lotus_gmd_v4_config', JSON.stringify({ q: Q, q12: Q12, y1: Y1, y3: Y3, y5: Y5 }));
 }
 
 function toggleEditMode() {
