@@ -1132,10 +1132,10 @@ const Y1 = {
   year_label: '2026',
   targets: { revenue: '₱5.5M / month', ebitda_pct: '28%', occupancy: '90%', nps: '60+' },
   priorities: [
-    {p: 'Reach ₱5.5M monthly revenue by Q4', owner: 'GM/MD',           due: 'Dec 2026', status: 'on-track'},
-    {p: 'Full LotusOS adoption across all teams', owner: 'SMA',         due: 'Dec 2026', status: 'on-track'},
-    {p: 'Portal Mall leasing to ≥85% occupancy', owner: 'Opportunity TL', due: 'Dec 2026', status: 'at-risk'},
-    {p: 'GM/MD-off switches: all 6 green for 4 weeks', owner: 'GM/MD', due: 'Dec 2026', status: 'at-risk'},
+    {p: 'Reach ₱5.5M monthly revenue by Q4', owner: 'GM/MD',           due: 'Q4 2026', status: 'on-track'},
+    {p: 'Full LotusOS adoption across all teams', owner: 'SMA',         due: 'Q4 2026', status: 'on-track'},
+    {p: 'Portal Mall leasing to ≥85% occupancy', owner: 'Opportunity TL', due: 'Q4 2026', status: 'at-risk'},
+    {p: 'GM/MD-off switches: all 6 green for 4 weeks', owner: 'GM/MD', due: 'Q4 2026', status: 'at-risk'},
   ],
 };
 const Y5 = {
@@ -1192,6 +1192,7 @@ function loadConfig() {
     if (y1.year_label)   Y1.year_label    = y1.year_label;
     if (y1.targets)      Object.assign(Y1.targets, y1.targets);
     if (y1.priorities)   Y1.priorities    = y1.priorities;
+    Y1.priorities.forEach(item => { if (item.due && !item.due.startsWith('Q')) item.due = 'Q4 ' + Y1.year_label; });
     const y3 = cfg.y3 || {};
     if (y3.priorities)   Y3.priorities    = y3.priorities;
     const y5 = cfg.y5 || {};
@@ -1664,6 +1665,7 @@ function renderSprint() {
     <details class="sp-details">
       <summary class="sp-sum sh"><div class="shd"></div><h3>3-Year Roadmap — ${ed('ec-plan-start',Q12.plan_start)} to ${ed('ec-plan-end',Q12.plan_end)}</h3><div class="shl"></div></summary>
       <p class="sp-sec-sub">Where are we going in 3 years? One row per quarter, with live LCC projects mapped in.</p>
+      <!-- ec-t-rev/eb/occ/nps IDs are owned by the 3-Year Priority section above; edits here are ignored on save -->
       ${render3YearSection(Q12.milestones, Q12.targets_3yr, true, 'ec')}
     </details>
     <details class="sp-details">
