@@ -1593,12 +1593,27 @@ function renderSprint() {
     <td><span class="dot ${hMap[ini.health]||'ds'}">${hLabel[ini.health]||ini.health}</span></td>
   </tr>`).join('');
 
-  const y1PriHTML = Y1.priorities.map((p,i) => `<tr>
-    <td class="kn">${ed(`ec-y1-p-${i}`,p.p)}</td>
-    <td style="font-size:11px;color:var(--text-mid)">${ed(`ec-y1-o-${i}`,p.owner)}</td>
-    <td style="font-size:11px;color:var(--text-dim)">${ed(`ec-y1-d-${i}`,p.due)}</td>
-    <td><span class="dot ${hMap[p.status]||'ds'}">${hLabel[p.status]||p.status}</span></td>
-  </tr>`).join('');
+  const y1QuarterOpts = Q12.milestones
+    .filter(m => m.label.endsWith(Y1.year_label))
+    .map(m => m.label);
+  const y1PriHTML = Y1.priorities.map((p,i) => {
+    const dueSel = editMode
+      ? `<select id="ec-y1-d-${i}" class="ssel">${y1QuarterOpts.map(q=>`<option value="${q}"${p.due===q?' selected':''}>${q}</option>`).join('')}</select>`
+      : `<span style="font-size:11px;color:var(--text-dim)">${p.due}</span>`;
+    const statusSel = editMode
+      ? `<select id="ec-y1-s-${i}" class="ssel">
+           <option value="on-track"${p.status==='on-track'?' selected':''}>● On Track</option>
+           <option value="at-risk"${p.status==='at-risk'?' selected':''}>⚠ At Risk</option>
+           <option value="critical"${p.status==='critical'?' selected':''}>✕ Critical</option>
+         </select>`
+      : `<span class="dot ${hMap[p.status]||'ds'}">${hLabel[p.status]||p.status}</span>`;
+    return `<tr>
+      <td class="kn">${ed(`ec-y1-p-${i}`,p.p)}</td>
+      <td style="font-size:11px;color:var(--text-mid)">${ed(`ec-y1-o-${i}`,p.owner)}</td>
+      <td>${dueSel}</td>
+      <td>${statusSel}</td>
+    </tr>`;
+  }).join('');
 
   const y1Now = Q12.milestones.filter(m => m.label.endsWith(Y1.year_label)).slice(0,4);
   const y1Milestones = y1Now.length ? y1Now : Q12.milestones.slice(0,4);
