@@ -1,0 +1,6 @@
+.DS_Store
+output/
+.playwright-cli/
+Draft/
+.superpowers/
+Screenshot*.png
