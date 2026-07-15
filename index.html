@@ -638,6 +638,41 @@ table{min-width:100%;}
 /* SMA Section 0 site-view bar */
 .sma-s0-site-bar{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:11px;color:var(--text-mid);}
 .sma-s0-site-sel{font-family:var(--fd);font-size:11px;border:1px solid var(--border);border-radius:4px;padding:2px 6px;background:var(--surface2);color:var(--text-hi);cursor:pointer;}
+
+/* ══════════════════════════════════════════════════
+   OPTION B — START HERE + ACCESSIBILITY POLISH
+   ══════════════════════════════════════════════════ */
+.tmeta{box-shadow:0 2px 14px rgba(28,28,30,0.05);}
+*:focus-visible{outline:2px solid var(--lotus-hi);outline-offset:2px;}
+.vi:focus-visible,.ai:focus-visible,.binp:focus-visible,.sp-fb:focus-visible,.sp-sel:focus-visible,
+.hdr-edit-btn:focus-visible,.tb:focus-visible,.rh-refresh:focus-visible,.ssel:focus-visible{
+  outline:2px solid var(--lotus-hi)!important;outline-offset:2px;
+}
+.home-roles{display:flex;gap:14px;margin:18px 0 8px;flex-wrap:wrap;}
+.home-role-btn{
+  flex:1 1 200px;min-height:64px;text-align:left;cursor:pointer;
+  background:var(--surface);border:1px solid var(--border);border-radius:8px;
+  padding:12px 16px;display:flex;flex-direction:column;gap:3px;
+  transition:border-color .15s,box-shadow .15s,transform .15s;
+}
+.home-role-btn:hover{border-color:var(--lotus-mid);box-shadow:0 4px 16px rgba(196,163,90,0.16);transform:translateY(-1px);}
+.home-role-lbl{font-family:var(--fd);font-weight:700;font-size:13px;color:var(--text-hi);}
+.home-role-hint{font-family:var(--fm);font-size:11px;color:var(--text-dim);}
+.home-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px;}
+.home-tile{
+  text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;
+  box-shadow:0 2px 14px rgba(28,28,30,0.05);transition:border-color .15s,box-shadow .15s;
+}
+.home-tile:hover{border-color:var(--lotus-mid);box-shadow:0 4px 18px rgba(28,28,30,0.09);}
+.home-tile-lbl{font-family:var(--fd);font-weight:600;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);}
+.home-tile-big{font-family:var(--fd);font-weight:700;font-size:24px;}
+.home-tile-sub{font-family:var(--fm);font-size:11px;color:var(--text-dim);}
+@media(max-width:640px){
+  .home-roles{flex-direction:column;}
+  .home-role-btn{flex:0 0 auto;}
+  .home-grid{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
@@ -669,7 +704,7 @@ table{min-width:100%;}
   <div class="hdiv"></div>
   <div class="hmeta">Primary Users: <b>GM/MD + Leadership</b></div>
   <div class="hdiv"></div>
-  <div class="hmeta">Keys <b>1–7</b> switch tabs</div>
+  <div class="hmeta">Keys <b>1–8</b> switch tabs</div>
   <div class="hdiv" id="edit-hdiv"></div>
   <button id="edit-btn" class="hdr-edit-btn" onclick="toggleEditMode()" title="Edit quarterly content">
     <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM1.821 12.943l-.925 3.24 3.241-.928-2.316-2.312z"/></svg>
@@ -685,19 +720,47 @@ table{min-width:100%;}
 
 <!-- TABS -->
 <div id="tabs">
-  <button class="tb on" onclick="go('b',this)"><span class="tb-n">01</span>About</button>
-  <button class="tb"    onclick="go('f',this)"><span class="tb-n">02</span>GM/MD-Off Dashboard</button>
-  <button class="tb"    onclick="go('s',this)"><span class="tb-n">03</span>VTO — Company</button>
-  <button class="tb"    onclick="go('t',this)"><span class="tb-n">04</span>VTO — Teams</button>
-  <button class="tb"    onclick="go('a',this)"><span class="tb-n">05</span>Strategic Anchors</button>
-  <button class="tb"    onclick="go('vm',this)"><span class="tb-n">06</span>VTO Map</button>
-  <button class="tb"    onclick="go('sp',this)"><span class="tb-n">07</span>Lotus Strategy Canvas</button>
+  <button class="tb on" onclick="go('home',this)"><span class="tb-n">01</span>Start Here</button>
+  <button class="tb"    onclick="go('b',this)"><span class="tb-n">02</span>About</button>
+  <button class="tb"    onclick="go('f',this)"><span class="tb-n">03</span>GM/MD-Off Dashboard</button>
+  <button class="tb"    onclick="go('s',this)"><span class="tb-n">04</span>VTO — Company</button>
+  <button class="tb"    onclick="go('t',this)"><span class="tb-n">05</span>VTO — Teams</button>
+  <button class="tb"    onclick="go('a',this)"><span class="tb-n">06</span>Strategic Anchors</button>
+  <button class="tb"    onclick="go('vm',this)"><span class="tb-n">07</span>VTO Map</button>
+  <button class="tb"    onclick="go('sp',this)"><span class="tb-n">08</span>Lotus Strategy Canvas</button>
 </div>
 
 <!-- CONTENT -->
 <div id="cnt">
 
-  <!-- TAB 02: GM/MD-OFF DASHBOARD -->
+  <!-- TAB 01: START HERE -->
+  <div class="pan on" id="phome">
+    <div class="tmeta">
+      <div class="tmeta-icon">🏠</div>
+      <div>
+        <div class="tmeta-q">Is the business on track? Where's the problem? Who acts? What's next?</div>
+        <div class="tmeta-desc">One look, then go to your page. This screen never asks you to read all 7 tabs — pick your role below.</div>
+      </div>
+    </div>
+    <div class="home-roles" id="home-roles">
+      <button class="home-role-btn" onclick="gotoTab('t')">
+        <span class="home-role-lbl">I'm a TL</span>
+        <span class="home-role-hint">Check your team's numbers</span>
+      </button>
+      <button class="home-role-btn" onclick="gotoTab('s')">
+        <span class="home-role-lbl">I'm the GM</span>
+        <span class="home-role-hint">Publish this every Monday 9am</span>
+      </button>
+      <button class="home-role-btn" onclick="gotoTab('f')">
+        <span class="home-role-lbl">I'm the MD</span>
+        <span class="home-role-hint">Check your 6 switches</span>
+      </button>
+    </div>
+    <div class="sh"><div class="shd"></div><h3>This Week At A Glance</h3><div class="shl"></div></div>
+    <div class="home-grid" id="home-grid"></div>
+  </div>
+
+  <!-- TAB 03: GM/MD-OFF DASHBOARD (nav slot 03) -->
   <div class="pan" id="pf">
     <div class="tmeta">
       <div class="tmeta-icon">👁</div>
@@ -751,7 +814,7 @@ table{min-width:100%;}
       <span class="rh-compact-lbl">● Rock Health:</span>
       <span id="rh-compact-val" style="font-family:var(--fd);font-size:11px;color:var(--text-mid)">Loading…</span>
       <button class="rh-refresh" onclick="loadRockHealth()" style="margin-left:8px">↻ Refresh</button>
-      <button class="rh-refresh" onclick="go('sp',document.querySelectorAll('.tb')[6])" style="margin-left:4px">→ See full view in Lotus Strategy Canvas</button>
+      <button class="rh-refresh" onclick="gotoTab('sp')" style="margin-left:4px">→ See full view in Lotus Strategy Canvas</button>
     </div>
     <div id="smac"></div>
   </div>
@@ -773,7 +836,7 @@ table{min-width:100%;}
     <div class="rh-compact">
       <span class="rh-compact-lbl">Company numbers (Lag + Lead):</span>
       <span style="font-size:11px;color:var(--text-mid)">Live in Tab 03</span>
-      <button class="rh-refresh" onclick="go('s',document.querySelectorAll('.tb')[2])" style="margin-left:4px">→ VTO — Company</button>
+      <button class="rh-refresh" onclick="gotoTab('s')" style="margin-left:4px">→ VTO — Company</button>
     </div>
     <div id="teamc"></div>
   </div>
@@ -813,7 +876,7 @@ table{min-width:100%;}
   </div>
 
   <!-- TAB 1: ABOUT -->
-  <div class="pan on" id="pb">
+  <div class="pan" id="pb">
     <div class="about-body">
 
       <!-- Intro card -->
@@ -1432,6 +1495,7 @@ async function loadRockHealth() {
   const ts = 'Updated ' + new Date().toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit'});
   if (elNew) elNew.textContent = ts;
   updateRhCompact(allProjects);
+  rHome();
 }
 
 function updateRhCompact(rows) {
@@ -1578,7 +1642,7 @@ function renderSprint() {
 
   const nsHTML = Q.north_star.map((n,i) => {
     const shBadge = NS_SHARED.has(n.kpi)
-      ? `<span class="ks" style="margin-left:4px;cursor:pointer" onclick="go('s',document.querySelectorAll('.tb')[2])">↔ SHARED</span>` : '';
+      ? `<span class="ks" style="margin-left:4px;cursor:pointer" onclick="gotoTab('s')">↔ SHARED</span>` : '';
     return `<tr>
       <td class="kn">${ed(`ec-ns-kpi-${i}`,n.kpi)}${shBadge}</td>
       <td style="font-family:var(--fd);font-weight:600">${ed(`ec-ns-tgt-${i}`,n.target)}</td>
@@ -1649,7 +1713,7 @@ function renderSprint() {
       </div>
       <p style="margin-top:12px;font-family:var(--fd);font-size:11px;color:var(--text-dim);font-weight:600;letter-spacing:.04em">5-YEAR KPIs</p>
       <div class="q12-targets" style="margin-top:6px">${y5KpiHTML}</div>
-      <p style="margin-top:10px"><a href="javascript:void(0)" onclick="go('vm',document.querySelectorAll('.tb')[5])" style="font-family:var(--fd);font-size:11px;color:var(--lotus-tx);font-weight:600">→ Full 3-Year Identity by pillar in Tab 06 — VTO Map</a></p>
+      <p style="margin-top:10px"><a href="javascript:void(0)" onclick="gotoTab('vm')" style="font-family:var(--fd);font-size:11px;color:var(--lotus-tx);font-weight:600">→ Full 3-Year Identity by pillar in Tab 06 — VTO Map</a></p>
     </details>
     <details class="sp-details">
       <summary class="sp-sum sh"><div class="shd"></div><h3>3-Year Priority — Adv.I.S.E. — ${Q12.plan_start} to ${Q12.plan_end}</h3><div class="shl"></div></summary>
@@ -1855,15 +1919,19 @@ const D = {
 /* ============================================================
    ROUTING
    ============================================================ */
-const PANS = {f:'pf',s:'ps',t:'pt',a:'pa',b:'pb',vm:'pvm',sp:'psp'};
+const PANS = {home:'phome',f:'pf',s:'ps',t:'pt',a:'pa',b:'pb',vm:'pvm',sp:'psp'};
 function go(id,btn){
   document.querySelectorAll('.pan').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tb').forEach(b=>b.classList.remove('on'));
   document.getElementById(PANS[id]).classList.add('on');
   if(btn) btn.classList.add('on');
 }
+function gotoTab(id){
+  const btn=[...document.querySelectorAll('.tb')].find(b=>b.getAttribute('onclick')===`go('${id}',this)`);
+  go(id,btn);
+}
 document.addEventListener('keydown',e=>{
-  const m={1:'b',2:'f',3:'s',4:'t',5:'a',6:'vm',7:'sp'};
+  const m={1:'home',2:'b',3:'f',4:'s',5:'t',6:'a',7:'vm',8:'sp'};
   if(m[e.key]&&!e.ctrlKey&&!e.metaKey&&!['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)){
     const btns=document.querySelectorAll('.tb');
     const i=Object.keys(m).indexOf(e.key);
@@ -2845,8 +2913,32 @@ function rAnc(){
 /* ============================================================
    RENDER ALL
    ============================================================ */
+function rHome(){
+  const g=document.getElementById('home-grid');if(!g)return;
+  const fc=fosCatCounts();
+  const rcTotal=RC.reduce((a,_,i)=>{const c=rcCatCounts(i);a.lv+=c.lv;a.pt+=c.pt;a.ms+=c.ms;a.tot+=c.tot;return a;},{lv:0,pt:0,ms:0,tot:0});
+  const rockRows=(allProjects||[]).filter(r=>r.data&&typeof r.data.timeHorizon==='string'&&r.data.timeHorizon.includes('Rock'));
+  let on=0,risk=0,crit=0;
+  rockRows.forEach(r=>{const h=r.data.health;if(h==='on-track')on++;else if(h==='at-risk')risk++;else if(h==='critical')crit++;});
+  g.innerHTML=`
+    <button class="home-tile" onclick="gotoTab('f')">
+      <div class="home-tile-lbl">GM/MD-Off Switches</div>
+      <div class="home-tile-big"><span style="color:var(--sg)">${fc.lv}</span> <span style="color:var(--text-dim);font-weight:400;font-size:13px">of 6 green</span></div>
+      <div class="home-tile-sub">${fc.pt} partial &middot; ${fc.ms} missing feed</div>
+    </button>
+    <button class="home-tile" onclick="gotoTab('sp')">
+      <div class="home-tile-lbl">Rock Health</div>
+      <div class="home-tile-big"><span style="color:${crit>0?'var(--sr)':'var(--sg)'}">${on}</span> <span style="color:var(--text-dim);font-weight:400;font-size:13px">on track</span></div>
+      <div class="home-tile-sub">${risk} at risk &middot; ${crit} critical</div>
+    </button>
+    <button class="home-tile" onclick="gotoTab('f')">
+      <div class="home-tile-lbl">55-KPI Readiness Map</div>
+      <div class="home-tile-big"><span style="color:var(--sg)">${rcTotal.lv+fc.lv}</span> <span style="color:var(--text-dim);font-weight:400;font-size:13px">of ${rcTotal.tot+fc.tot} live</span></div>
+      <div class="home-tile-sub">${rcTotal.pt+fc.pt} partial &middot; ${rcTotal.ms+fc.ms} missing feed</div>
+    </button>`;
+}
 function renderAll(){
-  rFOS(); rRC(); rSMA(); rVTO(); rTeams(); rAnc(); renderVTOMap(); renderSprint();
+  rFOS(); rRC(); rSMA(); rVTO(); rTeams(); rAnc(); renderVTOMap(); renderSprint(); rHome();
 }
 
 /* ============================================================
